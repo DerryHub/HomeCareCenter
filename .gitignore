@@ -2,9 +2,8 @@ build/
 out/
 target/
 release/
-!.mvn/wrapper/maven-wrapper.jar
 *.versionsBackup
-
+.mvn/
 ### STS ###
 .apt_generated
 .classpath
