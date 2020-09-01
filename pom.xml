@@ -12,6 +12,7 @@
         <module>home-care-center-common</module>
         <module>home-care-center-dao</module>
         <module>home-care-center-service</module>
+        <module>home-care-center-start</module>
     </modules>
 
 
