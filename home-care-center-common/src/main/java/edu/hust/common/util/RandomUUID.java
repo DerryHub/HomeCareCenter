@@ -4,7 +4,7 @@ import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 /**
- * 雪花算法
+ * 雪花算法  用于数据库主键
  * @author chain
  * @date 2020/9/2
  **/
