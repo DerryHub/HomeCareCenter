@@ -6,8 +6,12 @@ import org.slf4j.MDC;
 import java.util.UUID;
 
 /**
+ *
  * @author chain
  * @date 2020/9/2
+ *
+ * https://www.cnblogs.com/warking/p/5710303.html
+ *
  **/
 public class TraceIdUtil {
 
