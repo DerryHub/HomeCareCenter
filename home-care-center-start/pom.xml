@@ -14,9 +14,6 @@
     <name>home-care-center-start</name>
     <description>Demo project for Spring Boot</description>
 
-    <properties>
-        <java.version>14</java.version>
-    </properties>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
