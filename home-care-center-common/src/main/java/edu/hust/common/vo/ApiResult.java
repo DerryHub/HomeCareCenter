@@ -1,4 +1,4 @@
-package edu.hust.common.util;
+package edu.hust.common.vo;
 
 public class ApiResult {
     private int code;
