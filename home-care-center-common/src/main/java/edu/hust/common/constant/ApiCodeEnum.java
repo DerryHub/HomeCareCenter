@@ -22,18 +22,11 @@ public enum ApiCodeEnum {
     CUSTOMER_WRITE_ERROR("录入客户操作异常", 20003),
     DUPLICATE_DEMAND("该用户在该项目已存在需求，不可重复创建。", 20004),
 
-    CUSTOMER_WILLING_PROJECT_EXISTS("该客源已被置业顾问%s录入，录入时间%s", 20005),
-
     NO_PERMISSION("没有权限访问", 20010),
     COMPLETE_PHONE_ERROR("补全手机号出错", 20012),
     NO_REQUIRED_PARAM("缺少必填参数", 20013),
-    NO_RECOMMEND_ID("认领时查询客户信息参数为空", 20014),
-    CLAIMING("您所认领的客户正在被别人认领，请确认", 20015),
-    CLAIMED("您所认领的客户已经被认领，请确认", 20016),
 
-    TRADE_ORDER_NOT_EXISTS("该房间暂未录入对应销售单，无法维护跟进", 20013),
-    REMARK_FOLLOW_DATE_ILLEGAL("跟进时间不得晚于当前时间", 20015),
-    REMARK_TRADE_SAVE_FAIL("交易信息异常，保存失败", 20014),
+
     REMARK_SAVE_FAIL("跟进信息保存失败", 20016),
     REMARK_DUE_DATE_ILLEGAL("应%s日期不能早于当前日期", 20017),
     TRADE_WORKBENCH_EXISTS("跟进已录入", 20018),
