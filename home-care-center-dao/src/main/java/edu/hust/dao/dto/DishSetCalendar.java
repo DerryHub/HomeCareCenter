@@ -16,11 +16,11 @@ public class DishSetCalendar {
     //唯一标识
     private String id;
 
-    //客户对象
-    private Client client;
+    //客户id
+    private String clientId;
 
-    //套餐对象
-    private DishSet dishSet;
+    //套餐id
+    private String dishSetId;
 
     //开始日期
     private Date startDate;

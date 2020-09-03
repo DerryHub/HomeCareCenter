@@ -41,4 +41,7 @@ public interface BedMapper {
     //根据房间号删除床位
     int deleteByRoomId(@Param("room_id") String roomId);
 
+    //删除所有
+    int deleteAll();
+
 }

@@ -43,4 +43,7 @@ public interface ClientMapper {
     //根据身份证号删除
     int deleteByIdCardNo(@Param("id_card_no") String idCardNo);
 
+    //删除所有
+    int deleteAll();
+
 }

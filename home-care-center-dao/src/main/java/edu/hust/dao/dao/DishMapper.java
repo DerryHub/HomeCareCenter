@@ -37,4 +37,7 @@ public interface DishMapper {
     //根据菜名删除
     int deleteByName(@Param("name") String name);
 
+    //删除所有
+    int deleteAll();
+
 }

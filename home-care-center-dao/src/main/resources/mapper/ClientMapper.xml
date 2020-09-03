@@ -302,4 +302,8 @@
         delete from client where id_card_no = #{id_card_no, jdbcType=VARCHAR}
     </delete>
 
+    <delete id="deleteAll">
+        delete from client
+    </delete>
+
 </mapper>

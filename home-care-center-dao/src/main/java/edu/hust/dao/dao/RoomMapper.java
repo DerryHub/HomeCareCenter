@@ -40,4 +40,7 @@ public interface RoomMapper {
     //根据区域id删除
     int deleteByAreaId(@Param("area_id") String areaId);
 
+    //删除所有
+    int deleteAll();
+
 }

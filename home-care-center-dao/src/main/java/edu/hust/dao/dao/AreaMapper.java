@@ -37,4 +37,7 @@ public interface AreaMapper {
     //根据区域名删除
     int deleteByAreaTitle(@Param("area_title") String areaTitle);
 
+    //删除所有
+    int deleteAll();
+
 }

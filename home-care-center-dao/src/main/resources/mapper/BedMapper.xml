@@ -99,4 +99,8 @@
         delete from bed where room_id = #{room_id, jdbcType=VARCHAR}
     </delete>
 
+    <delete id="deleteAll">
+        delete from bed
+    </delete>
+
 </mapper>

@@ -89,4 +89,8 @@
         delete from room where area_id = #{area_id, jdbcType=VARCHAR}
     </delete>
 
+    <delete id="deleteAll">
+        delete from room
+    </delete>
+
 </mapper>

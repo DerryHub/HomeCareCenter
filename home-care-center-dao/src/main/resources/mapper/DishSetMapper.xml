@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.hust.dao.dto.DishSet">
+
+    <resultMap id="DishSetResultMap" type="edu.hust.dao.dto.DishSet">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="mon" property="mon" jdbcType="VARCHAR"/>
+        <result column="tue" property="tue" jdbcType="VARCHAR"/>
+        <result column="wed" property="wed" jdbcType="VARCHAR"/>
+        <result column="thu" property="thu" jdbcType="VARCHAR"/>
+        <result column="fri" property="fri" jdbcType="VARCHAR"/>
+        <result column="sat" property="sat" jdbcType="VARCHAR"/>
+        <result column="sun" property="sun" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectList" resultMap="DishSetResultMap">
+        select * from dish_set
+    </select>
+
+    <select id="selectById" resultMap="DishSetResultMap">
+        select * from dish_set where id = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <insert id="add" parameterType="edu.hust.dao.dto.DishSet">
+        insert into dish_set (id, mon, tue, wed, thu, fri, sat, sun, remark)
+        values
+        (
+        #{dish_set.id, jdbcType=VARCHAR},
+        #{dish_set.mon, jdbcType=VARCHAR},
+        #{dish_set.tue, jdbcType=VARCHAR},
+        #{dish_set.wed, jdbcType=VARCHAR},
+        #{dish_set.thu, jdbcType=VARCHAR},
+        #{dish_set.fri, jdbcType=VARCHAR},
+        #{dish_set.sat, jdbcType=VARCHAR},
+        #{dish_set.sun, jdbcType=VARCHAR},
+        #{dish_set.remark, jdbcType=VARCHAR},
+        )
+    </insert>
+
+    <insert id="addBatch" parameterType="edu.hust.dao.dto.DishSet">
+        insert into dish_set (id, mon, tue, wed, thu, fri, sat, sun, remark)
+        values
+        <foreach collection="list" item="dish_set" index="index" separator=",">
+        (
+        #{dish_set.id, jdbcType=VARCHAR},
+        #{dish_set.mon, jdbcType=VARCHAR},
+        #{dish_set.tue, jdbcType=VARCHAR},
+        #{dish_set.wed, jdbcType=VARCHAR},
+        #{dish_set.thu, jdbcType=VARCHAR},
+        #{dish_set.fri, jdbcType=VARCHAR},
+        #{dish_set.sat, jdbcType=VARCHAR},
+        #{dish_set.sun, jdbcType=VARCHAR},
+        #{dish_set.remark, jdbcType=VARCHAR},
+        )
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="edu.hust.dao.dto.DishSet">
+        update dish_set
+        set
+        mon = #{dish_set.mon, jdbcType=VARCHAR},
+        tue = #{dish_set.tue, jdbcType=VARCHAR},
+        wed = #{dish_set.wed, jdbcType=VARCHAR},
+        thu = #{dish_set.thu, jdbcType=VARCHAR},
+        fri = #{dish_set.fri, jdbcType=VARCHAR},
+        sat = #{dish_set.sat, jdbcType=VARCHAR},
+        sun = #{dish_set.sun, jdbcType=VARCHAR},
+        remark#{dish_set.remark, jdbcType=VARCHAR}
+        where
+        id = #{dish_set.id, jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteById" parameterType="String">
+        delete from dish_set where id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteAll">
+        delete from dish_set
+    </delete>
+
+</mapper>

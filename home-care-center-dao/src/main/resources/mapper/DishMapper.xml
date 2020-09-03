@@ -45,4 +45,27 @@
         )
         </foreach>
     </insert>
+
+    <update id="update" parameterType="edu.hust.dao.dto.Dish">
+        update dish
+        set
+        name = #{dish.name, jdbcType=VARCHAR},
+        labels = #{dish.labels, jdbcType=VARCHAR},
+        remark = #{dish.remark, jdbcType=VARCHAR}
+        where
+        id = #{id, jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteById" parameterType="edu.hust.dao.dto.Dish">
+        delete from dish where id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteByName" parameterType="edu.hust.dao.dto.Dish">
+        delete from dish where name = #{name, jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteAll">
+        delete from dish
+    </delete>
+
 </mapper>
