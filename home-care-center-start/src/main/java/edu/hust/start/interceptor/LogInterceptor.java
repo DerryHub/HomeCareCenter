@@ -41,6 +41,7 @@ public class LogInterceptor implements HandlerInterceptor {
         }
         if (StringUtils.isNotBlank(traceId)) {
             MDC.put(TRACE_ID, traceId);
+
         }
         String uri = request.getRequestURI();
         log.info("preHandle uri={}", uri);

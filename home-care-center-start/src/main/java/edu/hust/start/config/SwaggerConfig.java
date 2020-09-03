@@ -1,7 +1,6 @@
 package edu.hust.start.config;
 
 import com.google.common.collect.Sets;
-import edu.hust.dao.dao.BedMapper;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
