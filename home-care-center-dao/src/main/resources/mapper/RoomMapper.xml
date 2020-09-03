@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.hust.dao.dao.RoomMapper">
+
+    <resultMap id="RoomResultMap" type="edu.hust.dao.dto.Room">
+        <id column="room_id" property="id" jdbcType="VARCHAR"/>
+        <result column="room_title" property="roomTitle" jdbcType="VARCHAR"/>
+        <result column="area_id" property="area.id" jdbcType="VARCHAR"/>
+        <result column="area_title" property="area.areaTitle" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectList" resultMap="RoomResultMap">
+        select
+        room.id room_id,
+        room.room_title room_title,
+        room.area_id area_id,
+        area.area_title area_title
+        from
+        room, area
+        where
+        room.area_id = area.id
+    </select>
+
+    <select id="selectById" resultMap="RoomResultMap">
+        select
+        room.id room_id,
+        room.room_title room_title,
+        room.area_id area_id,
+        area.area_title area_title
+        from
+        room, area
+        where
+        room.area_id = area.id and room.id = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByRoomTitle" resultMap="RoomResultMap">
+        select
+        room.id room_id,
+        room.room_title room_title,
+        room.area_id area_id,
+        area.area_title area_title
+        from
+        room, area
+        where
+        room.area_id = area.id and room.room_title = #{room_title, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByAreaId" resultMap="RoomResultMap">
+        select
+        room.id room_id,
+        room.room_title room_title,
+        room.area_id area_id,
+        area.area_title area_title
+        from
+        room, area
+        where
+        room.area_id = area.id and room.area_id = #{area_id, jdbcType=VARCHAR}
+    </select>
+
+    <insert id="add" parameterType="edu.hust.dao.dto.Room">
+        insert into room (id, room_title, area_id)
+        values (#{room.id, jdbcType=VARCHAR}, #{room.roomTitle, jdbcType=VARCHAR}, #{room.area.id, jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="addBatch" parameterType="edu.hust.dao.dto.Room">
+        insert into room (id, room_title, area_id) values
+        <foreach collection="list" index="index" item="room" separator=",">
+            (#{room.id, jdbcType=VARCHAR}, #{room.roomTitle, jdbcType=VARCHAR}, #{room.area.id, jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="edu.hust.dao.dto.Room">
+        update room
+        set
+        room_title = #{room.roomTitle, jdbcType=VARCHAR},
+        area_id = #{room.area.id, jdbcType=VARCHAR}
+        where
+        id = #{room.id, jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteById" parameterType="String">
+        delete from room where id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteByAreaId" parameterType="String">
+        delete from room where area_id = #{area_id, jdbcType=VARCHAR}
+    </delete>
+
+</mapper>

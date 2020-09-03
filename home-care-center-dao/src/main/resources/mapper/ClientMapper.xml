@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.hust.dao.dao.ClientMapper">
+
+    <resultMap id="ClientResultMap" type="edu.hust.dao.dto.Client">
+        <id column="client_id" property="id" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="INTEGER"/>
+        <result column="id_card_no" property="idCardNo" jdbcType="VARCHAR"/>
+        <result column="height" property="height" jdbcType="INTEGER"/>
+        <result column="weight" property="weight" jdbcType="INTEGER"/>
+        <result column="relative_name" property="relativeName" jdbcType="VARCHAR"/>
+        <result column="relative_phone" property="relativePhone" jdbcType="VARCHAR"/>
+        <result column="marriage" property="marriage" jdbcType="INTEGER"/>
+        <result column="head_img" property="headImg" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="bed_id" property="bed.id" jdbcType="VARCHAR"/>
+        <result column="bed_title" property="bed.bedTitle" jdbcType="VARCHAR"/>
+        <result column="room_id" property="bed.room.id" jdbcType="VARCHAR"/>
+        <result column="room_title" property="bed.room.roomTitle" jdbcType="VARCHAR"/>
+        <result column="area_id" property="bed.room.area.id" jdbcType="VARCHAR"/>
+        <result column="area_title" property="bed.room.area.areaTitle" jdbcType="VARCHAR"/>
+        <result column="level_of_care" property="levelOfCare" jdbcType="INTEGER"/>
+        <result column="in_date" property="inDate" jdbcType="DATE"/>
+        <result column="out_date" property="outDate" jdbcType="DATE"/>
+        <result column="food_req" property="foodReq" jdbcType="VARCHAR"/>
+        <result column="phone_no" property="phoneNo" jdbcType="VARCHAR"/>
+        <result column="birthday" property="birthday" jdbcType="DATE"/>
+    </resultMap>
+
+    <select id="selectList" resultMap="ClientResultMap">
+        select
+        client.id client_id,
+        client.name name,
+        client.gender gender,
+        client.id_card_no id_card_no,
+        client.height height,
+        client.weight weight,
+        client.relative_name relative_name,
+        client.relative_phone relative_phone,
+        client.marriage marriage,
+        client.head_img head_img,
+        client.remark remark,
+        client.bed_id bed_id,
+        bed.bed_title bed_title,
+        bed.room_id room_id,
+        room.room_title room_title,
+        room.area_id area_id,
+        area.area_title area_title,
+        client.level_of_care level_of_care,
+        client.in_date in_date,
+        client.out_date out_date,
+        client.food_req food_req,
+        client.phone_no phone_no,
+        client.birthday birthday
+        from client, bed, room, area
+        where
+        client.bed_id = bed.id and bed.room_id = room.id and room.area_id = area.id
+    </select>
+
+    <select id="selectById" resultMap="ClientResultMap">
+        select
+        client.id client_id,
+        client.name name,
+        client.gender gender,
+        client.id_card_no id_card_no,
+        client.height height,
+        client.weight weight,
+        client.relative_name relative_name,
+        client.relative_phone relative_phone,
+        client.marriage marriage,
+        client.head_img head_img,
+        client.remark remark,
+        client.bed_id bed_id,
+        bed.bed_title bed_title,
+        bed.room_id room_id,
+        room.room_title room_title,
+        room.area_id area_id,
+        area.area_title area_title,
+        client.level_of_care level_of_care,
+        client.in_date in_date,
+        client.out_date out_date,
+        client.food_req food_req,
+        client.phone_no phone_no,
+        client.birthday birthday
+        from client, bed, room, area
+        where
+        client.bed_id = bed.id and bed.room_id = room.id and room.area_id = area.id and client.id = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByIdCardNo" resultMap="ClientResultMap">
+        select
+        client.id client_id,
+        client.name name,
+        client.gender gender,
+        client.id_card_no id_card_no,
+        client.height height,
+        client.weight weight,
+        client.relative_name relative_name,
+        client.relative_phone relative_phone,
+        client.marriage marriage,
+        client.head_img head_img,
+        client.remark remark,
+        client.bed_id bed_id,
+        bed.bed_title bed_title,
+        bed.room_id room_id,
+        room.room_title room_title,
+        room.area_id area_id,
+        area.area_title area_title,
+        client.level_of_care level_of_care,
+        client.in_date in_date,
+        client.out_date out_date,
+        client.food_req food_req,
+        client.phone_no phone_no,
+        client.birthday birthday
+        from client, bed, room, area
+        where
+        client.bed_id = bed.id and bed.room_id = room.id and room.area_id = area.id and client.id_card_no = #{id_card_no, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByName" resultMap="ClientResultMap">
+        select
+        client.id client_id,
+        client.name name,
+        client.gender gender,
+        client.id_card_no id_card_no,
+        client.height height,
+        client.weight weight,
+        client.relative_name relative_name,
+        client.relative_phone relative_phone,
+        client.marriage marriage,
+        client.head_img head_img,
+        client.remark remark,
+        client.bed_id bed_id,
+        bed.bed_title bed_title,
+        bed.room_id room_id,
+        room.room_title room_title,
+        room.area_id area_id,
+        area.area_title area_title,
+        client.level_of_care level_of_care,
+        client.in_date in_date,
+        client.out_date out_date,
+        client.food_req food_req,
+        client.phone_no phone_no,
+        client.birthday birthday
+        from client, bed, room, area
+        where
+        client.bed_id = bed.id and bed.room_id = room.id and room.area_id = area.id and client.name = #{name, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByBedId" resultMap="ClientResultMap">
+        select
+        client.id client_id,
+        client.name name,
+        client.gender gender,
+        client.id_card_no id_card_no,
+        client.height height,
+        client.weight weight,
+        client.relative_name relative_name,
+        client.relative_phone relative_phone,
+        client.marriage marriage,
+        client.head_img head_img,
+        client.remark remark,
+        client.bed_id bed_id,
+        bed.bed_title bed_title,
+        bed.room_id room_id,
+        room.room_title room_title,
+        room.area_id area_id,
+        area.area_title area_title,
+        client.level_of_care level_of_care,
+        client.in_date in_date,
+        client.out_date out_date,
+        client.food_req food_req,
+        client.phone_no phone_no,
+        client.birthday birthday
+        from client, bed, room, area
+        where
+        client.bed_id = bed.id and bed.room_id = room.id and room.area_id = area.id and client.bed_id = #{bed_id, jdbcType=VARCHAR}
+    </select>
+
+    <insert id="add" parameterType="edu.hust.dao.dto.Client">
+        insert into
+        client (
+        id,
+        name,
+        gender,
+        id_card_no,
+        height,
+        weight,
+        relative_name,
+        relative_phone,
+        marriage,
+        head_img,
+        remark,
+        bed_id,
+        level_of_care,
+        in_date,
+        out_date,
+        food_req,
+        phone_no,
+        birthday
+        ) values (
+        #{client.id, jdbcType=VARCHAR},
+        #{client.name, jdbcType=VARCHAR},
+        #{client.gender, jdbcType=INTEGER},
+        #{client.idCardNo, jdbcType=VARCHAR},
+        #{client.height, jdbcType=INTEGER},
+        #{client.weight, jdbcType=INTEGER},
+        #{client.relativeName, jdbcType=VARCHAR},
+        #{client.relativePhone, jdbcType=VARCHAR},
+        #{client.marriage, jdbcType=INTEGER},
+        #{client.headImg, jdbcType=VARCHAR},
+        #{client.remark, jdbcType=VARCHAR},
+        #{client.bedId, jdbcType=VARCHAR},
+        #{client.levelOfCare, jdbcType=INTEGER},
+        #{client.inDate, jdbcType=DATE},
+        #{client.outDate, jdbcType=DATE},
+        #{client.foodReq, jdbcType=VARCHAR},
+        #{client.phoneNo, jdbcType=VARCHAR},
+        #{client.birthday, jdbcType=DATE},
+        )
+    </insert>
+
+    <insert id="addBatch" parameterType="edu.hust.dao.dto.Client">
+        insert into
+        client (
+        id,
+        name,
+        gender,
+        id_card_no,
+        height,
+        weight,
+        relative_name,
+        relative_phone,
+        marriage,
+        head_img,
+        remark,
+        bed_id,
+        level_of_care,
+        in_date,
+        out_date,
+        food_req,
+        phone_no,
+        birthday
+        ) values
+        <foreach collection="list" item="client" index="index" separator=",">
+        (
+        #{client.id, jdbcType=VARCHAR},
+        #{client.name, jdbcType=VARCHAR},
+        #{client.gender, jdbcType=INTEGER},
+        #{client.idCardNo, jdbcType=VARCHAR},
+        #{client.height, jdbcType=INTEGER},
+        #{client.weight, jdbcType=INTEGER},
+        #{client.relativeName, jdbcType=VARCHAR},
+        #{client.relativePhone, jdbcType=VARCHAR},
+        #{client.marriage, jdbcType=INTEGER},
+        #{client.headImg, jdbcType=VARCHAR},
+        #{client.remark, jdbcType=VARCHAR},
+        #{client.bedId, jdbcType=VARCHAR},
+        #{client.levelOfCare, jdbcType=INTEGER},
+        #{client.inDate, jdbcType=DATE},
+        #{client.outDate, jdbcType=DATE},
+        #{client.foodReq, jdbcType=VARCHAR},
+        #{client.phoneNo, jdbcType=VARCHAR},
+        #{client.birthday, jdbcType=DATE},
+        )
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="edu.hust.dao.dto.Client">
+        update client
+        set
+        name = #{client.name, jdbcType=VARCHAR},
+        gender = #{client.gender, jdbcType=INTEGER},
+        id_card_no = #{client.idCardNo, jdbcType=VARCHAR},
+        height = #{client.height, jdbcType=INTEGER},
+        weight = #{client.weight, jdbcType=INTEGER},
+        relative_name = #{client.relativeName, jdbcType=VARCHAR},
+        relative_phone = #{client.relativePhone, jdbcType=VARCHAR},
+        marriage = #{client.marriage, jdbcType=INTEGER},
+        head_img = #{client.headImg, jdbcType=VARCHAR},
+        remark = #{client.remark, jdbcType=VARCHAR},
+        bed_id = #{client.bedId, jdbcType=VARCHAR},
+        level_of_care = #{client.levelOfCare, jdbcType=INTEGER},
+        in_date = #{client.inDate, jdbcType=DATE},
+        out_date = #{client.outDate, jdbcType=DATE},
+        food_req = #{client.foodReq, jdbcType=VARCHAR},
+        phone_no = #{client.phoneNo, jdbcType=VARCHAR},
+        birthday = #{client.birthday, jdbcType=DATE}
+        where
+        id = #{client.id, jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteById" parameterType="String">
+        delete from client where id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteByIdCardNo" parameterType="String">
+        delete from client where id_card_no = #{id_card_no, jdbcType=VARCHAR}
+    </delete>
+
+</mapper>

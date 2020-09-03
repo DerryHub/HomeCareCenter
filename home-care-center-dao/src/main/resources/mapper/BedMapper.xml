@@ -6,16 +6,97 @@
 <mapper namespace="edu.hust.dao.dao.BedMapper">
 
     <resultMap id="BedResultMap" type="edu.hust.dao.dto.Bed">
-        <id column="bed.id" property="id" jdbcType="VARCHAR"/>
-        <result column="bed.bed_title" property="bedTitle" jdbcType="VARCHAR"/>
-        <result column="bed.room_id" property="room.id" jdbcType="VARCHAR"/>
-        <result column="room.room_title" property="room.roomTitle" jdbcType="VARCHAR"/>
-        <result column="room.area_id" property="room.area.id" jdbcType="VARCHAR"/>
-        <result column="area.area_title" property="room.area.areaTitle" jdbcType="VARCHAR"/>
+        <id column="bed_id" property="id" jdbcType="VARCHAR"/>
+        <result column="bed_title" property="bedTitle" jdbcType="VARCHAR"/>
+        <result column="room_id" property="room.id" jdbcType="VARCHAR"/>
+        <result column="room_title" property="room.roomTitle" jdbcType="VARCHAR"/>
+        <result column="area_id" property="room.area.id" jdbcType="VARCHAR"/>
+        <result column="area_title" property="room.area.areaTitle" jdbcType="VARCHAR"/>
     </resultMap>
 
     <select id="selectList" resultMap="BedResultMap">
-        select * from bed where bed.room_id = room.id and room.area_id = area.id
+        select
+        bed.id bed_id,
+        bed.bed_title bed_title,
+        bed.room_id room_id,
+        room.room_title room_title,
+        room.area_id area_id,
+        area.area_title area_title
+        from
+        bed, room, area
+        where
+        bed.room_id = room.id and room.area_id = area.id
     </select>
+
+    <select id="selectById" parameterType="String" resultMap="BedResultMap">
+        select
+        bed.id bed_id,
+        bed.bed_title bed_title,
+        bed.room_id room_id,
+        room.room_title room_title,
+        room.area_id area_id,
+        area.area_title area_title
+        from
+        bed, room, area
+        where
+        bed.room_id = room.id and room.area_id = area.id and bed.id = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByBedTitle" parameterType="String" resultMap="BedResultMap">
+        select
+        bed.id bed_id,
+        bed.bed_title bed_title,
+        bed.room_id room_id,
+        room.room_title room_title,
+        room.area_id area_id,
+        area.area_title area_title
+        from
+        bed, room, area
+        where
+        bed.room_id = room.id and room.area_id = area.id and bed.bed_title = #{bed_title, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByRoomId" parameterType="String" resultMap="BedResultMap">
+        select
+        bed.id bed_id,
+        bed.bed_title bed_title,
+        bed.room_id room_id,
+        room.room_title room_title,
+        room.area_id area_id,
+        area.area_title area_title
+        from
+        bed, room, area
+        where
+        bed.room_id = room.id and room.area_id = area.id and bed.room_id = #{room_id, jdbcType=VARCHAR}
+    </select>
+
+    <insert id="add" parameterType="edu.hust.dao.dto.Bed">
+        insert into bed (id, bed_title, room_id)
+        values (#{bed.id, jdbcType=VARCHAR}, #{bed.bedTitle, jdbcType=VARCHAR}, #{bed.room.id, jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="addBatch" parameterType="edu.hust.dao.dto.Bed">
+        insert into bed (id, bed_title, room_id) values
+        <foreach collection="list" index="index" item="bed" separator=",">
+            (#{bed.id, jdbcType=VARCHAR}, #{bed.bedTitle, jdbcType=VARCHAR}, #{bed.room.id, jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="edu.hust.dao.dto.Bed">
+        update bed
+        set
+        bed_title = #{bed.bedTitle, jdbcType=VARCHAR},
+        room_id = #{bed.room.id, jdbcType=VARCHAR}
+        where
+        id = #{bed.id, jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteById" parameterType="String">
+        delete from bed where id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteByRoomId" parameterType="String">
+        delete from bed where room_id = #{room_id, jdbcType=VARCHAR}
+    </delete>
 
 </mapper>
