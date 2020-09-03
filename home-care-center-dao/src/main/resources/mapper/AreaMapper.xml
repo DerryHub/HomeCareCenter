@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.hust.dao.dao.AreaMapper">
+
+    <resultMap id="AreaResultMap" type="edu.hust.dao.dto.Area">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="area_title" property="areaTitle" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectList" resultMap="AreaResultMap">
+        select * from area
+    </select>
+
+    <select id="selectById" resultMap="AreaResultMap" parameterType="String">
+        select * from area where id = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByAreaTitle" resultMap="AreaResultMap" parameterType="String">
+        select * from area where area_title = #{area_title, jdbcType=VARCHAR}
+    </select>
+
+    <insert id="add" parameterType="edu.hust.dao.dto.Area">
+        insert into area (id, area_title) values (#{id, jdbcType=VARCHAR}, #{areaTitle, jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="addBatch" parameterType="edu.hust.dao.dto.Area">
+        insert into area (id, area_title) values
+        <foreach collection="list" item="area" index="index" separator=",">
+            (#{area.id, jdbcType=VARCHAR}, #{area.areaTitle, jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="edu.hust.dao.dto.Area">
+        update area
+        set
+        area_title = #{areaTitle, jdbcType=VARCHAR}
+        where
+        id = #{id, jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteById" parameterType="String">
+        delete from area where id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteByAreaTitle" parameterType="String">
+        delete from area where area_title = #{areaTitle, jdbcType=VARCHAR}
+    </delete>
+</mapper>
