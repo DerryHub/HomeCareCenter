@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.hust.dao.dao.BedMapper">
+
+    <resultMap id="BedResultMap" type="edu.hust.dao.dto.Bed">
+        <id column="bed.id" property="id" jdbcType="VARCHAR"/>
+        <result column="bed.bed_title" property="bedTitle" jdbcType="VARCHAR"/>
+        <result column="bed.room_id" property="room.id" jdbcType="VARCHAR"/>
+        <result column="room.room_title" property="room.roomTitle" jdbcType="VARCHAR"/>
+        <result column="room.area_id" property="room.area.id" jdbcType="VARCHAR"/>
+        <result column="area.area_title" property="room.area.areaTitle" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectList" resultMap="BedResultMap">
+        select * from bed where bed.room_id = room.id and room.area_id = area.id
+    </select>
+
+</mapper>

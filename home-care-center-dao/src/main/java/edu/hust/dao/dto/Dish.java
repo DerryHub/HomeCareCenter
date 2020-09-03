@@ -1,6 +1,7 @@
 package edu.hust.dao.dto;
 
 import lombok.Data;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @program: HomeCareCenter
@@ -9,6 +10,8 @@ import lombok.Data;
  * @create: 2020-09-02 17:08
  **/
 @Data
+
+@Transactional
 public class Dish {
 
     //唯一标识

@@ -15,7 +15,7 @@ public class Bed {
     private String id;
 
     //床名
-    private String bedName;
+    private String bedTitle;
 
     //所属房间对象
     private Room room;

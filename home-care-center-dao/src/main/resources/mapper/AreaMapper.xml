@@ -48,4 +48,5 @@
     <delete id="deleteByAreaTitle" parameterType="String">
         delete from area where area_title = #{areaTitle, jdbcType=VARCHAR}
     </delete>
+
 </mapper>
