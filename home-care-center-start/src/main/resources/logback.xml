@@ -1,121 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
-    <contextName>vhsc-api4</contextName>
-    <conversionRule conversionWord="token" converterClass="com.viewhigh.vhsc.platform.log.LogThreadTokenConvert" />
-    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+    <property name="LOG_HOME" value="/home" />
+
+    <logger name="executableSql" level="DEBUG" />
 
     <!-- 控制台输出 -->
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%clr([%token]) %d{YY-MM-dd HH:mm:ss.SSS} %clr(%-5level) %logger{32}[%line] - %clr(%msg) %n</pattern>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %X{traceId}  [%thread] %-5level %logger{50} - %msg%n</pattern>
         </encoder>
+    </appender>
+    <!-- 按照每天生成日志文件 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${LOG_HOME}/homecarecenter.log.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+        <!--日志文件最大的大小-->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>10MB</MaxFileSize>
+        </triggeringPolicy>
     </appender>
 
-    <!-- 输出到文件 -->
-    <appender name="DEBUG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>DEBUG</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <file>${LOG_PATH}/debug.log</file>
-        <!-- 设置滚动策略 -->
-        <!-- 按天来回滚，如果需要按小时来回滚，则设置为{yyyy-MM-dd_HH} -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!--设置日志命名模式 -->
-            <fileNamePattern>${LOG_PATH}/debug.log.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <!-- 如果按天来回滚，则最大保存时间为60天，60天之前的都将被清理掉 这里的值与滚动策略模式有关 -->
-            <maxHistory>60</maxHistory>
-            <!-- 按照日期进行归档，并且对日志文件大小进行限制 -->
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <!-- 设置文件大于1KB进行压缩归档 -->
-                <maxFileSize>10MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-        <encoder><!-- 格式化输出 -->
-            <pattern>[%token] %d %-5level %logger[%line] - %msg%n</pattern>
-        </encoder>
-    </appender>
-
-    <!-- 输出到文件 -->
-    <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>INFO</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <file>${LOG_PATH}/info.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_PATH}/info.log.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <maxHistory>60</maxHistory>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>10MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-        <encoder>
-            <pattern>[%token] %d %-5level %logger[%line] - %msg%n</pattern>
-        </encoder>
-    </appender>
-    <appender name="WARN_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>WARN</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <file>${LOG_PATH}/warn.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_PATH}/warn.log.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <maxHistory>60</maxHistory>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>10MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-        <encoder>
-            <pattern>[%token] %d %-5level %logger[%line] - %msg%n</pattern>
-        </encoder>
-    </appender>
-    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>ERROR</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <file>${LOG_PATH}/error.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_PATH}/error.log.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <maxHistory>60</maxHistory>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>10MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-        <encoder>
-            <pattern>[%token] %d %-5level %logger[%line] - %msg%n</pattern>
-        </encoder>
-    </appender>
-
-    <root level="info">
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="INFO_FILE" />
-        <appender-ref ref="WARN_FILE" />
-        <appender-ref ref="ERROR_FILE" />
+    <!-- 日志输出级别 -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
     </root>
-
-    <springProfile name="dev,test">
-        <logger name="com.viewhigh.vhsc.hospital" level="debug" additivity="false">
-            <appender-ref ref="CONSOLE" />
-            <appender-ref ref="DEBUG_FILE" />
-            <appender-ref ref="INFO_FILE" />
-            <appender-ref ref="WARN_FILE" />
-            <appender-ref ref="ERROR_FILE" />
-        </logger>
-    </springProfile>
-
-    <springProfile name="demo,pro">
-        <logger name="com.viewhigh.vhsc.hospital" level="info" additivity="false">
-            <appender-ref ref="CONSOLE" />
-            <appender-ref ref="INFO_FILE" />
-            <appender-ref ref="WARN_FILE" />
-            <appender-ref ref="ERROR_FILE" />
-        </logger>
-    </springProfile>
 </configuration>
