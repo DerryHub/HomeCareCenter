@@ -22,8 +22,8 @@ public interface OutRegistrationMapper {
 
     //根据起止时间、护士id、客户id查询
     List<OutRegistration> selectByDateAndNurseIdAndClientId(
-            @Param("start_date") Date startDate,
-            @Param("end_date") Date endDate,
+            @Param("start_out_time") Date startOutTime,
+            @Param("end_out_time") Date endOutTime,
             @Param("nurse_id") String nurseId,
             @Param("client_id") String clientId
     );
@@ -42,5 +42,5 @@ public interface OutRegistrationMapper {
 
     //删除所有
     int deleteAll();
-    
+
 }

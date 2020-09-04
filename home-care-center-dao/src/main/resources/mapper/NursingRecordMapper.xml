@@ -44,11 +44,11 @@
         ) values
         (
         #{nursing_record.id, jdbcType=VARCHAR},
-        #{nursing_record.client_id, jdbcType=VARCHAR},
-        #{nursing_record.nurse_id, jdbcType=VARCHAR},
+        #{nursing_record.clientId, jdbcType=VARCHAR},
+        #{nursing_record.nurseId, jdbcType=VARCHAR},
         #{nursing_record.content, jdbcType=VARCHAR},
         #{nursing_record.date, jdbcType=DATE},
-        #{nursing_record.remark, jdbcType=VARCHAR},
+        #{nursing_record.remark, jdbcType=VARCHAR}
         )
     </insert>
 
@@ -65,11 +65,11 @@
         <foreach collection="list" index="index" item="nursing_record" separator=",">
         (
         #{nursing_record.id, jdbcType=VARCHAR},
-        #{nursing_record.client_id, jdbcType=VARCHAR},
-        #{nursing_record.nurse_id, jdbcType=VARCHAR},
+        #{nursing_record.clientId, jdbcType=VARCHAR},
+        #{nursing_record.nurseId, jdbcType=VARCHAR},
         #{nursing_record.content, jdbcType=VARCHAR},
         #{nursing_record.date, jdbcType=DATE},
-        #{nursing_record.remark, jdbcType=VARCHAR},
+        #{nursing_record.remark, jdbcType=VARCHAR}
         )
         </foreach>
     </insert>
@@ -77,8 +77,8 @@
     <update id="update" parameterType="edu.hust.dao.dto.NursingRecord">
         update nursing_record
         set
-        client_id = #{nursing_record.client_id, jdbcType=VARCHAR},
-        nurse_id = #{nursing_record.nurse_id, jdbcType=VARCHAR},
+        client_id = #{nursing_record.clientId, jdbcType=VARCHAR},
+        nurse_id = #{nursing_record.nurseId, jdbcType=VARCHAR},
         content = #{nursing_record.content, jdbcType=VARCHAR},
         date = #{nursing_record.date, jdbcType=DATE},
         remark = #{nursing_record.remark, jdbcType=VARCHAR},
