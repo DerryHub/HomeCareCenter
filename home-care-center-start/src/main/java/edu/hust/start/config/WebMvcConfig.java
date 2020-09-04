@@ -1,5 +1,6 @@
 package edu.hust.start.config;
 
+import edu.hust.start.interceptor.JWTInterceptor;
 import edu.hust.start.interceptor.LogInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -12,12 +13,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig  implements WebMvcConfigurer {
 
-
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         LogInterceptor logInterceptor=new LogInterceptor();
-        registry.addInterceptor(logInterceptor).addPathPatterns("/**");                //为日志增加traceId
+        JWTInterceptor jwtInterceptor=new JWTInterceptor();
+        registry.addInterceptor(logInterceptor).order(1).addPathPatterns("/**");                //为日志增加traceId
+        registry.addInterceptor(jwtInterceptor).order(2).addPathPatterns("/**").excludePathPatterns("/**/login/**"); //jwt拦截
         WebMvcConfigurer.super.addInterceptors(registry);
     }
 }
