@@ -37,8 +37,8 @@ public class Worker {
     //手机号码
     private String phoneNo;
 
-    //管理区域
-    private Area area;
+    //管理区域id
+    private String  areaId;
 
     //密码
     private String password;

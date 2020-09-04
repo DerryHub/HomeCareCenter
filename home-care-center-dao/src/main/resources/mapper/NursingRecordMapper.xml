@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.hust.dao.dao.NursingRecordMapper">
+
+    <resultMap id="NursingRecordResultMap" type="edu.hust.dao.dto.NursingRecord">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="client_id" property="clientId" jdbcType="VARCHAR"/>
+        <result column="nurse_id" property="nurseId" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="date" property="date" jdbcType="DATE"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectList" resultMap="NursingRecordResultMap">
+        select * from nursing_record
+    </select>
+
+    <select id="selectById" resultMap="NursingRecordResultMap">
+        select * from nursing_record where id = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByDateAndNurseIdAndClientId" resultMap="NursingRecordResultMap">
+        select * from nursing_record
+        <trim prefix="where" suffixOverrides="and">
+            <if test="start_date != null"> date <![CDATA[>]]> #{start_date, jdbcType=DATE} and </if>
+            <if test="end_date != null"> date <![CDATA[<]]> #{end_date, jdbcType=DATE} and </if>
+            <if test="nurse_id != null"> nurse_id = #{nurse_id, jdbcType=VARCHAR} and </if>
+            <if test="client_id != null"> client_id = #{client_id, jdbcType=VARCHAR} and </if>
+        </trim>
+    </select>
+
+    <insert id="add" parameterType="edu.hust.dao.dto.NursingRecord">
+        insert into nursing_record
+        (
+        id,
+        client_id,
+        nurse_id,
+        content,
+        date,
+        remark
+        ) values
+        (
+        #{nursing_record.id, jdbcType=VARCHAR},
+        #{nursing_record.clientId, jdbcType=VARCHAR},
+        #{nursing_record.nurseId, jdbcType=VARCHAR},
+        #{nursing_record.content, jdbcType=VARCHAR},
+        #{nursing_record.date, jdbcType=DATE},
+        #{nursing_record.remark, jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <insert id="addBatch" parameterType="edu.hust.dao.dto.NursingRecord">
+        insert into nursing_record
+        (
+        id,
+        client_id,
+        nurse_id,
+        content,
+        date,
+        remark
+        ) values
+        <foreach collection="list" index="index" item="nursing_record" separator=",">
+        (
+        #{nursing_record.id, jdbcType=VARCHAR},
+        #{nursing_record.clientId, jdbcType=VARCHAR},
+        #{nursing_record.nurseId, jdbcType=VARCHAR},
+        #{nursing_record.content, jdbcType=VARCHAR},
+        #{nursing_record.date, jdbcType=DATE},
+        #{nursing_record.remark, jdbcType=VARCHAR}
+        )
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="edu.hust.dao.dto.NursingRecord">
+        update nursing_record
+        set
+        client_id = #{nursing_record.clientId, jdbcType=VARCHAR},
+        nurse_id = #{nursing_record.nurseId, jdbcType=VARCHAR},
+        content = #{nursing_record.content, jdbcType=VARCHAR},
+        date = #{nursing_record.date, jdbcType=DATE},
+        remark = #{nursing_record.remark, jdbcType=VARCHAR},
+        where
+        id = #{nursing_record.id, jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteById" parameterType="String">
+        delete from nursing_record where id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteAll">
+        delete from nursing_record
+    </delete>
+
+</mapper>

@@ -16,11 +16,11 @@ public class OutRegistration {
     //唯一标识
     private String id;
 
-    //客户对象
-    private Client client;
+    //客户对象id
+    private String clientId;
 
-    //护士对象
-    private Worker nurse;
+    //护士对象id
+    private String nurseId;
 
     //外出原因
     private String reason;

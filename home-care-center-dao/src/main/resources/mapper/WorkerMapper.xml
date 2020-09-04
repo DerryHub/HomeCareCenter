@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.hust.dao.dao.WorkerMapper">
+    
+    <resultMap id="WorkerResultMap" type="edu.hust.dao.dto.Worker">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="birthday" property="birthday" jdbcType="DATE"/>
+        <result column="gender" property="gender" jdbcType="INTEGER"/>
+        <result column="id_card_no" property="idCardNo" jdbcType="VARCHAR"/>
+        <result column="register_date" property="registerDate" jdbcType="DATE"/>
+        <result column="phone_no" property="phoneNo" jdbcType="VARCHAR"/>
+        <result column="area_id" property="areaId" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="head_img" property="headImg" jdbcType="VARCHAR"/>
+        <result column="delete" property="delete" jdbcType="INTEGER"/>
+    </resultMap>
+    
+    <select id="selectList" resultMap="WorkerResultMap">
+        select * from worker
+    </select>
+    
+    <select id="selectById" resultMap="WorkerResultMap">
+        select * from worker where id = #{id, jdbcType=VARCHAR} and delete = null 
+    </select>
+    
+    <select id="selectByIdCardNo" resultMap="WorkerResultMap">
+        select * from worker where id_card_no = #{id_card_no, jdbcType=VARCHAR} and delete = null
+    </select>
+    
+    <select id="selectByType" resultMap="WorkerResultMap">
+        select * from worker where type = #{type, jdbcType=INTEGER} and delete = null
+    </select>
+
+    <select id="selectByName" resultMap="WorkerResultMap">
+        select * from worker where name = #{name, jdbcType=VARCHAR} and delete = null
+    </select>
+    
+    <insert id="add" parameterType="edu.hust.dao.dto.Worker">
+        insert into worker
+        (
+        id,
+        type,
+        name,
+        birthday,
+        gender,
+        id_card_no,
+        register_date,
+        phone_no,
+        area_id,
+        password,
+        head_img,
+        delete
+        )
+        values 
+        (
+        #{worker.id, jdbcType=VARCHAR},
+        #{worker.type, jdbcType=INTEGER},
+        #{worker.name, jdbcType=VARCHAR},
+        #{worker.birthday, jdbcType=DATE},
+        #{worker.gender, jdbcType=INTEGER},
+        #{worker.idCardNo, jdbcType=VARCHAR},
+        #{worker.registerDate, jdbcType=DATE},
+        #{worker.phoneNo, jdbcType=VARCHAR},
+        #{worker.areaId, jdbcType=VARCHAR},
+        #{worker.password, jdbcType=VARCHAR},
+        #{worker.headImg, jdbcType=VARCHAR},
+        #{worker.delete, jdbcType=INTEGER}
+        )
+    </insert>
+
+    <insert id="addBatch" parameterType="edu.hust.dao.dto.Worker">
+        insert into worker
+        (
+        id,
+        type,
+        name,
+        birthday,
+        gender,
+        id_card_no,
+        register_date,
+        phone_no,
+        area_id,
+        password,
+        head_img,
+        delete
+        )
+        values 
+        <foreach collection="list" item="worker" index="index" separator=",">
+        (
+        #{worker.id, jdbcType=VARCHAR},
+        #{worker.type, jdbcType=INTEGER},
+        #{worker.name, jdbcType=VARCHAR},
+        #{worker.birthday, jdbcType=DATE},
+        #{worker.gender, jdbcType=INTEGER},
+        #{worker.idCardNo, jdbcType=VARCHAR},
+        #{worker.registerDate, jdbcType=DATE},
+        #{worker.phoneNo, jdbcType=VARCHAR},
+        #{worker.areaId, jdbcType=VARCHAR},
+        #{worker.password, jdbcType=VARCHAR},
+        #{worker.headImg, jdbcType=VARCHAR},
+        #{worker.delete, jdbcType=INTEGER}
+        )
+        </foreach>
+    </insert>
+    
+    <update id="update" parameterType="edu.hust.dao.dto.Worker">
+        update worker
+        set
+        type = #{worker.type, jdbcType=INTEGER},
+        name = #{worker.name, jdbcType=VARCHAR},
+        birthday = #{worker.birthday, jdbcType=DATE},
+        gender = #{worker.gender, jdbcType=INTEGER},
+        id_card_no = #{worker.idCardNo, jdbcType=VARCHAR},
+        register_date = #{worker.registerDate, jdbcType=DATE},
+        phone_no = #{worker.phoneNo, jdbcType=VARCHAR},
+        area_id = #{worker.areaId, jdbcType=VARCHAR},
+        password = #{worker.password, jdbcType=VARCHAR},
+        head_img = #{worker.headImg, jdbcType=VARCHAR},
+        delete = #{worker.delete, jdbcType=INTEGER}
+        where
+        id = #{worker.id, jdbcType=VARCHAR}
+    </update>
+
+    <update id="deleteById" parameterType="String">
+        update worker
+        set
+        delete = 1
+        where
+        id = #{id, jdbcType=VARCHAR}
+    </update>
+
+    <update id="deleteByType" parameterType="INTEGER">
+        update worker
+        set
+        delete = 1
+        where
+        type = #{type, jdbcType=INTEGER}
+    </update>
+
+    <update id="deleteByIdCardNo" parameterType="String">
+        update worker
+        set
+        delete = 1
+        where
+        id_card_no = #{id_card_no, jdbcType=VARCHAR}
+    </update>
+
+    <update id="deleteAll">
+        update worker
+        set
+        delete = 1
+    </update>
+    
+</mapper>

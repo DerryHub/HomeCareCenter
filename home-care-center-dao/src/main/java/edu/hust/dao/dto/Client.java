@@ -46,8 +46,8 @@ public class Client {
     //备注
     private String remark;
 
-    //床铺对象
-    private Bed bed;
+    //床铺对象id
+    private String bedId;
 
     //护理级别
     private Integer levelOfCare;

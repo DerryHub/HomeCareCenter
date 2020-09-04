@@ -17,12 +17,7 @@
         <result column="marriage" property="marriage" jdbcType="INTEGER"/>
         <result column="head_img" property="headImg" jdbcType="VARCHAR"/>
         <result column="remark" property="remark" jdbcType="VARCHAR"/>
-        <result column="bed_id" property="bed.id" jdbcType="VARCHAR"/>
-        <result column="bed_title" property="bed.bedTitle" jdbcType="VARCHAR"/>
-        <result column="room_id" property="bed.room.id" jdbcType="VARCHAR"/>
-        <result column="room_title" property="bed.room.roomTitle" jdbcType="VARCHAR"/>
-        <result column="area_id" property="bed.room.area.id" jdbcType="VARCHAR"/>
-        <result column="area_title" property="bed.room.area.areaTitle" jdbcType="VARCHAR"/>
+        <result column="bed_id" property="bedId" jdbcType="VARCHAR"/>
         <result column="level_of_care" property="levelOfCare" jdbcType="INTEGER"/>
         <result column="in_date" property="inDate" jdbcType="DATE"/>
         <result column="out_date" property="outDate" jdbcType="DATE"/>
@@ -33,152 +28,45 @@
 
     <select id="selectList" resultMap="ClientResultMap">
         select
-        client.id client_id,
-        client.name name,
-        client.gender gender,
-        client.id_card_no id_card_no,
-        client.height height,
-        client.weight weight,
-        client.relative_name relative_name,
-        client.relative_phone relative_phone,
-        client.marriage marriage,
-        client.head_img head_img,
-        client.remark remark,
-        client.bed_id bed_id,
-        bed.bed_title bed_title,
-        bed.room_id room_id,
-        room.room_title room_title,
-        room.area_id area_id,
-        area.area_title area_title,
-        client.level_of_care level_of_care,
-        client.in_date in_date,
-        client.out_date out_date,
-        client.food_req food_req,
-        client.phone_no phone_no,
-        client.birthday birthday
-        from client, bed, room, area
+        *
+        from client
         where
-        client.bed_id = bed.id and bed.room_id = room.id and room.area_id = area.id
+        bed_id <![CDATA[<>]]> null
     </select>
 
     <select id="selectById" resultMap="ClientResultMap">
         select
-        client.id client_id,
-        client.name name,
-        client.gender gender,
-        client.id_card_no id_card_no,
-        client.height height,
-        client.weight weight,
-        client.relative_name relative_name,
-        client.relative_phone relative_phone,
-        client.marriage marriage,
-        client.head_img head_img,
-        client.remark remark,
-        client.bed_id bed_id,
-        bed.bed_title bed_title,
-        bed.room_id room_id,
-        room.room_title room_title,
-        room.area_id area_id,
-        area.area_title area_title,
-        client.level_of_care level_of_care,
-        client.in_date in_date,
-        client.out_date out_date,
-        client.food_req food_req,
-        client.phone_no phone_no,
-        client.birthday birthday
-        from client, bed, room, area
+        *
+        from client
         where
-        client.bed_id = bed.id and bed.room_id = room.id and room.area_id = area.id and client.id = #{id, jdbcType=VARCHAR}
+        id = #{id, jdbcType=VARCHAR}
+        and bed_id <![CDATA[<>]]> null
     </select>
 
     <select id="selectByIdCardNo" resultMap="ClientResultMap">
         select
-        client.id client_id,
-        client.name name,
-        client.gender gender,
-        client.id_card_no id_card_no,
-        client.height height,
-        client.weight weight,
-        client.relative_name relative_name,
-        client.relative_phone relative_phone,
-        client.marriage marriage,
-        client.head_img head_img,
-        client.remark remark,
-        client.bed_id bed_id,
-        bed.bed_title bed_title,
-        bed.room_id room_id,
-        room.room_title room_title,
-        room.area_id area_id,
-        area.area_title area_title,
-        client.level_of_care level_of_care,
-        client.in_date in_date,
-        client.out_date out_date,
-        client.food_req food_req,
-        client.phone_no phone_no,
-        client.birthday birthday
-        from client, bed, room, area
+        *
+        from client
         where
-        client.bed_id = bed.id and bed.room_id = room.id and room.area_id = area.id and client.id_card_no = #{id_card_no, jdbcType=VARCHAR}
+        id_card_no = #{id_card_no, jdbcType=VARCHAR}
+        and bed_id <![CDATA[<>]]> null
     </select>
 
     <select id="selectByName" resultMap="ClientResultMap">
         select
-        client.id client_id,
-        client.name name,
-        client.gender gender,
-        client.id_card_no id_card_no,
-        client.height height,
-        client.weight weight,
-        client.relative_name relative_name,
-        client.relative_phone relative_phone,
-        client.marriage marriage,
-        client.head_img head_img,
-        client.remark remark,
-        client.bed_id bed_id,
-        bed.bed_title bed_title,
-        bed.room_id room_id,
-        room.room_title room_title,
-        room.area_id area_id,
-        area.area_title area_title,
-        client.level_of_care level_of_care,
-        client.in_date in_date,
-        client.out_date out_date,
-        client.food_req food_req,
-        client.phone_no phone_no,
-        client.birthday birthday
-        from client, bed, room, area
+        *
+        from client
         where
-        client.bed_id = bed.id and bed.room_id = room.id and room.area_id = area.id and client.name = #{name, jdbcType=VARCHAR}
+        name = #{name, jdbcType=VARCHAR}
+        and bed_id <![CDATA[<>]]> null
     </select>
 
     <select id="selectByBedId" resultMap="ClientResultMap">
         select
-        client.id client_id,
-        client.name name,
-        client.gender gender,
-        client.id_card_no id_card_no,
-        client.height height,
-        client.weight weight,
-        client.relative_name relative_name,
-        client.relative_phone relative_phone,
-        client.marriage marriage,
-        client.head_img head_img,
-        client.remark remark,
-        client.bed_id bed_id,
-        bed.bed_title bed_title,
-        bed.room_id room_id,
-        room.room_title room_title,
-        room.area_id area_id,
-        area.area_title area_title,
-        client.level_of_care level_of_care,
-        client.in_date in_date,
-        client.out_date out_date,
-        client.food_req food_req,
-        client.phone_no phone_no,
-        client.birthday birthday
-        from client, bed, room, area
+        *
+        from client
         where
-        client.bed_id = bed.id and bed.room_id = room.id and room.area_id = area.id and client.bed_id = #{bed_id, jdbcType=VARCHAR}
+        bed_id = #{bed_id, jdbcType=VARCHAR}
     </select>
 
     <insert id="add" parameterType="edu.hust.dao.dto.Client">
@@ -294,16 +182,25 @@
         id = #{client.id, jdbcType=VARCHAR}
     </update>
 
-    <delete id="deleteById" parameterType="String">
-        delete from client where id = #{id, jdbcType=VARCHAR}
-    </delete>
+    <update id="deleteById" parameterType="String">
+        update client
+        set
+        bed_id = null
+        where id = #{id, jdbcType=VARCHAR}
+    </update>
 
-    <delete id="deleteByIdCardNo" parameterType="String">
-        delete from client where id_card_no = #{id_card_no, jdbcType=VARCHAR}
-    </delete>
+    <update id="deleteByIdCardNo" parameterType="String">
+        update client
+        set
+        bed_id = null
+        where
+        id_card_no = #{id_card_no, jdbcType=VARCHAR}
+    </update>
 
-    <delete id="deleteAll">
-        delete from client
-    </delete>
+    <update id="deleteAll">
+        update client
+        set
+        bed_id = null
+    </update>
 
 </mapper>

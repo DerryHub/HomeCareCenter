@@ -17,7 +17,10 @@ public class MedicalRecord {
     private String id;
 
     //客户对象
-    private Client client;
+    private String clientId;
+
+    //医生id
+    private String doctorId;
 
     //日期
     private Date date;

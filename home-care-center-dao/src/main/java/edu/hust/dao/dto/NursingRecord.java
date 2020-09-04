@@ -16,11 +16,11 @@ public class NursingRecord {
     //唯一标识
     private String id;
 
-    //客户对象
-    private Client client;
+    //客户对象id
+    private String clientId;
 
     //护士对象
-    private Worker nurse;
+    private String nurseId;
 
     //护理内容
     private String content;
