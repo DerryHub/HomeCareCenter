@@ -12,6 +12,7 @@ public enum ApiCodeEnum {
 
     SUCCESS("", 0),
     FAILED("网络异常", 10000),
+    TOKEN_ERROR("token错误",10001),
     PARAM_ERROR("接口参数错误", 10004),
     URL_NOT_EXIST("接口不存在", 10005),
     RPC_FAIL("调用服务异常", 10014),
