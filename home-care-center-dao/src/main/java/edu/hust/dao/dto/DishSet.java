@@ -17,13 +17,13 @@ public class DishSet {
     private String id;
 
     //周一至周日菜品集
-    private List<Dish> mon;
-    private List<Dish> tue;
-    private List<Dish> wed;
-    private List<Dish> thu;
-    private List<Dish> fri;
-    private List<Dish> sat;
-    private List<Dish> sun;
+    private String mon;
+    private String tue;
+    private String wed;
+    private String thu;
+    private String fri;
+    private String sat;
+    private String sun;
 
     //备注
     private String remark;

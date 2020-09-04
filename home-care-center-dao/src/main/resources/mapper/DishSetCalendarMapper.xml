@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.hust.dao.dao.DishSetCalendarMapper">
+
+    <resultMap id="DishSetCalendarResultMap" type="edu.hust.dao.dto.DishSetCalendar">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="client_id" property="clientId" jdbcType="VARCHAR"/>
+        <result column="dish_set_id" property="dishSetId" jdbcType="VARCHAR"/>
+        <result column="start_date" property="startDate" jdbcType="DATE"/>
+        <result column="end_date" property="endDate" jdbcType="DATE"/>
+    </resultMap>
+
+    <select id="selectList" resultMap="DishSetCalendarResultMap">
+        select * from dish_set_calendar
+    </select>
+
+    <select id="selectById" resultMap="DishSetCalendarResultMap">
+        select * from dish_set_calendar where id = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByClientId" resultMap="DishSetCalendarResultMap">
+        select * from dish_set_calendar where client_id = #{client_id, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByDishSetId" resultMap="DishSetCalendarResultMap">
+        select * from dish_set_calendar where dish_set_id = #{dish_set_id, jdbcType=VARCHAR}
+    </select>
+
+    <insert id="add" parameterType="edu.hust.dao.dto.DishSetCalendar">
+        insert into
+        dish_set_calendar
+        values
+        (
+        #{dish_set_calendar.id, jdbcType=VARCHAR},
+        #{dish_set_calendar.client_id, jdbcType=VARCHAR},
+        #{dish_set_calendar.dish_set_id, jdbcType=VARCHAR},
+        #{dish_set_calendar.start_date, jdbcType=DATE},
+        #{dish_set_calendar.end_date, jdbcType=DATE}
+        )
+    </insert>
+
+    <insert id="add" parameterType="edu.hust.dao.dto.DishSetCalendar">
+        insert into
+        dish_set_calendar
+        values
+        <foreach collection="list" index="index" item="dish_set_calendar" separator=",">
+        (
+        #{dish_set_calendar.id, jdbcType=VARCHAR},
+        #{dish_set_calendar.client_id, jdbcType=VARCHAR},
+        #{dish_set_calendar.dish_set_id, jdbcType=VARCHAR},
+        #{dish_set_calendar.start_date, jdbcType=DATE},
+        #{dish_set_calendar.end_date, jdbcType=DATE}
+        )
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="edu.hust.dao.dto.DishSetCalendar">
+        update dish_set_calendar
+        set
+        client_id = #{dish_set_calendar.client_id, jdbcType=VARCHAR},
+        dish_set_id = #{dish_set_calendar.dish_set_id, jdbcType=VARCHAR},
+        start_date = #{dish_set_calendar.start_date, jdbcType=DATE},
+        end_date = #{dish_set_calendar.end_date, jdbcType=DATE}
+        where id = #{dish_set_calendar.id, jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteById" parameterType="edu.hust.dao.dto.DishSetCalendar">
+        delete from dish_set_calendar where id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteAll">
+        delete from dish_set_calendar
+    </delete>
+
+</mapper>

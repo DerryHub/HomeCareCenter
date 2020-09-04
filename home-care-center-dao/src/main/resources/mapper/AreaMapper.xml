@@ -23,7 +23,7 @@
     </select>
 
     <insert id="add" parameterType="edu.hust.dao.dto.Area">
-        insert into area (id, area_title) values (#{id, jdbcType=VARCHAR}, #{areaTitle, jdbcType=VARCHAR})
+        insert into area (id, area_title) values (#{area.id, jdbcType=VARCHAR}, #{area.areaTitle, jdbcType=VARCHAR})
     </insert>
 
     <insert id="addBatch" parameterType="edu.hust.dao.dto.Area">
@@ -36,9 +36,9 @@
     <update id="update" parameterType="edu.hust.dao.dto.Area">
         update area
         set
-        area_title = #{areaTitle, jdbcType=VARCHAR}
+        area_title = #{area.areaTitle, jdbcType=VARCHAR}
         where
-        id = #{id, jdbcType=VARCHAR}
+        id = #{area.id, jdbcType=VARCHAR}
     </update>
 
     <delete id="deleteById" parameterType="String">
@@ -46,7 +46,11 @@
     </delete>
 
     <delete id="deleteByAreaTitle" parameterType="String">
-        delete from area where area_title = #{areaTitle, jdbcType=VARCHAR}
+        delete from area where area_title = #{area_title, jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteAll">
+        delete from area
     </delete>
 
 </mapper>

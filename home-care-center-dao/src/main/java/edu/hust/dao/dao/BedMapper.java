@@ -12,7 +12,6 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-03 09:43
  **/
-@Mapper
 public interface BedMapper {
 
     //查找床位信息
@@ -41,5 +40,8 @@ public interface BedMapper {
 
     //根据房间号删除床位
     int deleteByRoomId(@Param("room_id") String roomId);
+
+    //删除所有
+    int deleteAll();
 
 }
