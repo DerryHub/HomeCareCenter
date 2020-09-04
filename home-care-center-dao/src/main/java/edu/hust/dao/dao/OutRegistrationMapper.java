@@ -28,6 +28,9 @@ public interface OutRegistrationMapper {
             @Param("client_id") String clientId
     );
 
+    //查询未回归的客户
+    List<OutRegistration> selectByBackTimeReal();
+
     //添加记录
     int add(@Param("out_registration") OutRegistration outRegistration);
 

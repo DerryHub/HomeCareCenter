@@ -28,6 +28,9 @@ public interface WorkerMapper {
     //根据姓名查询
     List<Worker> selectByName(@Param("name") String name);
 
+    //根据区域id查询
+    List<Worker> selectByAreaId(@Param("area_id") String areaId);
+
     //添加工人
     int add(@Param("worker") Worker worker);
 

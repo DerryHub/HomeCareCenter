@@ -36,4 +36,90 @@
         </trim>
     </select>
 
+    <select id="selectByBackTimeReal" resultMap="OutRegistrationResultMap">
+        select * from out_registration where back_time_real is null
+    </select>
+
+    <insert id="add" parameterType="edu.hust.dao.dto.OutRegistration">
+        insert into out_registration
+        (
+        id,
+        client_id,
+        nurse_id,
+        reason,
+        out_time,
+        partner_name,
+        partner_phone,
+        remark,
+        back_time_expected,
+        back_time_real
+        ) values
+        (
+        #{out_registration.id, jdbcType=VARCHAR},
+        #{out_registration.clientId, jdbcType=VARCHAR},
+        #{out_registration.nurseId, jdbcType=VARCHAR},
+        #{out_registration.reason, jdbcType=VARCHAR},
+        #{out_registration.outTime, jdbcType=DATE},
+        #{out_registration.partnerName, jdbcType=VARCHAR},
+        #{out_registration.partnerPhone, jdbcType=VARCHAR},
+        #{out_registration.remark, jdbcType=VARCHAR},
+        #{out_registration.backTimeExpected, jdbcType=DATE},
+        #{out_registration.backTimeReal, jdbcType=DATE}
+        )
+    </insert>
+
+    <insert id="addBatch" parameterType="edu.hust.dao.dto.OutRegistration">
+        insert into out_registration
+        (
+        id,
+        client_id,
+        nurse_id,
+        reason,
+        out_time,
+        partner_name,
+        partner_phone,
+        remark,
+        back_time_expected,
+        back_time_real
+        ) values
+        <foreach collection="list" index="index" item="out_registration" separator=",">
+        (
+        #{out_registration.id, jdbcType=VARCHAR},
+        #{out_registration.clientId, jdbcType=VARCHAR},
+        #{out_registration.nurseId, jdbcType=VARCHAR},
+        #{out_registration.reason, jdbcType=VARCHAR},
+        #{out_registration.outTime, jdbcType=DATE},
+        #{out_registration.partnerName, jdbcType=VARCHAR},
+        #{out_registration.partnerPhone, jdbcType=VARCHAR},
+        #{out_registration.remark, jdbcType=VARCHAR},
+        #{out_registration.backTimeExpected, jdbcType=DATE},
+        #{out_registration.backTimeReal, jdbcType=DATE}
+        )
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="edu.hust.dao.dto.OutRegistration">
+        update out_registration
+        set
+        client_id = #{out_registration.clientId, jdbcType=VARCHAR},
+        nurse_id = #{out_registration.nurseId, jdbcType=VARCHAR},
+        reason = #{out_registration.reason, jdbcType=VARCHAR},
+        out_time = #{out_registration.outTime, jdbcType=DATE},
+        partner_name = #{out_registration.partnerName, jdbcType=VARCHAR},
+        partner_phone = #{out_registration.partnerPhone, jdbcType=VARCHAR},
+        remark = #{out_registration.remark, jdbcType=VARCHAR},
+        back_time_expected = #{out_registration.backTimeExpected, jdbcType=DATE},
+        back_time_real = #{out_registration.backTimeReal, jdbcType=DATE}
+        where
+        id = #{out_registration.id, jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteById" parameterType="String">
+        delete from out_registration where id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteAll">
+        delete from out_registration
+    </delete>
+
 </mapper>

@@ -37,7 +37,7 @@
         #{dish_set.fri, jdbcType=VARCHAR},
         #{dish_set.sat, jdbcType=VARCHAR},
         #{dish_set.sun, jdbcType=VARCHAR},
-        #{dish_set.remark, jdbcType=VARCHAR},
+        #{dish_set.remark, jdbcType=VARCHAR}
         )
     </insert>
 
@@ -54,7 +54,7 @@
         #{dish_set.fri, jdbcType=VARCHAR},
         #{dish_set.sat, jdbcType=VARCHAR},
         #{dish_set.sun, jdbcType=VARCHAR},
-        #{dish_set.remark, jdbcType=VARCHAR},
+        #{dish_set.remark, jdbcType=VARCHAR}
         )
         </foreach>
     </insert>
