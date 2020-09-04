@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.util.Date;
 
 /**
+ * https://cloud.tencent.com/developer/article/1425597
  * jwt util
  * @author chain
  * @date 2020/9/4

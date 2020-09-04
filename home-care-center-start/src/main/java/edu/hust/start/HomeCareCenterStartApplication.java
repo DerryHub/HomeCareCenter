@@ -1,12 +1,15 @@
 package edu.hust.start;
 
+import edu.hust.common.util.JWTUtil;
 import edu.hust.common.util.TraceIdUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 import java.util.List;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -17,28 +20,26 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class HomeCareCenterStartApplication {
 
 
+    @Value("${jwtKey:husthust}")
+    private String jwtKey;
+
 
     public static void main(String[] args) {
-        ThreadPoolExecutor threadPoolExecutor=new TraceIdUtil().createThreadPoolExecutor();
-
         SpringApplication.run(HomeCareCenterStartApplication.class, args);
-        MDC.put("traceId","testId");
+        log.info("项目启动成功");
+    }
 
-        threadPoolExecutor.submit(()->{
-            log.info("this is a thread 1");
-        });
-        threadPoolExecutor.submit(()->{
-            log.info("this is a thread 2");
-        });
+    @Bean
+    JWTUtil getJwtUtil(){
+        JWTUtil jwtUtil=new JWTUtil();
+        jwtUtil.setKey(jwtKey);
+        jwtUtil.setTtl(7*24*60*60);
+        return jwtUtil;
+    }
 
-
-        new Thread(()->{
-            log.info("this is a thread 2");
-        }).start();
-        new Thread(()->{
-            log.info("this is a thread 3");
-        }).start();
-
+    @Bean("mdcThreadPoolExecutor")
+    ThreadPoolExecutor getThreadPoolExecutor(){
+        return new TraceIdUtil().createThreadPoolExecutor();
     }
 
 
