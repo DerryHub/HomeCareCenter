@@ -35,7 +35,10 @@ public enum ApiCodeEnum {
     PHONE_INVALID("手机号格式不正确", 20011),
 
     IMAGE_OVERFLOW("图像超出设定大小", 30000),
-    FAIL_TO_UPLOAD("上传失败", 30001);
+    FAIL_TO_UPLOAD("上传失败", 30001),
+
+    FAIL_TO_ADD("数据添加失败", 40001),
+    FAIL_TO_UPDATE("数据修改失败", 40002);
 
     private int code;
     private String msg;

@@ -13,37 +13,103 @@ import java.util.List;
  **/
 public interface ClientMapper {
 
-    //查询客人信息
+    /**
+     * @Author Derry Lin
+     * @Description 查询客人信息
+     * @Date 下午3:21 2020/9/7
+     * @Param []
+     * @return java.util.List<edu.hust.dao.dto.Client>
+     **/
     List<Client> selectList();
 
-    //根据id查询
+    /**
+     * @Author Derry Lin
+     * @Description 根据id查询
+     * @Date 下午3:21 2020/9/7
+     * @Param [id]
+     * @return edu.hust.dao.dto.Client
+     **/
     Client selectById(@Param("id") String id);
 
-    //根据身份证号查询
+    /**
+     * @Author Derry Lin
+     * @Description 根据身份证号查询
+     * @Date 下午3:21 2020/9/7
+     * @Param [idCardNo]
+     * @return edu.hust.dao.dto.Client
+     **/
     Client selectByIdCardNo(@Param("id_card_no") String idCardNo);
 
-    //根据姓名查询
+    /**
+     * @Author Derry Lin
+     * @Description 根据姓名查询
+     * @Date 下午3:21 2020/9/7
+     * @Param [name]
+     * @return java.util.List<edu.hust.dao.dto.Client>
+     **/
     List<Client> selectByName(@Param("name") String name);
 
-    //根据床铺id查询
+    /**
+     * @Author Derry Lin
+     * @Description 根据床铺id查询
+     * @Date 下午3:22 2020/9/7
+     * @Param [bedId]
+     * @return edu.hust.dao.dto.Client
+     **/
     Client selectByBedId(@Param("bed_id") String bedId);
 
-    //添加客人
+    /**
+     * @Author Derry Lin
+     * @Description 添加客人
+     * @Date 下午3:22 2020/9/7
+     * @Param [client]
+     * @return int
+     **/
     int add(@Param("client") Client client);
 
-    //批量添加客人
+    /**
+     * @Author Derry Lin
+     * @Description 批量添加客人
+     * @Date 下午3:22 2020/9/7
+     * @Param [clientList]
+     * @return int
+     **/
     int addBatch(@Param("client_list") List<Client> clientList);
 
-    //更新客人信息
+    /**
+     * @Author Derry Lin
+     * @Description 更新客人信息
+     * @Date 下午3:22 2020/9/7
+     * @Param [client]
+     * @return int
+     **/
     int update(@Param("client") Client client);
 
-    //根据客人id删除
+    /**
+     * @Author Derry Lin
+     * @Description 根据客人id删除
+     * @Date 下午3:22 2020/9/7
+     * @Param [id]
+     * @return int
+     **/
     int deleteById(@Param("id") String id);
 
-    //根据身份证号删除
+    /**
+     * @Author Derry Lin
+     * @Description 根据身份证号删除
+     * @Date 下午3:22 2020/9/7
+     * @Param [idCardNo]
+     * @return int
+     **/
     int deleteByIdCardNo(@Param("id_card_no") String idCardNo);
 
-    //删除所有
+    /**
+     * @Author Derry Lin
+     * @Description 删除所有
+     * @Date 下午3:36 2020/9/7
+     * @Param []
+     * @return int
+     **/
     int deleteAll();
 
 }

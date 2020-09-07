@@ -1,4 +1,4 @@
-package edu.hust.dao.dao;
+package edu.hust.service.service;
 
 import edu.hust.dao.dto.NursingRecord;
 import org.apache.ibatis.annotations.Param;
@@ -8,87 +8,87 @@ import java.util.List;
 
 /**
  * @program: HomeCareCenter
- * @description: NursingRecord类数据库接口
+ * @description: NursingRecord类服务层接口
  * @author: Derry Lin
- * @create: 2020-09-04 09:37
+ * @create: 2020-09-07 14:48
  **/
-public interface NursingRecordMapper {
+public interface NursingRecordService {
 
     /**
      * @Author Derry Lin
      * @Description 查询记录
-     * @Date 下午3:24 2020/9/7
+     * @Date 下午3:08 2020/9/7
      * @Param []
      * @return java.util.List<edu.hust.dao.dto.NursingRecord>
      **/
-    List<NursingRecord> selectList();
+    List<NursingRecord> getNursingRecordList();
 
     /**
      * @Author Derry Lin
-     * @Description 
-     * @Date 下午3:24 2020/9/7
+     * @Description 根据id查询
+     * @Date 下午3:08 2020/9/7
      * @Param [id]
      * @return edu.hust.dao.dto.NursingRecord
      **/
-    NursingRecord selectById(@Param("id") String id);
+    NursingRecord getNursingRecordById(String id);
 
     /**
      * @Author Derry Lin
      * @Description 根据起止时间、护士id、客户id查询
-     * @Date 下午3:24 2020/9/7
+     * @Date 下午3:08 2020/9/7
      * @Param [startDate, endDate, nurseId, clientId]
      * @return java.util.List<edu.hust.dao.dto.NursingRecord>
      **/
-    List<NursingRecord> selectByDateAndNurseIdAndClientId(
-            @Param("start_date") Date startDate,
-            @Param("end_date") Date endDate,
-            @Param("nurse_id") String nurseId,
-            @Param("client_id") String clientId
+    List<NursingRecord> getNursingRecordByDateAndNurseIdAndClientId(
+            Date startDate,
+            Date endDate,
+            String nurseId,
+            String clientId
     );
 
     /**
      * @Author Derry Lin
      * @Description 添加记录
-     * @Date 下午3:24 2020/9/7
+     * @Date 下午3:08 2020/9/7
      * @Param [nursingRecord]
-     * @return int
+     * @return void
      **/
-    int add(@Param("nursing_record") NursingRecord nursingRecord);
+    void addNursingRecord(NursingRecord nursingRecord);
 
     /**
      * @Author Derry Lin
      * @Description 批量添加
-     * @Date 下午3:25 2020/9/7
+     * @Date 下午3:09 2020/9/7
      * @Param [nursingRecordList]
-     * @return int
+     * @return void
      **/
-    int addBatch(@Param("nursing_record_list") List<NursingRecord> nursingRecordList);
+    void addNursingRecordList(List<NursingRecord> nursingRecordList);
 
     /**
      * @Author Derry Lin
      * @Description 更新记录
-     * @Date 下午3:25 2020/9/7
+     * @Date 下午3:09 2020/9/7
      * @Param [nursingRecord]
-     * @return int
+     * @return void
      **/
-    int update(@Param("nursing_record") NursingRecord nursingRecord);
+    void updateNursingRecord(NursingRecord nursingRecord);
 
     /**
      * @Author Derry Lin
      * @Description 根据id删除
-     * @Date 下午3:25 2020/9/7
+     * @Date 下午3:09 2020/9/7
      * @Param [id]
-     * @return int
+     * @return void
      **/
-    int deleteById(@Param("id") String id);
+    void deleteNursingRecordById(String id);
 
     /**
      * @Author Derry Lin
      * @Description 删除所有
-     * @Date 下午4:13 2020/9/7
+     * @Date 下午3:22 2020/9/7
      * @Param []
-     * @return int
+     * @return void
      **/
-    int deleteAll();
+    void deleteAllNursingRecord();
 
 }

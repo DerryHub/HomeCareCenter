@@ -1,7 +1,5 @@
 package edu.hust.service.domain;
 
-import edu.hust.dao.dto.Client;
-import edu.hust.dao.dto.DishSet;
 import edu.hust.dao.dto.DishSetCalendar;
 
 /**
@@ -13,9 +11,9 @@ import edu.hust.dao.dto.DishSetCalendar;
 public class DishSetCalendarFull extends DishSetCalendar {
 
     //客户类
-    private Client client;
+    private ClientFull clientFull;
 
     //套餐类
-    private DishSet dishSet;
+    private DishSetFull dishSetFull;
 
 }

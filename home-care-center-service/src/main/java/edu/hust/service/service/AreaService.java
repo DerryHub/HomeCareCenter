@@ -13,58 +13,84 @@ import java.util.List;
 public interface AreaService {
 
     /**
-     * 获取区域列表
-     * @return
-     */
+     * @Author Derry Lin
+     * @Description 获取区域列表
+     * @Date 下午3:00 2020/9/7
+     * @Param []
+     * @return java.util.List<edu.hust.dao.dto.Area>
+     **/
     List<Area> getAreaInfoList();
 
     /**
-     * 根据id获取区域
-     * @param id
-     * @return
-     */
+     * @Author Derry Lin
+     * @Description 根据id获取区域
+     * @Date 下午3:01 2020/9/7
+     * @Param [id]
+     * @return edu.hust.dao.dto.Area
+     **/
     Area getAreaInfoById(String id);
 
     /**
-     * 根据title获取区域
-     * @param title
-     * @return
-     */
+     * @Author Derry Lin
+     * @Description 根据title获取区域
+     * @Date 下午3:01 2020/9/7
+     * @Param [title]
+     * @return edu.hust.dao.dto.Area
+     **/
     Area getAreaInfoByTitle(String title);
 
     /**
-     * 添加区域
-     * @param area
-     */
+     * @Author Derry Lin
+     * @Description 添加区域
+     * @Date 下午3:01 2020/9/7
+     * @Param [area]
+     * @return void
+     **/
     void addArea(Area area);
 
     /**
-     * 批量添加区域
-     * @param areaList
-     */
+     * @Author Derry Lin
+     * @Description 批量添加区域
+     * @Date 下午3:01 2020/9/7
+     * @Param [areaList]
+     * @return void
+     **/
     void addAreaList(List<Area> areaList);
 
     /**
-     * 更新区域信息
-     * @param area
-     */
+     * @Author Derry Lin
+     * @Description 更新区域信息
+     * @Date 下午3:01 2020/9/7
+     * @Param [area]
+     * @return void
+     **/
     void updateArea(Area area);
 
     /**
-     * 根据区域id删除区域
-     * @param id
-     */
+     * @Author Derry Lin
+     * @Description 根据区域id删除区域
+     * @Date 下午3:01 2020/9/7
+     * @Param [id]
+     * @return void
+     **/
     void deleteAreaById(String id);
 
     /**
-     * 根据title删除区域
-     * @param title
-     */
+     * @Author Derry Lin
+     * @Description 根据title删除区域
+     * @Date 下午3:01 2020/9/7
+     * @Param [title]
+     * @return void
+     **/
     void deleteAreaByTitle(String title);
 
     /**
-     * 删除所有区域
-     */
+     * @Author Derry Lin
+     * @Description 删除所有区域
+     * @Date 下午3:11 2020/9/7
+     * @Param []
+     * @return void
+     **/
     void deleteAllArea();
 
 }

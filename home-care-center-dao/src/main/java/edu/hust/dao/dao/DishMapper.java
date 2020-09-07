@@ -13,31 +13,85 @@ import java.util.List;
  **/
 public interface DishMapper {
 
-    //查询菜品
+    /**
+     * @Author Derry Lin
+     * @Description 查询菜品
+     * @Date 下午3:22 2020/9/7
+     * @Param []
+     * @return java.util.List<edu.hust.dao.dto.Dish>
+     **/
     List<Dish> selectList();
 
-    //根据id查询
+    /**
+     * @Author Derry Lin
+     * @Description 根据id查询
+     * @Date 下午3:22 2020/9/7
+     * @Param [id]
+     * @return edu.hust.dao.dto.Dish
+     **/
     Dish selectById(@Param("id") String id);
 
-    //根据菜名查询
+    /**
+     * @Author Derry Lin
+     * @Description 根据菜名查询
+     * @Date 下午3:22 2020/9/7
+     * @Param [name]
+     * @return edu.hust.dao.dto.Dish
+     **/
     Dish selectByName(@Param("name") String name);
 
-    //添加菜品
+    /**
+     * @Author Derry Lin
+     * @Description 添加菜品
+     * @Date 下午3:22 2020/9/7
+     * @Param [dish]
+     * @return int
+     **/
     int add(@Param("dish") Dish dish);
 
-    //批量添加菜品
+    /**
+     * @Author Derry Lin
+     * @Description 批量添加菜品
+     * @Date 下午3:22 2020/9/7
+     * @Param [dishList]
+     * @return int
+     **/
     int addBatch(@Param("dish_list") List<Dish> dishList);
 
-    //更新菜品
+    /**
+     * @Author Derry Lin
+     * @Description 更新菜品
+     * @Date 下午3:22 2020/9/7
+     * @Param [dish]
+     * @return int
+     **/
     int update(@Param("dish") Dish dish);
 
-    //根据id删除
+    /**
+     * @Author Derry Lin
+     * @Description 根据id删除
+     * @Date 下午3:22 2020/9/7
+     * @Param [id]
+     * @return int
+     **/
     int deleteById(@Param("id") String id);
 
-    //根据菜名删除
+    /**
+     * @Author Derry Lin
+     * @Description 根据菜名删除
+     * @Date 下午3:23 2020/9/7
+     * @Param [name]
+     * @return int
+     **/
     int deleteByName(@Param("name") String name);
 
-    //删除所有
+    /**
+     * @Author Derry Lin
+     * @Description 删除所有
+     * @Date 下午3:36 2020/9/7
+     * @Param []
+     * @return int
+     **/
     int deleteAll();
 
 }

@@ -1,4 +1,4 @@
-package edu.hust.dao.dao;
+package edu.hust.service.service;
 
 import edu.hust.dao.dto.Worker;
 import org.apache.ibatis.annotations.Param;
@@ -7,127 +7,127 @@ import java.util.List;
 
 /**
  * @program: HomeCareCenter
- * @description: Worker类数据库接口
+ * @description: Worker类服务层接口
  * @author: Derry Lin
- * @create: 2020-09-04 08:37
+ * @create: 2020-09-07 15:13
  **/
-public interface WorkerMapper {
+public interface WorkerService {
 
     /**
      * @Author Derry Lin
      * @Description 查询工人
-     * @Date 下午3:26 2020/9/7
+     * @Date 下午3:16 2020/9/7
      * @Param []
      * @return java.util.List<edu.hust.dao.dto.Worker>
      **/
-    List<Worker> selectList();
+    List<Worker> getWorkerList();
 
     /**
      * @Author Derry Lin
      * @Description 根据id查询
-     * @Date 下午3:26 2020/9/7
+     * @Date 下午3:17 2020/9/7
      * @Param [id]
      * @return edu.hust.dao.dto.Worker
      **/
-    Worker selectById(@Param("id") String id);
+    Worker getWorkerById(String id);
 
     /**
      * @Author Derry Lin
      * @Description 根据身份证号查询
-     * @Date 下午3:26 2020/9/7
+     * @Date 下午3:17 2020/9/7
      * @Param [idCardNo]
      * @return edu.hust.dao.dto.Worker
      **/
-    Worker selectByIdCardNo(@Param("id_card_no") String idCardNo);
+    Worker getWorkerByIdCardNo(String idCardNo);
 
     /**
      * @Author Derry Lin
      * @Description 根据工人种类查询
-     * @Date 下午3:26 2020/9/7
+     * @Date 下午3:17 2020/9/7
      * @Param [type]
      * @return java.util.List<edu.hust.dao.dto.Worker>
      **/
-    List<Worker> selectByType(@Param("type") int type);
+    List<Worker> getWorkerByType(int type);
 
     /**
      * @Author Derry Lin
      * @Description 根据姓名查询
-     * @Date 下午3:26 2020/9/7
+     * @Date 下午3:17 2020/9/7
      * @Param [name]
      * @return java.util.List<edu.hust.dao.dto.Worker>
      **/
-    List<Worker> selectByName(@Param("name") String name);
+    List<Worker> getWorkerByName(String name);
 
     /**
      * @Author Derry Lin
      * @Description 根据区域id查询
-     * @Date 下午3:26 2020/9/7
+     * @Date 下午3:17 2020/9/7
      * @Param [areaId]
      * @return java.util.List<edu.hust.dao.dto.Worker>
      **/
-    List<Worker> selectByAreaId(@Param("area_id") String areaId);
+    List<Worker> getWorkerByAreaId(String areaId);
 
     /**
      * @Author Derry Lin
      * @Description 添加工人
-     * @Date 下午3:26 2020/9/7
+     * @Date 下午3:17 2020/9/7
      * @Param [worker]
-     * @return int
+     * @return void
      **/
-    int add(@Param("worker") Worker worker);
+    void addWorker(Worker worker);
 
     /**
      * @Author Derry Lin
      * @Description 批量添加
-     * @Date 下午3:26 2020/9/7
+     * @Date 下午3:17 2020/9/7
      * @Param [workerList]
-     * @return int
+     * @return void
      **/
-    int addBatch(@Param("worker_list") List<Worker> workerList);
+    void addWorkerList(List<Worker> workerList);
 
     /**
      * @Author Derry Lin
      * @Description 更新工人信息
-     * @Date 下午3:27 2020/9/7
+     * @Date 下午3:17 2020/9/7
      * @Param [worker]
-     * @return int
+     * @return void
      **/
-    int update(@Param("worker") Worker worker);
+    void updateWorker(Worker worker);
 
     /**
      * @Author Derry Lin
      * @Description 根据id删除
-     * @Date 下午3:27 2020/9/7
+     * @Date 下午3:17 2020/9/7
      * @Param [id]
-     * @return int
+     * @return void
      **/
-    int deleteById(@Param("id") String id);
+    void deleteWorkerById(String id);
 
     /**
      * @Author Derry Lin
      * @Description 根据种类删除
-     * @Date 下午3:27 2020/9/7
+     * @Date 下午3:17 2020/9/7
      * @Param [type]
-     * @return int
+     * @return void
      **/
-    int deleteByType(@Param("type") int type);
+    void deleteWorkerByType(int type);
 
     /**
      * @Author Derry Lin
      * @Description 根据身份证号删除
-     * @Date 下午3:27 2020/9/7
+     * @Date 下午3:17 2020/9/7
      * @Param [idCardNo]
-     * @return int
+     * @return void
      **/
-    int deleteByIdCardNo(@Param("id_card_no") String idCardNo);
+    void deleteWorkerByIdCardNo(String idCardNo);
 
     /**
      * @Author Derry Lin
      * @Description 删除所有
-     * @Date 下午3:29 2020/9/7
+     * @Date 下午3:24 2020/9/7
      * @Param []
-     * @return int
+     * @return void
      **/
-    int deleteAll();
+    void deleteAllWorker();
 
 }

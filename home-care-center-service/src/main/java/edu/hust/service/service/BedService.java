@@ -14,64 +14,92 @@ import java.util.List;
 public interface BedService {
 
     /**
-     * 查找床位信息
-     * @return
-     */
+     * @Author Derry Lin
+     * @Description 查找床位信息
+     * @Date 下午3:02 2020/9/7
+     * @Param []
+     * @return java.util.List<edu.hust.dao.dto.Bed>
+     **/
     List<Bed> getBedList();
 
     /**
-     * 根据床位id查找
-     * @param id
-     * @return
-     */
+     * @Author Derry Lin
+     * @Description 根据床位id查找
+     * @Date 下午3:02 2020/9/7
+     * @Param [id]
+     * @return edu.hust.dao.dto.Bed
+     **/
     Bed getBedById(String id);
 
     /**
-     * 根据床位名查找
-     * @param title
-     * @return
-     */
+     * @Author Derry Lin
+     * @Description 根据床位名查找
+     * @Date 下午3:02 2020/9/7
+     * @Param [title]
+     * @return edu.hust.dao.dto.Bed
+     **/
     Bed getBedByTitle(String title);
 
     /**
-     * 根据房间id查找
-     * @param roomId
-     * @return
-     */
+     * @Author Derry Lin
+     * @Description 根据房间id查找
+     * @Date 下午3:02 2020/9/7
+     * @Param [roomId]
+     * @return java.util.List<edu.hust.dao.dto.Bed>
+     **/
     List<Bed> getBedByRoomId(String roomId);
 
     /**
-     * 添加床位
-     * @param bed
-     */
+     * @Author Derry Lin
+     * @Description 添加床位
+     * @Date 下午3:02 2020/9/7
+     * @Param [bed]
+     * @return void
+     **/
     void addBed(Bed bed);
 
     /**
-     * 批量添加床位
-     * @param bedList
-     */
+     * @Author Derry Lin
+     * @Description 批量添加床位
+     * @Date 下午3:02 2020/9/7
+     * @Param [bedList]
+     * @return void
+     **/
     void addBedList(List<Bed> bedList);
 
     /**
-     * 更新床位信息
-     * @param bed
-     */
+     * @Author Derry Lin
+     * @Description 更新床位信息
+     * @Date 下午3:03 2020/9/7
+     * @Param [bed]
+     * @return void
+     **/
     void updateBed(Bed bed);
 
     /**
-     * 根据id删除床位
-     * @param id
-     */
+     * @Author Derry Lin
+     * @Description 根据id删除床位
+     * @Date 下午3:03 2020/9/7
+     * @Param [id]
+     * @return void
+     **/
     void deleteBedById(String id);
 
     /**
-     * 根据房间号删除床位
-     * @param roomId
-     */
+     * @Author Derry Lin
+     * @Description 根据房间号删除床位
+     * @Date 下午3:03 2020/9/7
+     * @Param [roomId]
+     * @return void
+     **/
     void deleteBedByRoomId(String roomId);
 
     /**
-     * 删除所有
-     */
+     * @Author Derry Lin
+     * @Description 删除所有
+     * @Date 下午3:13 2020/9/7
+     * @Param []
+     * @return void
+     **/
     void deleteAllBed();
 }

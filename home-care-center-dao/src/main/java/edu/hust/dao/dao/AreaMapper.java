@@ -13,31 +13,85 @@ import java.util.List;
  **/
 public interface AreaMapper {
 
-    //查询所有区域信息
+    /**
+     * @Author Derry Lin
+     * @Description 查询所有区域信息
+     * @Date 下午3:19 2020/9/7
+     * @Param []
+     * @return java.util.List<edu.hust.dao.dto.Area>
+     **/
     List<Area> selectList();
 
-    //根据区域id查找
+    /**
+     * @Author Derry Lin
+     * @Description 根据区域id查找
+     * @Date 下午3:19 2020/9/7
+     * @Param [id]
+     * @return edu.hust.dao.dto.Area
+     **/
     Area selectById(@Param("id") String id);
 
-    //根据区域名查找区域
+    /**
+     * @Author Derry Lin
+     * @Description 根据区域名查找区域
+     * @Date 下午3:19 2020/9/7
+     * @Param [areaTitle]
+     * @return edu.hust.dao.dto.Area
+     **/
     Area selectByAreaTitle(@Param("area_title") String areaTitle);
 
-    //添加区域
+    /**
+     * @Author Derry Lin
+     * @Description 添加区域
+     * @Date 下午3:19 2020/9/7
+     * @Param [area]
+     * @return int
+     **/
     int add(@Param("area") Area area);
 
-    //批量添加区域
+    /**
+     * @Author Derry Lin
+     * @Description 批量添加区域
+     * @Date 下午3:19 2020/9/7
+     * @Param [areaList]
+     * @return int
+     **/
     int addBatch(@Param("area_list") List<Area> areaList);
 
-    //更新区域
+    /**
+     * @Author Derry Lin
+     * @Description 更新区域
+     * @Date 下午3:19 2020/9/7
+     * @Param [area]
+     * @return int
+     **/
     int update(@Param("area") Area area);
 
-    //根据区域id删除区域
+    /**
+     * @Author Derry Lin
+     * @Description 根据区域id删除区域
+     * @Date 下午3:19 2020/9/7
+     * @Param [id]
+     * @return int
+     **/
     int deleteById(@Param("id") String id);
 
-    //根据区域名删除
+    /**
+     * @Author Derry Lin
+     * @Description 根据区域名删除
+     * @Date 下午3:19 2020/9/7
+     * @Param [areaTitle]
+     * @return int
+     **/
     int deleteByAreaTitle(@Param("area_title") String areaTitle);
 
-    //删除所有
+    /**
+     * @Author Derry Lin
+     * @Description 删除所有
+     * @Date 下午3:26 2020/9/7
+     * @Param []
+     * @return int
+     **/
     int deleteAll();
 
 }

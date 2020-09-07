@@ -14,58 +14,84 @@ import java.util.List;
 public interface DishService {
 
     /**
-     * 查询菜品
-     * @return
-     */
+     * @Author Derry Lin
+     * @Description 查询菜品
+     * @Date 下午3:05 2020/9/7
+     * @Param []
+     * @return java.util.List<edu.hust.dao.dto.Dish>
+     **/
     List<Dish> getDishList();
 
     /**
-     * 根据id查询
-     * @param id
-     * @return
-     */
+     * @Author Derry Lin
+     * @Description 根据id查询
+     * @Date 下午3:05 2020/9/7
+     * @Param [id]
+     * @return edu.hust.dao.dto.Dish
+     **/
     Dish getDishById(String id);
 
     /**
-     * 根据菜名查询
-     * @param name
-     * @return
-     */
+     * @Author Derry Lin
+     * @Description 根据菜名查询
+     * @Date 下午3:05 2020/9/7
+     * @Param [name]
+     * @return edu.hust.dao.dto.Dish
+     **/
     Dish getDishByName(String name);
 
     /**
-     * 添加菜品
-     * @param dish
-     */
+     * @Author Derry Lin
+     * @Description 添加菜品
+     * @Date 下午3:05 2020/9/7
+     * @Param [dish]
+     * @return void
+     **/
     void addDish(Dish dish);
 
     /**
-     * 批量添加菜品
-     * @param dishList
-     */
+     * @Author Derry Lin
+     * @Description 批量添加菜品
+     * @Date 下午3:05 2020/9/7
+     * @Param [dishList]
+     * @return void
+     **/
     void addDishList(List<Dish> dishList);
 
     /**
-     * 更新菜品
-     * @param dish
-     */
+     * @Author Derry Lin
+     * @Description 更新菜品
+     * @Date 下午3:05 2020/9/7
+     * @Param [dish]
+     * @return void
+     **/
     void updateDish(Dish dish);
 
     /**
-     * 根据id删除
-     * @param id
-     */
+     * @Author Derry Lin
+     * @Description 根据id删除
+     * @Date 下午3:06 2020/9/7
+     * @Param [id]
+     * @return void
+     **/
     void deleteDishById(String id);
 
     /**
-     * 根据菜名删除
-     * @param name
-     */
+     * @Author Derry Lin
+     * @Description 根据菜名删除
+     * @Date 下午3:06 2020/9/7
+     * @Param [name]
+     * @return void
+     **/
     void deleteDishByName(String name);
 
     /**
-     * 删除所有
-     */
+     * @Author Derry Lin
+     * @Description 删除所有
+     * @Date 下午3:19 2020/9/7
+     * @Param []
+     * @return void
+     **/
     void deleteAllDish();
 
 }

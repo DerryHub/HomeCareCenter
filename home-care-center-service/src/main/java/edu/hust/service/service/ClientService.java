@@ -14,72 +14,102 @@ import java.util.List;
 public interface ClientService {
 
     /**
-     * 根据id查客户
-     * @param id
-     * @return
-     */
+     * @Author Derry Lin
+     * @Description 根据id查客户
+     * @Date 下午3:03 2020/9/7
+     * @Param [id]
+     * @return edu.hust.service.domain.ClientFull
+     **/
     ClientFull getClientInfoById(String id);
 
     /**
-     * 根据身份证号查客户
-     * @param idCardNo
-     * @return
-     */
+     * @Author Derry Lin
+     * @Description 根据身份证号查客户
+     * @Date 下午3:03 2020/9/7
+     * @Param [idCardNo]
+     * @return edu.hust.service.domain.ClientFull
+     **/
     ClientFull getClientInfoByIdCardNo(String idCardNo);
 
     /**
-     * 获取所有客户
-     * @return
-     */
+     * @Author Derry Lin
+     * @Description 获取所有客户
+     * @Date 下午3:03 2020/9/7
+     * @Param []
+     * @return java.util.List<edu.hust.service.domain.ClientFull>
+     **/
     List<ClientFull> getClientInfoList();
 
     /**
-     * 根据姓名获取用户
-     * @param name
-     * @return
-     */
+     * @Author Derry Lin
+     * @Description 根据姓名获取用户
+     * @Date 下午3:03 2020/9/7
+     * @Param [name]
+     * @return java.util.List<edu.hust.service.domain.ClientFull>
+     **/
     List<ClientFull> getClientInfoByName(String name);
 
     /**
-     * 根据床铺id查询客户
-     * @param bedId
-     * @return
-     */
-    ClientFull getClientInfoByBedId(int bedId);
+     * @Author Derry Lin
+     * @Description 根据床铺id查询客户
+     * @Date 下午3:03 2020/9/7
+     * @Param [bedId]
+     * @return edu.hust.service.domain.ClientFull
+     **/
+    ClientFull getClientInfoByBedId(String bedId);
 
     /**
-     * 添加客户
-     * @param client
-     */
+     * @Author Derry Lin
+     * @Description 添加客户
+     * @Date 下午3:03 2020/9/7
+     * @Param [client]
+     * @return void
+     **/
     void addClient(Client client);
 
     /**
-     * 批量添加何客户
-     * @param clientList
-     */
+     * @Author Derry Lin
+     * @Description 批量添加何客户
+     * @Date 下午3:04 2020/9/7
+     * @Param [clientList]
+     * @return void
+     **/
     void addClientList(List<Client> clientList);
 
     /**
-     * 更新客户信息
-     * @param client
-     */
+     * @Author Derry Lin
+     * @Description 更新客户信息
+     * @Date 下午3:04 2020/9/7
+     * @Param [client]
+     * @return void
+     **/
     void updateClient(Client client);
 
     /**
-     * 根据客户id删除
-     * @param id
-     */
+     * @Author Derry Lin
+     * @Description 根据客户id删除
+     * @Date 下午3:04 2020/9/7
+     * @Param [id]
+     * @return void
+     **/
     void deleteClientById(String id);
 
     /**
-     * 根据身份证号删除
-     * @param idCardNo
-     */
+     * @Author Derry Lin
+     * @Description 根据身份证号删除
+     * @Date 下午3:04 2020/9/7
+     * @Param [idCardNo]
+     * @return void
+     **/
     void deleteClientByIdCardNo(String idCardNo);
 
     /**
-     * 删除所有客户
-     */
+     * @Author Derry Lin
+     * @Description 删除所有客户
+     * @Date 下午3:13 2020/9/7
+     * @Param []
+     * @return void
+     **/
     void deleteAllClient();
 
 }
