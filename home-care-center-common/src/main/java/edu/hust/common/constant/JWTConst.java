@@ -1,7 +1,5 @@
 package edu.hust.common.constant;
 
-import java.awt.*;
-
 /**
  * @author chain
  * @date 2020/9/4
@@ -13,6 +11,8 @@ public class JWTConst {
     public final static String ROLES="roles";
 
     public final static String BEARER="Bearer ";
+
+    public final static String ID="id";
 
     public final static String CLAIMS_ADMIN="claims_admin";
 

@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 /**
@@ -34,13 +33,13 @@ public class MonitorAop {
                 result=point.proceed(args);
             }
         } catch (Throwable throwable) {
-            log.error("params:{}, errormsg:{}",requestParam,throwable.getMessage());
+            log.error("key={}  params:{}, errormsg:{}",value,requestParam,throwable.getMessage());
         }
          finally {
             long end=System.currentTimeMillis();
-            log.info("params:{},result:{},time:{}",requestParam,JSON.toJSONString(result),end-start);
+            log.info("key={} params:{},result:{},time:{}", value,requestParam,JSON.toJSONString(result),end-start);
         }
-        return "";
+        return result;
     }
 
 }

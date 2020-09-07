@@ -3,7 +3,6 @@ package edu.hust.common.util;
 import java.util.Date;
 
 import edu.hust.common.constant.FailTime;
-import edu.hust.common.util.DateUtil;
 /**
  * JWT工具类
  * @author chain

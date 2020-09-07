@@ -27,7 +27,7 @@ public class JWTUtil {
      * 生成JWT
      *
      */
-    public String createJWT( String roles,String account,String accountId) {
+    public String createJWT( String uid,String roles,String account,String accountId) {
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
         JwtBuilder builder = Jwts.builder()
@@ -35,7 +35,8 @@ public class JWTUtil {
                 .signWith(SignatureAlgorithm.HS256, key)
                 .claim("roles", roles)
                 .claim("account",account)
-                .claim("accountId",accountId);
+                .claim("accountId",accountId)
+                .claim("id",uid);
         if (ttl > 0) {
             builder.setExpiration( new Date( nowMillis + ttl));
         }
