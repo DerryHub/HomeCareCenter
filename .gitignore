@@ -4,6 +4,8 @@ target/
 release/
 *.versionsBackup
 .mvn/
+mvnw
+mvnw.cmd
 ### STS ###
 .apt_generated
 .classpath

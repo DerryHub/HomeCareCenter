@@ -12,9 +12,6 @@ public class FileUtil {
 
     public static void createDir(String dirName){
         File dir = new File(dirName);
-        if (!dirName.endsWith(File.separator)) {
-            dirName = dirName + File.separator;
-        }
         //创建目录
         dir.mkdirs();
     }
