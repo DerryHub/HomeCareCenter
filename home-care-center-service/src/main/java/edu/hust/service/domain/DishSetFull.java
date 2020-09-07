@@ -1,6 +1,7 @@
 package edu.hust.service.domain;
 
 import edu.hust.dao.dto.DishSet;
+import lombok.Data;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-07 16:59
  **/
+@Data
 public class DishSetFull extends DishSet {
 
     private List<String> monId;

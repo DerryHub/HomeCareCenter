@@ -1,8 +1,8 @@
 package edu.hust.service.domain;
 
-import edu.hust.dao.dto.Client;
 import edu.hust.dao.dto.MedicalRecord;
 import edu.hust.dao.dto.Worker;
+import lombok.Data;
 
 /**
  * @program: HomeCareCenter
@@ -10,10 +10,11 @@ import edu.hust.dao.dto.Worker;
  * @author: Derry Lin
  * @create: 2020-09-07 09:45
  **/
+@Data
 public class MedicalRecordFull extends MedicalRecord {
 
     //客户类
-    private Client client;
+    private ClientFull clientFull;
 
     //医生类
     private Worker doctor;
