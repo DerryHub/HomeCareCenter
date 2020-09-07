@@ -12,6 +12,8 @@ public class JWTConst {
 
     public final static String BEARER="Bearer ";
 
+    public final static String ID="id";
+
     public final static String CLAIMS_ADMIN="claims_admin";
 
     public final static String CLAIMS_DOCTOR="claims_doctor";
