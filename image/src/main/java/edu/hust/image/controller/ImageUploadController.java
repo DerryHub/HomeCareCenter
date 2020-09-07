@@ -1,14 +1,13 @@
 package edu.hust.image.controller;
 
+import edu.hust.common.constant.ApiCodeEnum;
 import edu.hust.common.vo.ApiResult;
 import edu.hust.image.config.Config;
 import edu.hust.image.domain.ImageInfo;
 import edu.hust.image.domain.ReturnInfo;
 import edu.hust.image.service.ImageUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,13 +36,15 @@ public class ImageUploadController {
 
         long size = image.getSize();
         if (size > config.getMaxFileSize()){
-            return ApiResult.buildError("文件过大", -1);
+            ApiCodeEnum apiCodeEnum = ApiCodeEnum.IMAGE_OVERFLOW;
+            return ApiResult.buildError(apiCodeEnum.getMsg(), apiCodeEnum.getCode());
         }
 
         ReturnInfo returnInfo = imageUploadService.uploadImg(userId, image);
 
         if (returnInfo == null){
-            return ApiResult.buildError("上传失败", -2);
+            ApiCodeEnum apiCodeEnum = ApiCodeEnum.FAIL_TO_UPLOAD;
+            return ApiResult.buildError(apiCodeEnum.getMsg(), apiCodeEnum.getCode());
         }
 
         return ApiResult.buildSuccess(returnInfo);

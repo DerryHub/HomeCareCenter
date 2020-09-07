@@ -22,7 +22,7 @@ public class LogInterceptor implements HandlerInterceptor {
     private static final String TRACE_ID = "traceId";
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse reponse, Object arg2, Exception arg3)
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object arg2, Exception arg3)
             throws Exception {
         MDC.clear();
     }

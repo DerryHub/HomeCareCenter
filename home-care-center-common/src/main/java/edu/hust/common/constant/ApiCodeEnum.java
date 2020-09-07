@@ -32,8 +32,10 @@ public enum ApiCodeEnum {
     REMARK_DUE_DATE_ILLEGAL("应%s日期不能早于当前日期", 20017),
     TRADE_WORKBENCH_EXISTS("跟进已录入", 20018),
 
-    PHONE_INVALID("手机号格式不正确", 20011);
+    PHONE_INVALID("手机号格式不正确", 20011),
 
+    IMAGE_OVERFLOW("图像超出设定大小", 30000),
+    FAIL_TO_UPLOAD("上传失败", 30001);
 
     private int code;
     private String msg;

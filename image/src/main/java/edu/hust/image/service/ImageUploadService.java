@@ -27,17 +27,17 @@ public class ImageUploadService {
         String sep = File.separator;
         String filename = image.getOriginalFilename();
         String filenameSuffix = filename.substring(filename.lastIndexOf('.') + 1);
-        String randomId = UUID.randomUUID().toString();
+        String randomId = userId + "-" + UUID.randomUUID().toString();
         String newFileName = randomId + '.' + filenameSuffix;
 
-        String path = config.getImgPath() + userId;
+        String path = config.getImgPath();
 
         FileUtil.createDir(path);
 
         File targetImage = new File(path + sep + newFileName);
         try {
             image.transferTo(targetImage);
-            String imageUrl = config.getImgUrlPath() + userId + "/" + newFileName;
+            String imageUrl = config.getImgUrlPath() + newFileName;
             ReturnInfo returnInfo = new ReturnInfo(imageUrl);
             return returnInfo;
         } catch (IOException e) {
