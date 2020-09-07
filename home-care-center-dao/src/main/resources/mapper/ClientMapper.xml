@@ -31,7 +31,7 @@
         *
         from client
         where
-        bed_id <![CDATA[<>]]> null
+        bed_id is not null
     </select>
 
     <select id="selectById" resultMap="ClientResultMap">
@@ -40,7 +40,7 @@
         from client
         where
         id = #{id, jdbcType=VARCHAR}
-        and bed_id <![CDATA[<>]]> null
+        and bed_id is not null
     </select>
 
     <select id="selectByIdCardNo" resultMap="ClientResultMap">
@@ -49,7 +49,7 @@
         from client
         where
         id_card_no = #{id_card_no, jdbcType=VARCHAR}
-        and bed_id <![CDATA[<>]]> null
+        and bed_id is not null
     </select>
 
     <select id="selectByName" resultMap="ClientResultMap">
@@ -58,7 +58,7 @@
         from client
         where
         name = #{name, jdbcType=VARCHAR}
-        and bed_id <![CDATA[<>]]> null
+        and bed_id is not null
     </select>
 
     <select id="selectByBedId" resultMap="ClientResultMap">
@@ -108,7 +108,7 @@
         #{client.outDate, jdbcType=DATE},
         #{client.foodReq, jdbcType=VARCHAR},
         #{client.phoneNo, jdbcType=VARCHAR},
-        #{client.birthday, jdbcType=DATE},
+        #{client.birthday, jdbcType=DATE}
         )
     </insert>
 
@@ -153,7 +153,7 @@
         #{client.outDate, jdbcType=DATE},
         #{client.foodReq, jdbcType=VARCHAR},
         #{client.phoneNo, jdbcType=VARCHAR},
-        #{client.birthday, jdbcType=DATE},
+        #{client.birthday, jdbcType=DATE}
         )
         </foreach>
     </insert>

@@ -42,10 +42,10 @@
         values
         (
         #{dish_set_calendar.id, jdbcType=VARCHAR},
-        #{dish_set_calendar.client_id, jdbcType=VARCHAR},
-        #{dish_set_calendar.dish_set_id, jdbcType=VARCHAR},
-        #{dish_set_calendar.start_date, jdbcType=DATE},
-        #{dish_set_calendar.end_date, jdbcType=DATE}
+        #{dish_set_calendar.clientId, jdbcType=VARCHAR},
+        #{dish_set_calendar.dishSetId, jdbcType=VARCHAR},
+        #{dish_set_calendar.startDate, jdbcType=DATE},
+        #{dish_set_calendar.endDate, jdbcType=DATE}
         )
     </insert>
 
@@ -63,10 +63,10 @@
         <foreach collection="list" index="index" item="dish_set_calendar" separator=",">
         (
         #{dish_set_calendar.id, jdbcType=VARCHAR},
-        #{dish_set_calendar.client_id, jdbcType=VARCHAR},
-        #{dish_set_calendar.dish_set_id, jdbcType=VARCHAR},
-        #{dish_set_calendar.start_date, jdbcType=DATE},
-        #{dish_set_calendar.end_date, jdbcType=DATE}
+        #{dish_set_calendar.clientId, jdbcType=VARCHAR},
+        #{dish_set_calendar.dishSetId, jdbcType=VARCHAR},
+        #{dish_set_calendar.startDate, jdbcType=DATE},
+        #{dish_set_calendar.endDate, jdbcType=DATE}
         )
         </foreach>
     </insert>
@@ -74,11 +74,12 @@
     <update id="update" parameterType="edu.hust.dao.dto.DishSetCalendar">
         update dish_set_calendar
         set
-        client_id = #{dish_set_calendar.client_id, jdbcType=VARCHAR},
-        dish_set_id = #{dish_set_calendar.dish_set_id, jdbcType=VARCHAR},
-        start_date = #{dish_set_calendar.start_date, jdbcType=DATE},
-        end_date = #{dish_set_calendar.end_date, jdbcType=DATE}
-        where id = #{dish_set_calendar.id, jdbcType=VARCHAR}
+        client_id = #{dish_set_calendar.clientId, jdbcType=VARCHAR},
+        dish_set_id = #{dish_set_calendar.dishSetId, jdbcType=VARCHAR},
+        start_date = #{dish_set_calendar.startDate, jdbcType=DATE},
+        end_date = #{dish_set_calendar.endDate, jdbcType=DATE}
+        where
+        id = #{dish_set_calendar.id, jdbcType=VARCHAR}
     </update>
 
     <delete id="deleteById" parameterType="edu.hust.dao.dto.DishSetCalendar">

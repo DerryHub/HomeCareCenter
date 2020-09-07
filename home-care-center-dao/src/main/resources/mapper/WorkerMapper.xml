@@ -21,23 +21,27 @@
     </resultMap>
     
     <select id="selectList" resultMap="WorkerResultMap">
-        select * from worker
+        select * from worker and delete is null
     </select>
     
     <select id="selectById" resultMap="WorkerResultMap">
-        select * from worker where id = #{id, jdbcType=VARCHAR} and delete = null 
+        select * from worker where id = #{id, jdbcType=VARCHAR} and delete is null
     </select>
     
     <select id="selectByIdCardNo" resultMap="WorkerResultMap">
-        select * from worker where id_card_no = #{id_card_no, jdbcType=VARCHAR} and delete = null
+        select * from worker where id_card_no = #{id_card_no, jdbcType=VARCHAR} and delete is null
     </select>
     
     <select id="selectByType" resultMap="WorkerResultMap">
-        select * from worker where type = #{type, jdbcType=INTEGER} and delete = null
+        select * from worker where type = #{type, jdbcType=INTEGER} and delete is null
     </select>
 
     <select id="selectByName" resultMap="WorkerResultMap">
-        select * from worker where name = #{name, jdbcType=VARCHAR} and delete = null
+        select * from worker where name = #{name, jdbcType=VARCHAR} and delete is null
+    </select>
+
+    <select id="selectByAreaId" resultMap="WorkerResultMap">
+        select * from worker where area_id = #{area_id, jdbcType=VARCHAR} and delete is null
     </select>
     
     <insert id="add" parameterType="edu.hust.dao.dto.Worker">
