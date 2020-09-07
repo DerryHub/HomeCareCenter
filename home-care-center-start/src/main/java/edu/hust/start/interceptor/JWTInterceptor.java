@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * @author chain
@@ -36,11 +38,13 @@ public class JWTInterceptor implements HandlerInterceptor {
                 try {
                     Claims claims = jwtUtil.parseJWT(token);
                     if (!jwtUtil.isTokenValid(claims)){
+                        unLoginError(response,"登录状态过期");
                         return false;
                     }
                     String role = (String) claims.get(JWTConst.ROLES);
                     String id= (String) claims.get(JWTConst.ID);
                     if (StringUtils.isEmpty(role)||StringUtils.isEmpty(id)){
+                        unLoginError(response,"角色信息异常");
                         return false;
                     }
                     if (role .equals(RoleEnum.ADMIN.getRole())) {
@@ -60,6 +64,7 @@ public class JWTInterceptor implements HandlerInterceptor {
                 }
             }
         }
+        unLoginError(response,"当前未登录");
         return false;
     }
 
@@ -72,4 +77,26 @@ public class JWTInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
     }
+
+
+    private void  unLoginError(HttpServletResponse response,String msg){
+        PrintWriter writer=null;
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=utf-8");
+        boolean fail=false;
+        try {
+            writer = response.getWriter();
+            writer.print(msg);
+        }catch (IOException e){
+            fail=true;
+            log.error("登录信息验证出错: {}, msg:{}",msg,e.getMessage());
+            e.printStackTrace();
+        }finally {
+            if (!fail){
+                log.error("登录信息验证出错: {}",msg);
+            }
+        }
+    }
+
+
 }
