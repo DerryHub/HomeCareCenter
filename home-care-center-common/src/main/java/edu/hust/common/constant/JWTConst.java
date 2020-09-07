@@ -1,7 +1,5 @@
 package edu.hust.common.constant;
 
-import java.awt.*;
-
 /**
  * @author chain
  * @date 2020/9/4

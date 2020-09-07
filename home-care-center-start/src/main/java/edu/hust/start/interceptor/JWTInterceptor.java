@@ -6,6 +6,7 @@ import edu.hust.common.constant.RoleEnum;
 import edu.hust.common.util.JWTUtil;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,7 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class JWTInterceptor implements HandlerInterceptor {
 
-    private JWTUtil jwtUtil=new JWTUtil();
+    @Autowired
+    private JWTUtil jwtUtil;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -32,16 +34,19 @@ public class JWTInterceptor implements HandlerInterceptor {
                 String token=header.substring(7);
                 try {
                     Claims claims = jwtUtil.parseJWT(token);
+                    if (!jwtUtil.isTokenValid(claims)){
+                        return false;
+                    }
                     String role = (String) claims.get(JWTConst.ROLES);
                     if (role .equals(RoleEnum.ADMIN.getRole())) {
                         //为管理员
-                        request.setAttribute(JWTConst.CLAIMS_ROLE,token);
+                        request.setAttribute(JWTConst.CLAIMS_ROLE,JWTConst.CLAIMS_ADMIN);
                     }
                     if (role .equals(RoleEnum.NURSE.getRole())) {
-                        request.setAttribute(JWTConst.CLAIMS_ROLE,token);
+                        request.setAttribute(JWTConst.CLAIMS_ROLE,JWTConst.CLAIMS_NURSE);
                     }
                     if (role .equals(RoleEnum.DOCTOR.getRole())) {
-                        request.setAttribute(JWTConst.CLAIMS_ROLE,token);
+                        request.setAttribute(JWTConst.CLAIMS_ROLE,JWTConst.CLAIMS_DOCTOR);
                     }
                     return true;
                 } catch (Exception e) {
