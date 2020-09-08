@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @create: 2020-09-04 15:34
  **/
 @RestController
-@RequestMapping("home-care-center/image")
+@RequestMapping("HomeCareCenter/image")
 public class ImageUploadController {
 
     @Autowired

@@ -27,7 +27,6 @@ public enum ApiCodeEnum {
     COMPLETE_PHONE_ERROR("补全手机号出错", 20012),
     NO_REQUIRED_PARAM("缺少必填参数", 20013),
 
-
     REMARK_SAVE_FAIL("跟进信息保存失败", 20016),
     REMARK_DUE_DATE_ILLEGAL("应%s日期不能早于当前日期", 20017),
     TRADE_WORKBENCH_EXISTS("跟进已录入", 20018),
@@ -38,7 +37,11 @@ public enum ApiCodeEnum {
     FAIL_TO_UPLOAD("上传失败", 30001),
 
     FAIL_TO_ADD("数据添加失败", 40001),
-    FAIL_TO_UPDATE("数据修改失败", 40002);
+    FAIL_TO_UPDATE("数据修改失败", 40002),
+
+    ID_is_NULL("用户名为空", 50001),
+    PASSWORD_IS_NULL("密码为空", 50002),
+    ID_OR_PSD_INCORRECT("用户名或密码错误", 50003);
 
     private int code;
     private String msg;

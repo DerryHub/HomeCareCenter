@@ -12,6 +12,15 @@ import java.util.List;
  * @create: 2020-09-07 15:13
  **/
 public interface WorkerService {
+    
+    /**
+     * @Author Derry Lin
+     * @Description 登录
+     * @Date 下午2:58 2020/9/8
+     * @Param [idCardNo, password]
+     * @return boolean
+     **/
+    boolean loginByIdCardNoAndPassword(String idCardNo, String password);
 
     /**
      * @Author Derry Lin
