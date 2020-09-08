@@ -1,7 +1,7 @@
 package edu.hust.service.service;
 
 import edu.hust.dao.dto.OutRegistration;
-import org.apache.ibatis.annotations.Param;
+import edu.hust.service.domain.OutRegistrationFull;
 
 import java.util.Date;
 import java.util.List;
@@ -21,7 +21,7 @@ public interface OutRegistrationService {
      * @Param []
      * @return java.util.List<edu.hust.dao.dto.OutRegistration>
      **/
-    List<OutRegistration> getOutRegistrationList();
+    List<OutRegistrationFull> getOutRegistrationList();
 
     /**
      * @Author Derry Lin
@@ -30,7 +30,7 @@ public interface OutRegistrationService {
      * @Param [id]
      * @return edu.hust.dao.dto.OutRegistration
      **/
-    OutRegistration getOutRegistrationById(String id);
+    OutRegistrationFull getOutRegistrationById(String id);
 
     /**
      * @Author Derry Lin
@@ -39,7 +39,7 @@ public interface OutRegistrationService {
      * @Param [startOutTime, endOutTime, nurseId, clientId]
      * @return java.util.List<edu.hust.dao.dto.OutRegistration>
      **/
-    List<OutRegistration> getOutRegistrationByDateAndNurseIdAndClientId(
+    List<OutRegistrationFull> getOutRegistrationByDateAndNurseIdAndClientId(
             Date startOutTime,
             Date endOutTime,
             String nurseId,
@@ -53,7 +53,7 @@ public interface OutRegistrationService {
      * @Param []
      * @return java.util.List<edu.hust.dao.dto.OutRegistration>
      **/
-    List<OutRegistration> getOutRegistrationByBackTimeReal();
+    List<OutRegistrationFull> getOutRegistrationByBackTimeReal();
 
     /**
      * @Author Derry Lin

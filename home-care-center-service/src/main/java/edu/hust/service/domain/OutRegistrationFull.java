@@ -17,6 +17,6 @@ public class OutRegistrationFull extends OutRegistration {
     private ClientFull clientFull;
 
     //护士类
-    private Worker nurse;
+    private WorkerFull nurse;
 
 }

@@ -26,7 +26,7 @@ public interface DishSetService {
     /**
      * @Author Derry Lin
      * @Description 根据id查找
-     * @Date 下午5:19 2020/9/7
+     * @Date 下午5:30 2020/9/7
      * @Param [id]
      * @return edu.hust.service.domain.DishSetFull
      **/

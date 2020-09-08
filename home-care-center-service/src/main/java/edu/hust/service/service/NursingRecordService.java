@@ -1,7 +1,7 @@
 package edu.hust.service.service;
 
 import edu.hust.dao.dto.NursingRecord;
-import org.apache.ibatis.annotations.Param;
+import edu.hust.service.domain.NursingRecordFull;
 
 import java.util.Date;
 import java.util.List;
@@ -21,7 +21,7 @@ public interface NursingRecordService {
      * @Param []
      * @return java.util.List<edu.hust.dao.dto.NursingRecord>
      **/
-    List<NursingRecord> getNursingRecordList();
+    List<NursingRecordFull> getNursingRecordList();
 
     /**
      * @Author Derry Lin
@@ -30,7 +30,7 @@ public interface NursingRecordService {
      * @Param [id]
      * @return edu.hust.dao.dto.NursingRecord
      **/
-    NursingRecord getNursingRecordById(String id);
+    NursingRecordFull getNursingRecordById(String id);
 
     /**
      * @Author Derry Lin
@@ -39,7 +39,7 @@ public interface NursingRecordService {
      * @Param [startDate, endDate, nurseId, clientId]
      * @return java.util.List<edu.hust.dao.dto.NursingRecord>
      **/
-    List<NursingRecord> getNursingRecordByDateAndNurseIdAndClientId(
+    List<NursingRecordFull> getNursingRecordByDateAndNurseIdAndClientId(
             Date startDate,
             Date endDate,
             String nurseId,

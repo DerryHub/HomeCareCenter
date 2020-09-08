@@ -1,6 +1,7 @@
 package edu.hust.service.service;
 
 import edu.hust.dao.dto.DishSetCalendar;
+import edu.hust.service.domain.DishSetCalendarFull;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface DishSetCalendarService {
      * @Param []
      * @return java.util.List<edu.hust.dao.dto.DishSetCalendar>
      **/
-    List<DishSetCalendar> getDishSetCalendarList();
+    List<DishSetCalendarFull> getDishSetCalendarList();
 
     /**
      * @Author Derry Lin
@@ -29,7 +30,7 @@ public interface DishSetCalendarService {
      * @Param [id]
      * @return edu.hust.dao.dto.DishSetCalendar
      **/
-    DishSetCalendar getDishSetCalendarById(String id);
+    DishSetCalendarFull getDishSetCalendarById(String id);
 
     /**
      * @Author Derry Lin
@@ -38,7 +39,7 @@ public interface DishSetCalendarService {
      * @Param [clientId]
      * @return java.util.List<edu.hust.dao.dto.DishSetCalendar>
      **/
-    List<DishSetCalendar> getDishSetCalendarByClientId(String clientId);
+    List<DishSetCalendarFull> getDishSetCalendarByClientId(String clientId);
 
     /**
      * @Author Derry Lin
@@ -47,7 +48,7 @@ public interface DishSetCalendarService {
      * @Param [dishSetId]
      * @return java.util.List<edu.hust.dao.dto.DishSetCalendar>
      **/
-    List<DishSetCalendar> getDishSetCalendarByDishSetId(String dishSetId);
+    List<DishSetCalendarFull> getDishSetCalendarByDishSetId(String dishSetId);
 
     /**
      * @Author Derry Lin

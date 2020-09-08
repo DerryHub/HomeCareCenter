@@ -1,7 +1,7 @@
 package edu.hust.service.service;
 
 import edu.hust.dao.dto.MedicalRecord;
-import org.apache.ibatis.annotations.Param;
+import edu.hust.service.domain.MedicalRecordFull;
 
 import java.util.Date;
 import java.util.List;
@@ -21,7 +21,7 @@ public interface MedicalRecordService {
      * @Param []
      * @return java.util.List<edu.hust.dao.dto.MedicalRecord>
      **/
-    List<MedicalRecord> getMedicalRecordList();
+    List<MedicalRecordFull> getMedicalRecordList();
 
     /**
      * @Author Derry Lin
@@ -30,7 +30,7 @@ public interface MedicalRecordService {
      * @Param [id]
      * @return edu.hust.dao.dto.MedicalRecord
      **/
-    MedicalRecord getMedicalRecordById(String id);
+    MedicalRecordFull getMedicalRecordById(String id);
 
     /**
      * @Author Derry Lin
@@ -39,7 +39,7 @@ public interface MedicalRecordService {
      * @Param [startDate, endDate, doctorId, clientId]
      * @return java.util.List<edu.hust.dao.dto.MedicalRecord>
      **/
-    List<MedicalRecord> getMedicalRecordByDateAndDoctorIdAndClientId(
+    List<MedicalRecordFull> getMedicalRecordByDateAndDoctorIdAndClientId(
             Date startDate,
             Date endDate,
             String doctorId,

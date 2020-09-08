@@ -17,6 +17,6 @@ public class MedicalRecordFull extends MedicalRecord {
     private ClientFull clientFull;
 
     //医生类
-    private Worker doctor;
+    private WorkerFull doctor;
 
 }

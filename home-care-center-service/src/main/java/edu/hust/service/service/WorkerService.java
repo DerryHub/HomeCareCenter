@@ -1,6 +1,7 @@
 package edu.hust.service.service;
 
 import edu.hust.dao.dto.Worker;
+import edu.hust.service.domain.WorkerFull;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface WorkerService {
      * @Param []
      * @return java.util.List<edu.hust.dao.dto.Worker>
      **/
-    List<Worker> getWorkerList();
+    List<WorkerFull> getWorkerList();
 
     /**
      * @Author Derry Lin
@@ -29,7 +30,7 @@ public interface WorkerService {
      * @Param [id]
      * @return edu.hust.dao.dto.Worker
      **/
-    Worker getWorkerById(String id);
+    WorkerFull getWorkerById(String id);
 
     /**
      * @Author Derry Lin
@@ -38,7 +39,7 @@ public interface WorkerService {
      * @Param [idCardNo]
      * @return edu.hust.dao.dto.Worker
      **/
-    Worker getWorkerByIdCardNo(String idCardNo);
+    WorkerFull getWorkerByIdCardNo(String idCardNo);
 
     /**
      * @Author Derry Lin
@@ -47,7 +48,7 @@ public interface WorkerService {
      * @Param [type]
      * @return java.util.List<edu.hust.dao.dto.Worker>
      **/
-    List<Worker> getWorkerByType(int type);
+    List<WorkerFull> getWorkerByType(int type);
 
     /**
      * @Author Derry Lin
@@ -56,7 +57,7 @@ public interface WorkerService {
      * @Param [name]
      * @return java.util.List<edu.hust.dao.dto.Worker>
      **/
-    List<Worker> getWorkerByName(String name);
+    List<WorkerFull> getWorkerByName(String name);
 
     /**
      * @Author Derry Lin
@@ -65,7 +66,7 @@ public interface WorkerService {
      * @Param [areaId]
      * @return java.util.List<edu.hust.dao.dto.Worker>
      **/
-    List<Worker> getWorkerByAreaId(String areaId);
+    List<WorkerFull> getWorkerByAreaId(String areaId);
 
     /**
      * @Author Derry Lin
