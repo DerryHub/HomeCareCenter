@@ -37,6 +37,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
 
     @Override
     public List<MedicalRecordFull> getMedicalRecordList() {
+        // todo 缓存优化数据库查询
         List<MedicalRecordFull> medicalRecordFullList = new ArrayList<>();
         List<MedicalRecord> medicalRecordList = medicalRecordMapper.selectList();
         for (MedicalRecord medicalRecord : medicalRecordList) {

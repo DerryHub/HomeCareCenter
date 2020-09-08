@@ -3,11 +3,9 @@ package edu.hust.service.service.impl;
 import edu.hust.common.constant.ApiCodeEnum;
 import edu.hust.dao.dao.AreaMapper;
 import edu.hust.dao.dto.Area;
-import edu.hust.service.service.AreaService;
 import edu.hust.start.interceptor.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
