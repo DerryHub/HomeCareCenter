@@ -1,6 +1,7 @@
 package edu.hust.start;
 
 import edu.hust.common.util.JWTUtil;
+import edu.hust.common.util.RandomUUID;
 import edu.hust.common.util.TraceIdUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
@@ -42,5 +43,9 @@ public class HomeCareCenterStartApplication {
         return new TraceIdUtil().createThreadPoolExecutor();
     }
 
+    @Bean("randomUUID")
+    RandomUUID randomUUID(){
+        return new RandomUUID();
+    }
 
 }

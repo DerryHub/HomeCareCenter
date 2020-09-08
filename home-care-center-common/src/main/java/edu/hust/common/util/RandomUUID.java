@@ -88,6 +88,10 @@ public class RandomUUID {
         return nextId;
     }
 
+    public  synchronized String nextIdStr() {
+        return nextId()+"";
+    }
+
     private long tilNextMillis(final long lastTimestamp) {
         long timestamp = this.timeGen();
         while (timestamp <= lastTimestamp) {
