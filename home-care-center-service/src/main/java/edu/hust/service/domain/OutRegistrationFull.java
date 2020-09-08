@@ -1,7 +1,6 @@
 package edu.hust.service.domain;
 
 import edu.hust.dao.dto.OutRegistration;
-import edu.hust.dao.dto.Worker;
 import lombok.Data;
 
 /**

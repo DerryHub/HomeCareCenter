@@ -2,7 +2,6 @@ package edu.hust.service.service;
 
 import edu.hust.dao.dto.Worker;
 import edu.hust.service.domain.WorkerFull;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

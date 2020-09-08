@@ -1,4 +1,4 @@
-package edu.hust.service.service.impl;
+package edu.hust.service.service;
 
 import edu.hust.dao.dto.Area;
 

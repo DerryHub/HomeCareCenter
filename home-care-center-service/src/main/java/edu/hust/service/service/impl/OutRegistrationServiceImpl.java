@@ -8,7 +8,6 @@ import edu.hust.service.domain.OutRegistrationFull;
 import edu.hust.service.domain.WorkerFull;
 import edu.hust.service.service.OutRegistrationService;
 import edu.hust.start.interceptor.GlobalException;
-import io.swagger.annotations.Api;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 
