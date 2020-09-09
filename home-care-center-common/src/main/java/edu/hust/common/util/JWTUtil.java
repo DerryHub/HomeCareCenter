@@ -27,16 +27,15 @@ public class JWTUtil {
      * 生成JWT
      *
      */
-    public String createJWT( String uid,String roles,String account,String accountId) {
+    public String createJWT( String uid,String roles,String accountId) {
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
         JwtBuilder builder = Jwts.builder()
                 .setIssuedAt(now)
                 .signWith(SignatureAlgorithm.HS256, key)
                 .claim("roles", roles)
-                .claim("account",account)
-                .claim("accountId",accountId)
-                .claim("id",uid);
+                .claim("accountId",accountId) //账户
+                .claim("id",uid);  //唯一主键
         if (ttl > 0) {
             builder.setExpiration( new Date( nowMillis + ttl));
         }
@@ -63,4 +62,23 @@ public class JWTUtil {
             return new Date().before(date);
     }
 
+    public boolean isTokenValid(String jwt){
+        return isTokenValid(parseJWT(jwt));
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public long getTtl() {
+        return ttl;
+    }
+
+    public void setTtl(long ttl) {
+        this.ttl = ttl;
+    }
 }

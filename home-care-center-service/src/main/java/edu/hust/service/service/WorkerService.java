@@ -20,7 +20,7 @@ public interface WorkerService {
      * @Param [idCardNo, password]
      * @return boolean
      **/
-    boolean loginByIdCardNoAndPassword(String idCardNo, String password);
+    Worker loginByIdCardNoAndPassword(String idCardNo, String password);
 
     /**
      * @Author Derry Lin

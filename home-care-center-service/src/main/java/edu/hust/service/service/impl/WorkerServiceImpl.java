@@ -30,12 +30,12 @@ public class WorkerServiceImpl implements WorkerService {
     private AreaMapper areaMapper;
 
     @Override
-    public boolean loginByIdCardNoAndPassword(String idCardNo, String password) {
+    public Worker loginByIdCardNoAndPassword(String idCardNo, String password) {
         Worker worker = workerMapper.selectByIdCardNo(idCardNo);
         if (worker.getPassword() == password) {
-            return true;
+            return worker;
         }
-        return false;
+        return null;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package edu.hust.start.controller;
 
 import edu.hust.common.constant.ApiCodeEnum;
+import edu.hust.common.util.JWTUtil;
 import edu.hust.common.util.RandomUUID;
 import edu.hust.common.vo.ApiResult;
 import edu.hust.dao.dto.Worker;
@@ -8,13 +9,17 @@ import edu.hust.service.domain.WorkerFull;
 import edu.hust.service.service.WorkerService;
 import edu.hust.start.interceptor.GlobalException;
 import edu.hust.start.monitor.Monitor;
+import edu.hust.start.util.RedisUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author chain
@@ -24,6 +29,19 @@ import java.util.List;
 @Api("工作者接口")
 @RequestMapping("HomeCareCenter/worker/")
 public class WorkerController {
+
+    /**
+     * 缓存key: REDIS_JWT + 账号
+     * value: jwt
+     */
+    private static final String REDIS_JWT="redis_jwt_";
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+
+    @Autowired
+    private JWTUtil jwtUtil;
 
     @Resource
     private WorkerService workerService;
@@ -40,14 +58,21 @@ public class WorkerController {
         if (idCardNo == null) {
             throw new GlobalException(ApiCodeEnum.ID_is_NULL);
         }
-        if (password == null) {
-            throw new GlobalException(ApiCodeEnum.PASSWORD_IS_NULL);
+        //如果jwt存在且有效 直接返回user
+        String redisJWT=redisUtil.get(REDIS_JWT+worker.getIdCardNo()).toString();
+        if (redisJWT!=null&&jwtUtil.isTokenValid(redisJWT)){
+            worker=workerService.getWorkerByIdCardNo(worker.getIdCardNo());
+            return ApiResult.buildSuccess(worker);
         }
-
-        if (workerService.loginByIdCardNoAndPassword(idCardNo, password)) {
-            return ApiResult.buildSuccess();
+        //jwt不存在
+        if ((worker= workerService.loginByIdCardNoAndPassword(idCardNo, password))!=null) {
+            String jwt= jwtUtil.createJWT(worker.getId(),worker.getType()+"",worker.getIdCardNo());
+            redisUtil.set(REDIS_JWT+worker.getIdCardNo(),jwt,jwtUtil.getTtl());
+            Map<String,Object> map=new HashMap<>();
+            map.put(REDIS_JWT+worker.getIdCardNo(),jwt);
+            map.put("worker",workerService.getWorkerByIdCardNo(worker.getIdCardNo()));
+            return ApiResult.buildSuccess(map);
         }
-
         return ApiResult.buildError(ApiCodeEnum.ID_OR_PSD_INCORRECT);
     }
 

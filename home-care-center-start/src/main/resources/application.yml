@@ -7,6 +7,9 @@ spring:
     password: cc123456
     url: jdbc:mysql://47.98.135.4/home_care_center?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true&autoReconnect=true&allowMultiQueries=true
     driver-class-name: com.mysql.jdbc.Driver
+  redis:
+    host: 47.98.135.4
+    password: cc123456
 
 mybatis:
   mapper-locations: classpath*:/mapper/*.xml
