@@ -17,9 +17,6 @@ public enum ApiCodeEnum {
     URL_NOT_EXIST("接口不存在", 10005),
     RPC_FAIL("调用服务异常", 10014),
 
-    CALL_WRITE_ERROR("客户来电写操作异常", 20000),
-    REMARK_WRITE_ERROR("客户跟进写操作异常", 20001),
-    SHOWING_WRITE_ERROR("客户来访写操作异常", 20002),
     CUSTOMER_WRITE_ERROR("录入客户操作异常", 20003),
     DUPLICATE_DEMAND("该用户在该项目已存在需求，不可重复创建。", 20004),
 
