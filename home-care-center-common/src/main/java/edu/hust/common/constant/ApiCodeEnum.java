@@ -41,7 +41,9 @@ public enum ApiCodeEnum {
 
     ID_is_NULL("用户名为空", 50001),
     PASSWORD_IS_NULL("密码为空", 50002),
-    ID_OR_PSD_INCORRECT("用户名或密码错误", 50003);
+    ID_OR_PSD_INCORRECT("用户名或密码错误", 50003),
+
+    DANGER_ACTION_UNAUTHORIZATION("当前操作未授权",40000);
 
     private int code;
     private String msg;

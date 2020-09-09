@@ -1,5 +1,6 @@
 package edu.hust.start.config;
 
+import edu.hust.start.interceptor.DangerInterceptor;
 import edu.hust.start.interceptor.JWTInterceptor;
 import edu.hust.start.interceptor.LogInterceptor;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +20,7 @@ public class WebMvcConfig  implements WebMvcConfigurer {
         JWTInterceptor jwtInterceptor=new JWTInterceptor();
         registry.addInterceptor(logInterceptor).order(1).addPathPatterns("/**");                //为日志增加traceId
         registry.addInterceptor(jwtInterceptor).order(2).addPathPatterns("/**").excludePathPatterns("/**/login/**"); //jwt拦截
+        registry.addInterceptor(new DangerInterceptor()).order(3).addPathPatterns("/**/delete/**"); //危险操作拦截
         WebMvcConfigurer.super.addInterceptors(registry);
     }
 }
