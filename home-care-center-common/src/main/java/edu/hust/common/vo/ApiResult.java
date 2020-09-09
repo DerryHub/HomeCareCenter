@@ -31,10 +31,6 @@ public class ApiResult {
         return new ApiResult(0, null);
     }
 
-    public static ApiResult buildError(String msg){
-        return new ApiResult(-1, "", msg);
-    }
-
     public static ApiResult buildError(String msg, int code){
         return new ApiResult(code, "", msg);
     }
