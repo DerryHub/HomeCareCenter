@@ -7,7 +7,7 @@ import edu.hust.dao.dto.Area;
 import edu.hust.dao.dto.Worker;
 import edu.hust.service.domain.WorkerFull;
 import edu.hust.service.service.WorkerService;
-import edu.hust.start.interceptor.GlobalException;
+import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

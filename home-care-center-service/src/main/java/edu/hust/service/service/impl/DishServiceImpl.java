@@ -4,7 +4,7 @@ import edu.hust.common.constant.ApiCodeEnum;
 import edu.hust.dao.dao.DishMapper;
 import edu.hust.dao.dto.Dish;
 import edu.hust.service.service.DishService;
-import edu.hust.start.interceptor.GlobalException;
+import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

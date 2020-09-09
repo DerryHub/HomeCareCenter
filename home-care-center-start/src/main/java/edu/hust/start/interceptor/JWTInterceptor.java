@@ -3,6 +3,7 @@ package edu.hust.start.interceptor;
 import edu.hust.common.constant.ApiCodeEnum;
 import edu.hust.common.constant.JWTConst;
 import edu.hust.common.constant.RoleEnum;
+import edu.hust.common.exception.GlobalException;
 import edu.hust.common.util.JWTUtil;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;

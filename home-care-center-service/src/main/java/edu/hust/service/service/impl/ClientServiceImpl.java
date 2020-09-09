@@ -7,7 +7,7 @@ import edu.hust.dao.dto.Bed;
 import edu.hust.dao.dto.Client;
 import edu.hust.service.domain.ClientFull;
 import edu.hust.service.service.ClientService;
-import edu.hust.start.interceptor.GlobalException;
+import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

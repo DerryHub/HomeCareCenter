@@ -2,9 +2,8 @@ package edu.hust.start.interceptor;
 
 import edu.hust.common.constant.ApiCodeEnum;
 import edu.hust.common.constant.JWTConst;
-import edu.hust.common.util.JWTUtil;
+import edu.hust.common.exception.GlobalException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,7 +23,7 @@ public class DangerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String role= (String) request.getAttribute(JWTConst.CLAIMS_ROLE);
         if (!role.equals(JWTConst.CLAIMS_ADMIN)){
-            throw new  GlobalException(ApiCodeEnum.DANGER_ACTION_UNAUTHORIZATION);
+            throw new GlobalException(ApiCodeEnum.DANGER_ACTION_UNAUTHORIZATION);
         }
         return true;
     }

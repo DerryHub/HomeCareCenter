@@ -7,7 +7,7 @@ import edu.hust.service.domain.ClientFull;
 import edu.hust.service.domain.NursingRecordFull;
 import edu.hust.service.domain.WorkerFull;
 import edu.hust.service.service.NursingRecordService;
-import edu.hust.start.interceptor.GlobalException;
+import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

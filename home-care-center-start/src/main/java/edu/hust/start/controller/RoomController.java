@@ -5,7 +5,7 @@ import edu.hust.common.util.RandomUUID;
 import edu.hust.common.vo.ApiResult;
 import edu.hust.dao.dto.Room;
 import edu.hust.service.service.RoomService;
-import edu.hust.start.interceptor.GlobalException;
+import edu.hust.common.exception.GlobalException;
 import edu.hust.start.monitor.Monitor;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

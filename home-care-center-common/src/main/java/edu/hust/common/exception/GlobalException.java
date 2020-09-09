@@ -1,4 +1,4 @@
-package edu.hust.start.interceptor;
+package edu.hust.common.exception;
 
 import edu.hust.common.constant.ApiCodeEnum;
 

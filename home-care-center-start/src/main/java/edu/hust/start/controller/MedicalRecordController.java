@@ -6,7 +6,7 @@ import edu.hust.common.vo.ApiResult;
 import edu.hust.dao.dto.MedicalRecord;
 import edu.hust.service.domain.MedicalRecordFull;
 import edu.hust.service.service.MedicalRecordService;
-import edu.hust.start.interceptor.GlobalException;
+import edu.hust.common.exception.GlobalException;
 import edu.hust.start.monitor.Monitor;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

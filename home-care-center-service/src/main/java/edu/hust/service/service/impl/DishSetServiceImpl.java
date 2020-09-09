@@ -5,7 +5,7 @@ import edu.hust.dao.dao.DishSetMapper;
 import edu.hust.dao.dto.DishSet;
 import edu.hust.service.domain.DishSetFull;
 import edu.hust.service.service.DishSetService;
-import edu.hust.start.interceptor.GlobalException;
+import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

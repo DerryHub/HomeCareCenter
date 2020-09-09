@@ -6,7 +6,7 @@ import edu.hust.common.vo.ApiResult;
 import edu.hust.dao.dto.Client;
 import edu.hust.service.domain.ClientFull;
 import edu.hust.service.service.ClientService;
-import edu.hust.start.interceptor.GlobalException;
+import edu.hust.common.exception.GlobalException;
 import edu.hust.start.monitor.Monitor;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

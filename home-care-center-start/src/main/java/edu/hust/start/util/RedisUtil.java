@@ -101,4 +101,5 @@ public class RedisUtil {
         redisTemplate.opsForValue().multiSet(keyAndValue);
     }
 
+
 }
