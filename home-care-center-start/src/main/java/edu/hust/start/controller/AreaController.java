@@ -70,7 +70,7 @@ public class AreaController {
             area.setId(randomUUID.nextIdStr());
         }
         areaService.addAreaList(areaList);
-        return ApiResult.buildSuccess(null);
+        return ApiResult.buildSuccess();
     }
 
     @ApiOperation("更新区域")
@@ -78,7 +78,7 @@ public class AreaController {
     @Monitor("updateArea")
     public ApiResult update(@RequestBody Area area) {
         areaService.updateArea(area);
-        return ApiResult.buildSuccess(null);
+        return ApiResult.buildSuccess();
     }
 
     @ApiOperation("删除区域")
@@ -90,13 +90,13 @@ public class AreaController {
     ) {
         if (id == null && title == null) {
             areaService.deleteAllArea();
-            return ApiResult.buildSuccess(null);
+            return ApiResult.buildSuccess();
         }else if (id == null) {
             areaService.deleteAreaByTitle(title);
-            return ApiResult.buildSuccess(null);
+            return ApiResult.buildSuccess();
         }else if (title == null) {
             areaService.deleteAreaById(id);
-            return ApiResult.buildSuccess(null);
+            return ApiResult.buildSuccess();
         }else {
             throw new GlobalException(ApiCodeEnum.PARAM_ERROR);
         }

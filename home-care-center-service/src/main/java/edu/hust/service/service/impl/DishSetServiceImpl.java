@@ -30,32 +30,39 @@ public class DishSetServiceImpl implements DishSetService {
         List<DishSetFull> dishSetFullList = new ArrayList<>();
         List<DishSet> dishSetList = dishSetMapper.selectList();
         for (DishSet dishSet : dishSetList) {
-            dishSetFullList.add(this.convert(dishSet));
+            dishSetFullList.add(convertToFull(dishSet));
         }
         return dishSetFullList;
     }
 
     @Override
     public DishSetFull getDishSetById(String id) {
-        return this.convert(dishSetMapper.selectById(id));
+        return convertToFull(dishSetMapper.selectById(id));
     }
 
     @Override
-    public void addDishSet(DishSet dishSet) {
+    public void addDishSet(DishSetFull dishSetFull) {
+        DishSet dishSet = convertFromFull(dishSetFull);
         if (dishSetMapper.add(dishSet) == 0) {
             throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
         }
     }
 
     @Override
-    public void addDishSetList(List<DishSet> dishSetList) {
+    public void addDishSetList(List<DishSetFull> dishSetFullList) {
+        List<DishSet> dishSetList = new ArrayList<>();
+        for (DishSetFull dishSetFull : dishSetFullList) {
+            DishSet dishSet = convertFromFull(dishSetFull);
+            dishSetList.add(dishSet);
+        }
         if (dishSetMapper.addBatch(dishSetList) != dishSetList.size()) {
             throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
         }
     }
 
     @Override
-    public void updateDishSet(DishSet dishSet) {
+    public void updateDishSet(DishSetFull dishSetFull) {
+        DishSet dishSet = convertFromFull(dishSetFull);
         if (dishSetMapper.update(dishSet) == 0) {
             throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
         }
@@ -71,16 +78,16 @@ public class DishSetServiceImpl implements DishSetService {
         dishSetMapper.deleteAll();
     }
 
-    public static String listToString(List<String> stringList) {
+    private String listToString(List<String> stringList) {
         return String.join(",", stringList);
     }
 
-    public static List<String> stringToList(String string) {
+    private List<String> stringToList(String string) {
         String str[] = string.split(",");
         return Arrays.asList(str);
     }
 
-    private DishSetFull convert(DishSet dishSet) {
+    private DishSetFull convertToFull(DishSet dishSet) {
         DishSetFull dishSetFull = new DishSetFull();
         dishSetFull.setId(dishSet.getId());
         dishSetFull.setMon(dishSet.getMon());
@@ -103,6 +110,18 @@ public class DishSetServiceImpl implements DishSetService {
         return dishSetFull;
     }
 
+    private DishSet convertFromFull(DishSetFull dishSetFull) {
+        dishSetFull.setMon(listToString(dishSetFull.getMonId()));
+        dishSetFull.setTue(listToString(dishSetFull.getThuId()));
+        dishSetFull.setWed(listToString(dishSetFull.getWedId()));
+        dishSetFull.setThu(listToString(dishSetFull.getThuId()));
+        dishSetFull.setFri(listToString(dishSetFull.getFriId()));
+        dishSetFull.setSat(listToString(dishSetFull.getSatId()));
+        dishSetFull.setSun(listToString(dishSetFull.getSunId()));
 
+        DishSet dishSet = (DishSet)dishSetFull;
+
+        return dishSet;
+    }
 
 }

@@ -38,7 +38,7 @@ public interface DishSetService {
      * @Param [dishSet]
      * @return void
      **/
-    void addDishSet(DishSet dishSet);
+    void addDishSet(DishSetFull dishSetFull);
 
     /**
      * @Author Derry Lin
@@ -47,7 +47,7 @@ public interface DishSetService {
      * @Param [dishSetList]
      * @return void
      **/
-    void addDishSetList(List<DishSet> dishSetList);
+    void addDishSetList(List<DishSetFull> dishSetFullList);
 
     /**
      * @Author Derry Lin
@@ -56,7 +56,7 @@ public interface DishSetService {
      * @Param [dishSet]
      * @return void
      **/
-    void updateDishSet(DishSet dishSet);
+    void updateDishSet(DishSetFull dishSetFull);
 
     /**
      * @Author Derry Lin

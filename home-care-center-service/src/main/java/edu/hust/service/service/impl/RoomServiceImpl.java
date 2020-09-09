@@ -33,8 +33,8 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Room getRoomByRoomTitle(String roomTitle) {
-        return roomMapper.selectByRoomTitle(roomTitle);
+    public Room getRoomByRoomTitle(String title) {
+        return roomMapper.selectByRoomTitle(title);
     }
 
     @Override

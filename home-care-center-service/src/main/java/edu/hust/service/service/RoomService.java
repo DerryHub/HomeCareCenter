@@ -37,7 +37,7 @@ public interface RoomService {
      * @Param [roomTitle]
      * @return edu.hust.dao.dto.Room
      **/
-    Room getRoomByRoomTitle(String roomTitle);
+    Room getRoomByRoomTitle(String title);
 
     /**
      * @Author Derry Lin

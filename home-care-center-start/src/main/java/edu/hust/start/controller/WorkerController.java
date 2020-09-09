@@ -45,7 +45,7 @@ public class WorkerController {
         }
 
         if (workerService.loginByIdCardNoAndPassword(idCardNo, password)) {
-            return ApiResult.buildSuccess(null);
+            return ApiResult.buildSuccess();
         }
 
         return ApiResult.buildError(ApiCodeEnum.ID_OR_PSD_INCORRECT);
@@ -90,7 +90,7 @@ public class WorkerController {
     public ApiResult add(@RequestBody Worker worker) {
         worker.setId(randomUUID.nextIdStr());
         workerService.addWorker(worker);
-        return ApiResult.buildSuccess(null);
+        return ApiResult.buildSuccess();
     }
 
     @ApiOperation("批量添加工作者")
@@ -101,7 +101,7 @@ public class WorkerController {
             worker.setId(randomUUID.nextIdStr());
         }
         workerService.addWorkerList(workerList);
-        return ApiResult.buildSuccess(null);
+        return ApiResult.buildSuccess();
     }
 
     @ApiOperation("更新工作者")
@@ -109,7 +109,7 @@ public class WorkerController {
     @Monitor("updateWorker")
     public ApiResult update(@RequestBody Worker worker) {
         workerService.updateWorker(worker);
-        return ApiResult.buildSuccess(null);
+        return ApiResult.buildSuccess();
     }
 
     @ApiOperation("删除工作者")
@@ -122,16 +122,16 @@ public class WorkerController {
     ) {
         if (id == null && type == null && idCardNo == null) {
             workerService.deleteAllWorker();
-            return ApiResult.buildSuccess(null);
+            return ApiResult.buildSuccess();
         }else if (id == null && type ==null) {
             workerService.deleteWorkerByIdCardNo(idCardNo);
-            return ApiResult.buildSuccess(null);
+            return ApiResult.buildSuccess();
         }else if (id == null && idCardNo == null) {
             workerService.deleteWorkerByType(type);
-            return ApiResult.buildSuccess(null);
+            return ApiResult.buildSuccess();
         }else if (type == null && idCardNo == null) {
             workerService.deleteWorkerById(id);
-            return ApiResult.buildSuccess(null);
+            return ApiResult.buildSuccess();
         }else {
             throw new GlobalException(ApiCodeEnum.PARAM_ERROR);
         }
