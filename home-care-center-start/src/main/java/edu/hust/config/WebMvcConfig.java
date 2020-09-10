@@ -19,7 +19,7 @@ public class WebMvcConfig  implements WebMvcConfigurer {
         LogInterceptor logInterceptor=new LogInterceptor();
         JWTInterceptor jwtInterceptor=new JWTInterceptor();
         registry.addInterceptor(logInterceptor).order(1).addPathPatterns("/**");                //为日志增加traceId
-        registry.addInterceptor(jwtInterceptor).order(2).addPathPatterns("/**").excludePathPatterns("/**/login/**"); //jwt拦截
+//        registry.addInterceptor(jwtInterceptor).order(2).addPathPatterns("/**").excludePathPatterns("/**/login/**"); //jwt拦截
         registry.addInterceptor(new DangerInterceptor()).order(3).addPathPatterns("/**/delete/**"); //危险操作拦截
         WebMvcConfigurer.super.addInterceptors(registry);
     }
