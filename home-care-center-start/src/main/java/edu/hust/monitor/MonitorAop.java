@@ -1,4 +1,4 @@
-package edu.hust.start.monitor;
+package edu.hust.monitor;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class MonitorAop {
 
 
-    @Around("@annotation(monitor)")
+    @Around(value = "@annotation(monitor)&&args(point)")
     public Object around(Monitor monitor, ProceedingJoinPoint point){
         long start=System.currentTimeMillis();
         String value=monitor.value();

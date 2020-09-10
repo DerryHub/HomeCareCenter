@@ -2,6 +2,7 @@ package edu.hust.service.service;
 
 import edu.hust.dao.dto.MedicalRecord;
 import edu.hust.service.domain.MedicalRecordFull;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-07 14:44
  **/
+@Service
 public interface MedicalRecordService {
 
     /**

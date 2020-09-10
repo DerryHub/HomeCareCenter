@@ -1,18 +1,17 @@
-package edu.hust.start.controller;
+package edu.hust.controller;
 
 import edu.hust.common.constant.ApiCodeEnum;
 import edu.hust.common.util.RandomUUID;
 import edu.hust.common.vo.ApiResult;
 import edu.hust.dao.dto.Area;
+import edu.hust.monitor.Monitor;
 import edu.hust.service.service.AreaService;
-import edu.hust.start.interceptor.GlobalException;
-import edu.hust.start.monitor.Monitor;
+import edu.hust.common.exception.GlobalException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -26,8 +25,10 @@ import java.util.List;
 @RequestMapping("HomeCareCenter/area/")
 public class AreaController {
 
-    @Resource
+    @Autowired
     private AreaService areaService;
+
+
 
     @Autowired
     private RandomUUID randomUUID;

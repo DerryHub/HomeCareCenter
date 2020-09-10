@@ -2,6 +2,7 @@ package edu.hust.service.service;
 
 import edu.hust.dao.dto.Client;
 import edu.hust.service.domain.ClientFull;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-07 08:47
  **/
+@Service
 public interface ClientService {
 
     /**

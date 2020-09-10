@@ -4,7 +4,7 @@ import edu.hust.common.constant.ApiCodeEnum;
 import edu.hust.dao.dao.BedMapper;
 import edu.hust.dao.dto.Bed;
 import edu.hust.service.service.BedService;
-import edu.hust.start.interceptor.GlobalException;
+import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-07 16:13
  **/
-@Service
+
 public class BedServiceImpl implements BedService {
 
     @Autowired

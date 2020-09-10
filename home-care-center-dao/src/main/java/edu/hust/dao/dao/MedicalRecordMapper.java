@@ -1,6 +1,7 @@
 package edu.hust.dao.dao;
 
 import edu.hust.dao.dto.MedicalRecord;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-04 10:31
  **/
+@Mapper
 public interface MedicalRecordMapper {
 
     /**

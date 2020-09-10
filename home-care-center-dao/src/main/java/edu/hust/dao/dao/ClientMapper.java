@@ -1,6 +1,7 @@
 package edu.hust.dao.dao;
 
 import edu.hust.dao.dto.Client;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-03 16:24
  **/
+@Mapper
 public interface ClientMapper {
 
     /**

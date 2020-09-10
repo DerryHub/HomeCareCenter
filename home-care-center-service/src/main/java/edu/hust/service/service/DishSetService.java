@@ -2,6 +2,7 @@ package edu.hust.service.service;
 
 import edu.hust.dao.dto.DishSet;
 import edu.hust.service.domain.DishSetFull;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-07 11:08
  **/
+@Service
 public interface DishSetService {
 
     /**

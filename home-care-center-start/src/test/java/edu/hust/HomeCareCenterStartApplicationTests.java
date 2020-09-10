@@ -1,4 +1,4 @@
-package edu.hust.start;
+package edu.hust;
 
 
 import org.junit.jupiter.api.Test;

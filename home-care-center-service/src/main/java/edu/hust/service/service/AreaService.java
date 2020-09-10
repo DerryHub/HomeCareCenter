@@ -1,6 +1,8 @@
 package edu.hust.service.service;
 
 import edu.hust.dao.dto.Area;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -8,6 +10,8 @@ import java.util.List;
  * @author chain
  * @date 2020/9/8
  **/
+//@Service
+@Component("areaService")
 public interface AreaService {
 
 

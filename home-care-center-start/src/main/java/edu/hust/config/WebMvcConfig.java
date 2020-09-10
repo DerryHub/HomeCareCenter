@@ -1,9 +1,8 @@
-package edu.hust.start.config;
+package edu.hust.config;
 
-import edu.hust.start.interceptor.DangerInterceptor;
-import edu.hust.start.interceptor.JWTInterceptor;
-import edu.hust.start.interceptor.LogInterceptor;
-import org.springframework.context.annotation.Configuration;
+import edu.hust.interceptor.DangerInterceptor;
+import edu.hust.interceptor.JWTInterceptor;
+import edu.hust.interceptor.LogInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -11,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author chain
  * @date 2020/9/3
  **/
-@Configuration
+//@Configuration
 public class WebMvcConfig  implements WebMvcConfigurer {
 
     @Override

@@ -1,6 +1,7 @@
 package edu.hust.dao.dao;
 
 import edu.hust.dao.dto.OutRegistration;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-04 11:01
  **/
+@Mapper
 public interface OutRegistrationMapper {
 
     /**

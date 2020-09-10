@@ -1,4 +1,4 @@
-package edu.hust.start.config;
+package edu.hust.config;
 
 import com.google.common.collect.Sets;
 import org.springframework.context.annotation.Configuration;

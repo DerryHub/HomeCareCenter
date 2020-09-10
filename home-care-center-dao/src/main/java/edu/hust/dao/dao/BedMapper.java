@@ -12,6 +12,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-03 09:43
  **/
+@Mapper
 public interface BedMapper {
 
     /**

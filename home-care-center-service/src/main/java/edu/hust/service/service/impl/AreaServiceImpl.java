@@ -4,7 +4,7 @@ import edu.hust.common.constant.ApiCodeEnum;
 import edu.hust.dao.dao.AreaMapper;
 import edu.hust.dao.dto.Area;
 import edu.hust.service.service.AreaService;
-import edu.hust.start.interceptor.GlobalException;
+import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,6 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-07 15:29
  **/
-@Service
 public class AreaServiceImpl implements AreaService {
 
     @Autowired

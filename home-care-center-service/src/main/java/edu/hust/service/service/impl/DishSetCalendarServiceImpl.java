@@ -7,7 +7,7 @@ import edu.hust.service.domain.ClientFull;
 import edu.hust.service.domain.DishSetCalendarFull;
 import edu.hust.service.domain.DishSetFull;
 import edu.hust.service.service.DishSetCalendarService;
-import edu.hust.start.interceptor.GlobalException;
+import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-07 16:53
  **/
-@Service
+
 public class DishSetCalendarServiceImpl implements DishSetCalendarService {
 
     @Autowired

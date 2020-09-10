@@ -1,15 +1,13 @@
-package edu.hust.start.controller;
+package edu.hust.controller;
 
 import edu.hust.common.constant.ApiCodeEnum;
 import edu.hust.common.util.RandomUUID;
 import edu.hust.common.vo.ApiResult;
-import edu.hust.dao.dto.MedicalRecord;
 import edu.hust.dao.dto.NursingRecord;
-import edu.hust.service.domain.MedicalRecordFull;
+import edu.hust.monitor.Monitor;
 import edu.hust.service.domain.NursingRecordFull;
 import edu.hust.service.service.NursingRecordService;
-import edu.hust.start.interceptor.GlobalException;
-import edu.hust.start.monitor.Monitor;
+import edu.hust.common.exception.GlobalException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

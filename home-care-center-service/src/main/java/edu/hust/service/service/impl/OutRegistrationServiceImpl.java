@@ -7,7 +7,7 @@ import edu.hust.service.domain.ClientFull;
 import edu.hust.service.domain.OutRegistrationFull;
 import edu.hust.service.domain.WorkerFull;
 import edu.hust.service.service.OutRegistrationService;
-import edu.hust.start.interceptor.GlobalException;
+import edu.hust.common.exception.GlobalException;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,7 +21,6 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-08 10:10
  **/
-@Data
 public class OutRegistrationServiceImpl implements OutRegistrationService {
 
     @Autowired

@@ -1,6 +1,7 @@
 package edu.hust.service.service;
 
 import edu.hust.dao.dto.Bed;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-07 10:41
  **/
+@Service
 public interface BedService {
 
     /**

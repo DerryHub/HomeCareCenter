@@ -1,6 +1,6 @@
-package edu.hust.start.interceptor;
+package edu.hust.interceptor;
 
-import edu.hust.common.constant.ApiCodeEnum;
+import edu.hust.common.exception.GlobalException;
 import edu.hust.common.vo.ApiResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

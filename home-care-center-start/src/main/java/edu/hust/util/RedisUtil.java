@@ -1,4 +1,4 @@
-package edu.hust.start.util;
+package edu.hust.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -100,5 +100,6 @@ public class RedisUtil {
     public void batchSet(Map<String, String> keyAndValue) {
         redisTemplate.opsForValue().multiSet(keyAndValue);
     }
+
 
 }
