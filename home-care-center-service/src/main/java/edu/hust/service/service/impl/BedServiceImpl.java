@@ -16,7 +16,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-07 16:13
  **/
-
+@Service
 public class BedServiceImpl implements BedService {
 
     @Autowired

@@ -20,7 +20,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-07 16:17
  **/
-
+@Service
 public class ClientServiceImpl implements ClientService {
 
     @Autowired

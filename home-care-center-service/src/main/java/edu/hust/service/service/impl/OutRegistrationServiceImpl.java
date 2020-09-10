@@ -10,6 +10,7 @@ import edu.hust.service.service.OutRegistrationService;
 import edu.hust.common.exception.GlobalException;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +22,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-08 10:10
  **/
+@Service
 public class OutRegistrationServiceImpl implements OutRegistrationService {
 
     @Autowired

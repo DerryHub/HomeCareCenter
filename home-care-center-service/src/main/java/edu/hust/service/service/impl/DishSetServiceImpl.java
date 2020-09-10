@@ -19,7 +19,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-07 17:04
  **/
-
+@Service
 public class DishSetServiceImpl implements DishSetService {
 
     @Autowired

@@ -20,6 +20,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-08 09:26
  **/
+@Service
 public class WorkerServiceImpl implements WorkerService {
 
     @Autowired

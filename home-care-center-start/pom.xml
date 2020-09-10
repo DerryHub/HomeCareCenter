@@ -63,12 +63,6 @@
 
         <dependency>
             <groupId>edu.hust</groupId>
-            <artifactId>home-care-center-dao</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>edu.hust</groupId>
             <artifactId>home-care-center-common</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>

@@ -12,7 +12,6 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-07 14:39
  **/
-@Service
 public interface DishSetCalendarService {
 
     /**

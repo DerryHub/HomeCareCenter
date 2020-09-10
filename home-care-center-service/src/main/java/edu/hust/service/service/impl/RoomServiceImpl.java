@@ -16,6 +16,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-08 09:20
  **/
+@Service
 public class RoomServiceImpl implements RoomService {
 
     @Autowired

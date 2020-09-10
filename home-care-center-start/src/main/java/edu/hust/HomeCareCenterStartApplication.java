@@ -16,12 +16,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 @Slf4j
 @SpringBootApplication
-//@ComponentScans(value = {@ComponentScan = (value = "edu.hust.service"), @ComponentScan = (va){"edu.hust.start"}})
-@ComponentScans(
-        value = {
-                @ComponentScan(value="edu.hust")
-        }
-)
 public class HomeCareCenterStartApplication {
 
 
@@ -31,7 +25,6 @@ public class HomeCareCenterStartApplication {
 
     public static void main(String[] args) {
         ApplicationContext a= SpringApplication.run(HomeCareCenterStartApplication.class, args);
-        System.out.println( a.getAutowireCapableBeanFactory());
         log.info("项目启动成功");
     }
 

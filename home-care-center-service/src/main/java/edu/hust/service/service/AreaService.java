@@ -10,8 +10,6 @@ import java.util.List;
  * @author chain
  * @date 2020/9/8
  **/
-//@Service
-@Component("areaService")
 public interface AreaService {
 
 

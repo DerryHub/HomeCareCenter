@@ -21,7 +21,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-08 09:53
  **/
-
+@Service
 public class NursingRecordServiceImpl implements NursingRecordService {
 
     @Autowired

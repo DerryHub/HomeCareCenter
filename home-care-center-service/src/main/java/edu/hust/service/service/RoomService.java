@@ -11,7 +11,6 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-07 15:10
  **/
-@Service
 public interface RoomService {
 
     /**
