@@ -36,7 +36,7 @@
 
     <insert id="addBatch" parameterType="edu.hust.dao.dto.Dish">
         insert into dish (id, name, labels, remark) values
-        <foreach collection="list" index="index" item="dish" separator=",">
+        <foreach collection="dish_list" index="index" item="dish" separator=",">
         (
         #{dish.id, jdbcType=VARCHAR},
         #{dish.name, jdbcType=VARCHAR},

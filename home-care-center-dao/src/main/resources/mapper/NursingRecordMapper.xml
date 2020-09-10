@@ -62,7 +62,7 @@
         date,
         remark
         ) values
-        <foreach collection="list" index="index" item="nursing_record" separator=",">
+        <foreach collection="nursing_record_list" index="index" item="nursing_record" separator=",">
         (
         #{nursing_record.id, jdbcType=VARCHAR},
         #{nursing_record.clientId, jdbcType=VARCHAR},

@@ -37,7 +37,11 @@ public class DishSetServiceImpl implements DishSetService {
 
     @Override
     public DishSetFull getDishSetById(String id) {
-        return convertToFull(dishSetMapper.selectById(id));
+        DishSet dishSet = dishSetMapper.selectById(id);
+        if (dishSet == null) {
+            return null;
+        }
+        return convertToFull(dishSet);
     }
 
     @Override

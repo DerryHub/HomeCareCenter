@@ -53,6 +53,7 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public WorkerFull getWorkerById(String id) {
+
         WorkerFull workerFull = this.convert(workerMapper.selectById(id));
         Area area = areaMapper.selectById(workerFull.getAreaId());
         workerFull.setArea(area);

@@ -60,7 +60,7 @@
         end_date
         )
         values
-        <foreach collection="list" index="index" item="dish_set_calendar" separator=",">
+        <foreach collection="dish_set_calendar_list" index="index" item="dish_set_calendar" separator=",">
         (
         #{dish_set_calendar.id, jdbcType=VARCHAR},
         #{dish_set_calendar.clientId, jdbcType=VARCHAR},

@@ -33,7 +33,7 @@ public class AreaController {
     @Autowired
     private RandomUUID randomUUID;
 
-    @ApiOperation("查询所有区域")
+    @ApiOperation("查询区域")
     @GetMapping("search")
     @Monitor("searchArea")
     public ApiResult search(

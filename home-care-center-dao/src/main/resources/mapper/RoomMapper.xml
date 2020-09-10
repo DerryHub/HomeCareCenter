@@ -67,7 +67,7 @@
 
     <insert id="addBatch" parameterType="edu.hust.dao.dto.Room">
         insert into room (id, room_title, area_id) values
-        <foreach collection="list" index="index" item="room" separator=",">
+        <foreach collection="room_list" index="index" item="room" separator=",">
             (#{room.id, jdbcType=VARCHAR}, #{room.roomTitle, jdbcType=VARCHAR}, #{room.area.id, jdbcType=VARCHAR})
         </foreach>
     </insert>

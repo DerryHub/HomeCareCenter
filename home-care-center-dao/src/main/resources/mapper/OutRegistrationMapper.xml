@@ -82,7 +82,7 @@
         back_time_expected,
         back_time_real
         ) values
-        <foreach collection="list" index="index" item="out_registration" separator=",">
+        <foreach collection="out_registration_list" index="index" item="out_registration" separator=",">
         (
         #{out_registration.id, jdbcType=VARCHAR},
         #{out_registration.clientId, jdbcType=VARCHAR},

@@ -134,7 +134,7 @@
         phone_no,
         birthday
         ) values
-        <foreach collection="list" item="client" index="index" separator=",">
+        <foreach collection="client_list" item="client" index="index" separator=",">
         (
         #{client.id, jdbcType=VARCHAR},
         #{client.name, jdbcType=VARCHAR},
