@@ -5,6 +5,7 @@ import edu.hust.interceptor.JWTInterceptor;
 import edu.hust.interceptor.LogInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -19,8 +20,16 @@ public class WebMvcConfig  implements WebMvcConfigurer {
         LogInterceptor logInterceptor=new LogInterceptor();
         JWTInterceptor jwtInterceptor=new JWTInterceptor();
         registry.addInterceptor(logInterceptor).order(1).addPathPatterns("/**");                //为日志增加traceId
-        registry.addInterceptor(jwtInterceptor).order(2).addPathPatterns("/**").excludePathPatterns("/**/login/**"); //jwt拦截
+        registry.addInterceptor(jwtInterceptor).order(2).addPathPatterns("/**").excludePathPatterns("/**/login/**")
+                .excludePathPatterns("/**/swagger-resources/**", "/webjars/**", "/v2/**", "/**/swagger-ui.html/**","/error");
         registry.addInterceptor(new DangerInterceptor()).order(3).addPathPatterns("/**/delete/**"); //危险操作拦截
         WebMvcConfigurer.super.addInterceptors(registry);
+    }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 }
