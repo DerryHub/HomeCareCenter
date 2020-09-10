@@ -84,7 +84,7 @@ public class TraceIdUtil {
     }
 
 
-    private static <T>Callable<T> wrapper(Callable<T> callable, Map<String,String> context){
+    public static <T>Callable<T> wrapper(Callable<T> callable, Map<String,String> context){
         return ()->{
             if (context==null){
                 MDC.clear();
@@ -100,7 +100,7 @@ public class TraceIdUtil {
         };
     }
 
-    private static Runnable wrapper(Runnable runnable,Map<String,String> context){
+    public static Runnable wrapper(Runnable runnable, Map<String, String> context){
         return ()->{
             if (context==null){
                 MDC.clear();
@@ -155,7 +155,7 @@ public class TraceIdUtil {
     }
 
 
-    private static class LogErrorExceptionHandler implements Thread.UncaughtExceptionHandler{
+    public static class LogErrorExceptionHandler implements Thread.UncaughtExceptionHandler{
 
         @Override
         public void uncaughtException(Thread t, Throwable e) {

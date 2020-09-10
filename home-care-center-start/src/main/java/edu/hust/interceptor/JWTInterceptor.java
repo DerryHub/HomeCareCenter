@@ -30,6 +30,10 @@ public class JWTInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+        String uri=request.getRequestURI();
+        if (uri!=null&&uri.contains("swa"))
+            return true;
+
         String header=request.getHeader(JWTConst.AUTHORIZATION);
 
         if (header!=null&&!"".equals(header)){
