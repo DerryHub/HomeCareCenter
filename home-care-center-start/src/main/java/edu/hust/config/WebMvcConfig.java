@@ -21,15 +21,8 @@ public class WebMvcConfig  implements WebMvcConfigurer {
         JWTInterceptor jwtInterceptor=new JWTInterceptor();
         registry.addInterceptor(logInterceptor).order(1).addPathPatterns("/**");                //为日志增加traceId
         registry.addInterceptor(jwtInterceptor).order(2).addPathPatterns("/**").excludePathPatterns("/**/login/**")
-                .excludePathPatterns("/**/swagger-resources/**", "/webjars/**", "/v2/**", "/**/swagger-ui.html/**","/error");
+                .excludePathPatterns("/**/swagger-resources/**", "/webjars/**", "/v2/**", "/**/swagger-ui.html/**","/error","/favicon.ico");
         registry.addInterceptor(new DangerInterceptor()).order(3).addPathPatterns("/**/delete/**"); //危险操作拦截
         WebMvcConfigurer.super.addInterceptors(registry);
-    }
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 }
