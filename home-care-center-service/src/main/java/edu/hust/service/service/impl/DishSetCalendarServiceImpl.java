@@ -40,6 +40,9 @@ public class DishSetCalendarServiceImpl implements DishSetCalendarService {
             DishSetCalendarFull dishSetCalendarFull = this.convert(dishSetCalendar);
             ClientFull clientFull = clientService.getClientInfoById(dishSetCalendarFull.getClientId());
             DishSetFull dishSetFull = dishSetService.getDishSetById(dishSetCalendarFull.getDishSetId());
+            if (clientFull == null || dishSetFull == null) {
+                continue;
+            }
             dishSetCalendarFull.setClientFull(clientFull);
             dishSetCalendarFull.setDishSetFull(dishSetFull);
             dishSetCalendarFullList.add(dishSetCalendarFull);
@@ -49,9 +52,16 @@ public class DishSetCalendarServiceImpl implements DishSetCalendarService {
 
     @Override
     public DishSetCalendarFull getDishSetCalendarById(String id) {
-        DishSetCalendarFull dishSetCalendarFull = this.convert(dishSetCalendarMapper.selectById(id));
+        DishSetCalendar dishSetCalendar = dishSetCalendarMapper.selectById(id);
+        if (dishSetCalendar == null) {
+            return null;
+        }
+        DishSetCalendarFull dishSetCalendarFull = this.convert(dishSetCalendar);
         ClientFull clientFull = clientService.getClientInfoById(dishSetCalendarFull.getClientId());
         DishSetFull dishSetFull = dishSetService.getDishSetById(dishSetCalendarFull.getDishSetId());
+        if (clientFull == null || dishSetFull == null) {
+            return null;
+        }
         dishSetCalendarFull.setClientFull(clientFull);
         dishSetCalendarFull.setDishSetFull(dishSetFull);
         return dishSetCalendarFull;
@@ -65,6 +75,9 @@ public class DishSetCalendarServiceImpl implements DishSetCalendarService {
             DishSetCalendarFull dishSetCalendarFull = this.convert(dishSetCalendar);
             ClientFull clientFull = clientService.getClientInfoById(dishSetCalendarFull.getClientId());
             DishSetFull dishSetFull = dishSetService.getDishSetById(dishSetCalendarFull.getDishSetId());
+            if (clientFull == null || dishSetFull == null) {
+                continue;
+            }
             dishSetCalendarFull.setClientFull(clientFull);
             dishSetCalendarFull.setDishSetFull(dishSetFull);
             dishSetCalendarFullList.add(dishSetCalendarFull);
@@ -80,6 +93,9 @@ public class DishSetCalendarServiceImpl implements DishSetCalendarService {
             DishSetCalendarFull dishSetCalendarFull = this.convert(dishSetCalendar);
             ClientFull clientFull = clientService.getClientInfoById(dishSetCalendarFull.getClientId());
             DishSetFull dishSetFull = dishSetService.getDishSetById(dishSetCalendarFull.getDishSetId());
+            if (clientFull == null || dishSetFull == null) {
+                continue;
+            }
             dishSetCalendarFull.setClientFull(clientFull);
             dishSetCalendarFull.setDishSetFull(dishSetFull);
             dishSetCalendarFullList.add(dishSetCalendarFull);

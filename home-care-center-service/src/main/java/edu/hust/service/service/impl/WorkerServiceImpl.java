@@ -33,6 +33,7 @@ public class WorkerServiceImpl implements WorkerService {
     public Worker loginByIdCardNoAndPassword(String idCardNo, String password) {
         Worker worker = workerMapper.selectByIdCardNo(idCardNo);
         if (worker.getPassword() == password) {
+            worker.setPassword(null);
             return worker;
         }
         return null;
@@ -53,8 +54,11 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public WorkerFull getWorkerById(String id) {
-
-        WorkerFull workerFull = this.convert(workerMapper.selectById(id));
+        Worker worker = workerMapper.selectById(id);
+        if (worker == null) {
+            return null;
+        }
+        WorkerFull workerFull = this.convert(worker);
         Area area = areaMapper.selectById(workerFull.getAreaId());
         workerFull.setArea(area);
         return workerFull;
@@ -62,7 +66,11 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public WorkerFull getWorkerByIdCardNo(String idCardNo) {
-        WorkerFull workerFull = this.convert(workerMapper.selectByIdCardNo(idCardNo));
+        Worker worker = workerMapper.selectByIdCardNo(idCardNo);
+        if (worker == null) {
+            return null;
+        }
+        WorkerFull workerFull = this.convert(worker);
         Area area = areaMapper.selectById(workerFull.getAreaId());
         workerFull.setArea(area);
         return workerFull;

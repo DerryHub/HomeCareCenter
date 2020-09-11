@@ -42,6 +42,9 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
             MedicalRecordFull medicalRecordFull = this.convert(medicalRecord);
             ClientFull clientFull = clientService.getClientInfoById(medicalRecordFull.getClientId());
             WorkerFull doctorFull = workerService.getWorkerById(medicalRecordFull.getDoctorId());
+            if (clientFull == null || doctorFull == null) {
+                continue;
+            }
             medicalRecordFull.setClientFull(clientFull);
             medicalRecordFull.setDoctor(doctorFull);
             medicalRecordFullList.add(medicalRecordFull);
@@ -51,9 +54,16 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
 
     @Override
     public MedicalRecordFull getMedicalRecordById(String id) {
-        MedicalRecordFull medicalRecordFull = this.convert(medicalRecordMapper.selectById(id));
+        MedicalRecord medicalRecord = medicalRecordMapper.selectById(id);
+        if (medicalRecord == null) {
+            return null;
+        }
+        MedicalRecordFull medicalRecordFull = this.convert(medicalRecord);
         ClientFull clientFull = clientService.getClientInfoById(medicalRecordFull.getClientId());
         WorkerFull doctorFull = workerService.getWorkerById(medicalRecordFull.getDoctorId());
+        if (clientFull == null || doctorFull == null) {
+            return null;
+        }
         medicalRecordFull.setClientFull(clientFull);
         medicalRecordFull.setDoctor(doctorFull);
         return medicalRecordFull;
@@ -67,6 +77,9 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
             MedicalRecordFull medicalRecordFull = this.convert(medicalRecord);
             ClientFull clientFull = clientService.getClientInfoById(medicalRecordFull.getClientId());
             WorkerFull doctorFull = workerService.getWorkerById(medicalRecordFull.getDoctorId());
+            if (clientFull == null || doctorFull == null) {
+                continue;
+            }
             medicalRecordFull.setClientFull(clientFull);
             medicalRecordFull.setDoctor(doctorFull);
             medicalRecordFullList.add(medicalRecordFull);

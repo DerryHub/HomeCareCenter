@@ -160,24 +160,25 @@
 
     <update id="update" parameterType="edu.hust.dao.dto.Client">
         update client
-        set
-        name = #{client.name, jdbcType=VARCHAR},
-        gender = #{client.gender, jdbcType=INTEGER},
-        id_card_no = #{client.idCardNo, jdbcType=VARCHAR},
-        height = #{client.height, jdbcType=INTEGER},
-        weight = #{client.weight, jdbcType=INTEGER},
-        relative_name = #{client.relativeName, jdbcType=VARCHAR},
-        relative_phone = #{client.relativePhone, jdbcType=VARCHAR},
-        marriage = #{client.marriage, jdbcType=INTEGER},
-        head_img = #{client.headImg, jdbcType=VARCHAR},
-        remark = #{client.remark, jdbcType=VARCHAR},
-        bed_id = #{client.bedId, jdbcType=VARCHAR},
-        level_of_care = #{client.levelOfCare, jdbcType=INTEGER},
-        in_date = #{client.inDate, jdbcType=DATE},
-        out_date = #{client.outDate, jdbcType=DATE},
-        food_req = #{client.foodReq, jdbcType=VARCHAR},
-        phone_no = #{client.phoneNo, jdbcType=VARCHAR},
-        birthday = #{client.birthday, jdbcType=DATE}
+        <trim prefix="set" suffixOverrides=",">
+            <if test="client.name != null">name = #{client.name, jdbcType=VARCHAR},</if>
+            <if test="client.gender != null">gender = #{client.gender, jdbcType=INTEGER},</if>
+            <if test="client.idCardNo != null">id_card_no = #{client.idCardNo, jdbcType=VARCHAR},</if>
+            <if test="client.height != null">height = #{client.height, jdbcType=INTEGER},</if>
+            <if test="client.weight != null">weight = #{client.weight, jdbcType=INTEGER},</if>
+            <if test="client.relativeName != null">relative_name = #{client.relativeName, jdbcType=VARCHAR},</if>
+            <if test="client.relativePhone != null">relative_phone = #{client.relativePhone, jdbcType=VARCHAR},</if>
+            <if test="client.marriage != null">marriage = #{client.marriage, jdbcType=INTEGER},</if>
+            <if test="client.headImg != null">head_img = #{client.headImg, jdbcType=VARCHAR},</if>
+            <if test="client.remark != null">remark = #{client.remark, jdbcType=VARCHAR},</if>
+            <if test="client.bedId != null">bed_id = #{client.bedId, jdbcType=VARCHAR},</if>
+            <if test="client.levelOfCare != null">level_of_care = #{client.levelOfCare, jdbcType=INTEGER},</if>
+            <if test="client.inDate != null">in_date = #{client.inDate, jdbcType=DATE},</if>
+            <if test="client.outDate != null">out_date = #{client.outDate, jdbcType=DATE},</if>
+            <if test="client.foodReq != null">food_req = #{client.foodReq, jdbcType=VARCHAR},</if>
+            <if test="client.phoneNo != null">phone_no = #{client.phoneNo, jdbcType=VARCHAR},</if>
+            <if test="client.birthday != null">birthday = #{client.birthday, jdbcType=DATE},</if>
+        </trim>
         where
         id = #{client.id, jdbcType=VARCHAR}
     </update>

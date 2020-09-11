@@ -5,6 +5,7 @@ import edu.hust.common.util.RandomUUID;
 import edu.hust.common.vo.ApiResult;
 import edu.hust.dao.dto.Room;
 import edu.hust.monitor.Monitor;
+import edu.hust.service.service.AreaService;
 import edu.hust.service.service.RoomService;
 import edu.hust.common.exception.GlobalException;
 import io.swagger.annotations.Api;
@@ -26,8 +27,11 @@ import java.util.List;
 @RequestMapping("HomeCareCenter/room/")
 public class RoomController {
 
-    @Resource
+    @Autowired
     private RoomService roomService;
+
+    @Autowired
+    private AreaService areaService;
 
     @Autowired
     private RandomUUID randomUUID;
@@ -61,6 +65,9 @@ public class RoomController {
     @PostMapping("add")
     @Monitor("addRoom")
     public ApiResult add(@RequestBody Room room) {
+        if (!legal(room)) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         room.setId(randomUUID.nextIdStr());
         roomService.addRoom(room);
         return ApiResult.buildSuccess();
@@ -71,6 +78,9 @@ public class RoomController {
     @Monitor("addBatchRoom")
     public ApiResult addBatch(@RequestBody List<Room> roomList) {
         for (Room room : roomList) {
+            if (!legal(room)) {
+                throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+            }
             room.setId(randomUUID.nextIdStr());
         }
         roomService.addRoomList(roomList);
@@ -81,6 +91,13 @@ public class RoomController {
     @PostMapping("update")
     @Monitor("updateRoom")
     public ApiResult update(@RequestBody Room room) {
+        if (
+                room.getArea() != null
+                && room.getArea().getId() != null
+                && areaService.getAreaInfoById(room.getArea().getId()) == null
+        ) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         roomService.updateRoom(room);
         return ApiResult.buildSuccess();
     }
@@ -106,5 +123,16 @@ public class RoomController {
         }
     }
 
+    private boolean legal(Room room) {
+        if (
+                room.getRoomTitle() == null
+                || room.getArea() == null
+                || room.getArea().getId() == null
+                || areaService.getAreaInfoById(room.getArea().getId()) == null
+        ) {
+            return false;
+        }
+        return true;
+    }
 }
 

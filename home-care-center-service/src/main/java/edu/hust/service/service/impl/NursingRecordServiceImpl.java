@@ -41,6 +41,9 @@ public class NursingRecordServiceImpl implements NursingRecordService {
             NursingRecordFull nursingRecordFull = this.convert(nursingRecord);
             ClientFull clientFull = clientService.getClientInfoById(nursingRecordFull.getClientId());
             WorkerFull nurseFull = workerService.getWorkerById(nursingRecordFull.getNurseId());
+            if (clientFull == null || nurseFull == null) {
+                continue;
+            }
             nursingRecordFull.setClientFull(clientFull);
             nursingRecordFull.setNurse(nurseFull);
             nursingRecordFullList.add(nursingRecordFull);
@@ -50,9 +53,16 @@ public class NursingRecordServiceImpl implements NursingRecordService {
 
     @Override
     public NursingRecordFull getNursingRecordById(String id) {
-        NursingRecordFull nursingRecordFull = this.convert(nursingRecordMapper.selectById(id));
+        NursingRecord nursingRecord = nursingRecordMapper.selectById(id);
+        if (nursingRecord == null) {
+            return null;
+        }
+        NursingRecordFull nursingRecordFull = this.convert(nursingRecord);
         ClientFull clientFull = clientService.getClientInfoById(nursingRecordFull.getClientId());
         WorkerFull nurseFull = workerService.getWorkerById(nursingRecordFull.getNurseId());
+        if (clientFull == null || nurseFull == null) {
+            return null;
+        }
         nursingRecordFull.setClientFull(clientFull);
         nursingRecordFull.setNurse(nurseFull);
         return nursingRecordFull;
@@ -66,6 +76,9 @@ public class NursingRecordServiceImpl implements NursingRecordService {
             NursingRecordFull nursingRecordFull = this.convert(nursingRecord);
             ClientFull clientFull = clientService.getClientInfoById(nursingRecordFull.getClientId());
             WorkerFull nurseFull = workerService.getWorkerById(nursingRecordFull.getNurseId());
+            if (clientFull == null || nurseFull == null) {
+                continue;
+            }
             nursingRecordFull.setClientFull(clientFull);
             nursingRecordFull.setNurse(nurseFull);
             nursingRecordFullList.add(nursingRecordFull);

@@ -6,8 +6,10 @@ import edu.hust.common.vo.ApiResult;
 import edu.hust.dao.dto.OutRegistration;
 import edu.hust.monitor.Monitor;
 import edu.hust.service.domain.OutRegistrationFull;
+import edu.hust.service.service.ClientService;
 import edu.hust.service.service.OutRegistrationService;
 import edu.hust.common.exception.GlobalException;
+import edu.hust.service.service.WorkerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,14 @@ import java.util.List;
 @RequestMapping("HomeCareCenter/outRegistration/")
 public class OutRegistrationController {
 
-    @Resource
+    @Autowired
     private OutRegistrationService outRegistrationService;
+
+    @Autowired
+    private ClientService clientService;
+
+    @Autowired
+    private WorkerService workerService;
 
     @Autowired
     private RandomUUID randomUUID;
@@ -71,6 +79,9 @@ public class OutRegistrationController {
     @PostMapping("add")
     @Monitor("addOutRegistration")
     public ApiResult add(@RequestBody OutRegistration outRegistration) {
+        if (!legal(outRegistration)) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         outRegistration.setId(randomUUID.nextIdStr());
         outRegistrationService.addOutRegistration(outRegistration);
         return ApiResult.buildSuccess();
@@ -81,6 +92,9 @@ public class OutRegistrationController {
     @Monitor("addBatchOutRegistration")
     public ApiResult addBatch(@RequestBody List<OutRegistration> outRegistrationList) {
         for (OutRegistration outRegistration : outRegistrationList) {
+            if (!legal(outRegistration)) {
+                throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+            }
             outRegistration.setId(randomUUID.nextIdStr());
         }
         outRegistrationService.addOutRegistrationList(outRegistrationList);
@@ -91,6 +105,18 @@ public class OutRegistrationController {
     @PostMapping("update")
     @Monitor("updateOutRegistration")
     public ApiResult update(@RequestBody OutRegistration outRegistration) {
+        if (
+                (
+                        outRegistration.getClientId() != null
+                        && clientService.getClientInfoById(outRegistration.getClientId()) == null
+                        )
+                || (
+                        outRegistration.getNurseId() != null
+                        && workerService.getWorkerById(outRegistration.getNurseId()) == null
+                        )
+        ) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         outRegistrationService.updateOutRegistration(outRegistration);
         return ApiResult.buildSuccess();
     }
@@ -105,5 +131,20 @@ public class OutRegistrationController {
             outRegistrationService.deleteOutRegistrationById(id);
         }
         return ApiResult.buildSuccess();
+    }
+
+    private boolean legal(OutRegistration outRegistration) {
+        if (
+                outRegistration.getClientId() == null
+                || clientService.getClientInfoById(outRegistration.getClientId()) == null
+                || outRegistration.getNurseId() == null
+                || workerService.getWorkerById(outRegistration.getNurseId()) == null
+                || outRegistration.getReason() == null
+                || outRegistration.getOutTime() == null
+                || outRegistration.getBackTimeExpected() == null
+        ) {
+            return false;
+        }
+        return true;
     }
 }

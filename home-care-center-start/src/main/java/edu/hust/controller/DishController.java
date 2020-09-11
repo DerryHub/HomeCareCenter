@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("HomeCareCenter/dish/")
 public class DishController {
 
-    @Resource
+    @Autowired
     private DishService dishService;
 
     @Autowired
@@ -57,6 +57,9 @@ public class DishController {
     @PostMapping("add")
     @Monitor("addDish")
     public ApiResult add(@RequestBody Dish dish) {
+        if (!legal(dish)) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         dish.setId(randomUUID.nextIdStr());
         dishService.addDish(dish);
         return ApiResult.buildSuccess();
@@ -67,6 +70,9 @@ public class DishController {
     @Monitor("addBatchDish")
     public ApiResult addBatch(@RequestBody List<Dish> dishList) {
         for (Dish dish : dishList) {
+            if (!legal(dish)) {
+                throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+            }
             dish.setId(randomUUID.nextIdStr());
         }
         dishService.addDishList(dishList);
@@ -100,5 +106,12 @@ public class DishController {
         } else {
             throw new GlobalException(ApiCodeEnum.PARAM_ERROR);
         }
+    }
+
+    private boolean legal(Dish dish) {
+        if (dish.getName() == null) {
+            return false;
+        }
+        return true;
     }
 }

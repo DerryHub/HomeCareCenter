@@ -35,8 +35,9 @@
 
     <update id="update" parameterType="edu.hust.dao.dto.Area">
         update area
-        set
-        area_title = #{area.areaTitle, jdbcType=VARCHAR}
+        <trim prefix="set" suffixOverrides=",">
+            <if test="area.areaTitle != null"> area_title = #{area.areaTitle, jdbcType=VARCHAR}, </if>
+        </trim>
         where
         id = #{area.id, jdbcType=VARCHAR}
     </update>

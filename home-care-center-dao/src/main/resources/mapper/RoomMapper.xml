@@ -74,9 +74,12 @@
 
     <update id="update" parameterType="edu.hust.dao.dto.Room">
         update room
-        set
-        room_title = #{room.roomTitle, jdbcType=VARCHAR},
-        area_id = #{room.area.id, jdbcType=VARCHAR}
+        <trim prefix="set" suffixOverrides=",">
+            <if test="room.roomTitle != null">room_title = #{room.roomTitle, jdbcType=VARCHAR},</if>
+            <if test="room.area != null">
+                <if test="room.area.id != null">area_id = #{room.area.id, jdbcType=VARCHAR},</if>
+            </if>
+        </trim>
         where
         id = #{room.id, jdbcType=VARCHAR}
     </update>

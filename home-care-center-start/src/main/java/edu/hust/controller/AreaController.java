@@ -9,6 +9,7 @@ import edu.hust.service.service.AreaService;
 import edu.hust.common.exception.GlobalException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +28,6 @@ public class AreaController {
 
     @Autowired
     private AreaService areaService;
-
-
 
     @Autowired
     private RandomUUID randomUUID;
@@ -58,6 +57,9 @@ public class AreaController {
     @PostMapping("add")
     @Monitor("addArea")
     public ApiResult add(@RequestBody Area area) {
+        if (!legal(area)) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         area.setId(randomUUID.nextIdStr());
         areaService.addArea(area);
         return ApiResult.buildSuccess();
@@ -68,6 +70,9 @@ public class AreaController {
     @Monitor("addBatchArea")
     public ApiResult addBatch(@RequestBody List<Area> areaList) {
         for (Area area : areaList) {
+            if (!legal(area)) {
+                throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+            }
             area.setId(randomUUID.nextIdStr());
         }
         areaService.addAreaList(areaList);
@@ -101,5 +106,12 @@ public class AreaController {
         }else {
             throw new GlobalException(ApiCodeEnum.PARAM_ERROR);
         }
+    }
+
+    private boolean legal(Area area) {
+        if (area.getAreaTitle() == null) {
+            return false;
+        }
+        return true;
     }
 }

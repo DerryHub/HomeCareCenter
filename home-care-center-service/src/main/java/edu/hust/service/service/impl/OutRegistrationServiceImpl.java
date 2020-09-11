@@ -42,6 +42,9 @@ public class OutRegistrationServiceImpl implements OutRegistrationService {
             OutRegistrationFull outRegistrationFull = this.convert(outRegistration);
             ClientFull clientFull = clientService.getClientInfoById(outRegistrationFull.getClientId());
             WorkerFull nurseFull = workerService.getWorkerById(outRegistrationFull.getNurseId());
+            if (clientFull == null || nurseFull == null) {
+                continue;
+            }
             outRegistrationFull.setClientFull(clientFull);
             outRegistrationFull.setNurse(nurseFull);
             outRegistrationFullList.add(outRegistrationFull);
@@ -51,9 +54,16 @@ public class OutRegistrationServiceImpl implements OutRegistrationService {
 
     @Override
     public OutRegistrationFull getOutRegistrationById(String id) {
-        OutRegistrationFull outRegistrationFull = this.convert(outRegistrationMapper.selectById(id));
+        OutRegistration outRegistration = outRegistrationMapper.selectById(id);
+        if (outRegistration == null) {
+            return null;
+        }
+        OutRegistrationFull outRegistrationFull = this.convert(outRegistration);
         ClientFull clientFull = clientService.getClientInfoById(outRegistrationFull.getClientId());
         WorkerFull nurseFull = workerService.getWorkerById(outRegistrationFull.getNurseId());
+        if (clientFull == null || nurseFull == null) {
+            return null;
+        }
         outRegistrationFull.setClientFull(clientFull);
         outRegistrationFull.setNurse(nurseFull);
         return outRegistrationFull;
@@ -67,6 +77,9 @@ public class OutRegistrationServiceImpl implements OutRegistrationService {
             OutRegistrationFull outRegistrationFull = this.convert(outRegistration);
             ClientFull clientFull = clientService.getClientInfoById(outRegistrationFull.getClientId());
             WorkerFull nurseFull = workerService.getWorkerById(outRegistrationFull.getNurseId());
+            if (clientFull == null || nurseFull == null) {
+                continue;
+            }
             outRegistrationFull.setClientFull(clientFull);
             outRegistrationFull.setNurse(nurseFull);
             outRegistrationFullList.add(outRegistrationFull);
@@ -82,6 +95,9 @@ public class OutRegistrationServiceImpl implements OutRegistrationService {
             OutRegistrationFull outRegistrationFull = this.convert(outRegistration);
             ClientFull clientFull = clientService.getClientInfoById(outRegistrationFull.getClientId());
             WorkerFull nurseFull = workerService.getWorkerById(outRegistrationFull.getNurseId());
+            if (clientFull == null || nurseFull == null) {
+                continue;
+            }
             outRegistrationFull.setClientFull(clientFull);
             outRegistrationFull.setNurse(nurseFull);
             outRegistrationFullList.add(outRegistrationFull);

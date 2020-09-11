@@ -6,6 +6,7 @@ import edu.hust.common.util.RandomUUID;
 import edu.hust.common.vo.ApiResult;
 import edu.hust.dao.dto.Worker;
 import edu.hust.service.domain.WorkerFull;
+import edu.hust.service.service.AreaService;
 import edu.hust.service.service.WorkerService;
 import edu.hust.common.exception.GlobalException;
 import edu.hust.monitor.Monitor;
@@ -42,8 +43,11 @@ public class WorkerController {
     @Autowired
     private JWTUtil jwtUtil;
 
-    @Resource
+    @Autowired
     private WorkerService workerService;
+
+    @Autowired
+    private AreaService areaService;
 
     @Autowired
     private RandomUUID randomUUID;
@@ -112,6 +116,9 @@ public class WorkerController {
     @PostMapping("add")
     @Monitor("addWorker")
     public ApiResult add(@RequestBody Worker worker) {
+        if (!legal(worker)) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         worker.setId(randomUUID.nextIdStr());
         workerService.addWorker(worker);
         return ApiResult.buildSuccess();
@@ -122,6 +129,9 @@ public class WorkerController {
     @Monitor("addBatchWorker")
     public ApiResult addBatch(@RequestBody List<Worker> workerList) {
         for (Worker worker : workerList) {
+            if (!legal(worker)) {
+                throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+            }
             worker.setId(randomUUID.nextIdStr());
         }
         workerService.addWorkerList(workerList);
@@ -132,6 +142,12 @@ public class WorkerController {
     @PostMapping("update")
     @Monitor("updateWorker")
     public ApiResult update(@RequestBody Worker worker) {
+        if (
+                worker.getAreaId() != null
+                && areaService.getAreaInfoById(worker.getAreaId()) == null
+        ) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         workerService.updateWorker(worker);
         return ApiResult.buildSuccess();
     }
@@ -161,4 +177,21 @@ public class WorkerController {
         }
     }
 
+    private boolean legal(Worker worker) {
+        if (
+                worker.getType() == null
+                || worker.getName() == null
+                || worker.getGender() == null
+                || worker.getIdCardNo() == null
+                || worker.getRegisterDate() == null
+                || worker.getPassword() == null
+                || worker.getHeadImg() == null
+        ) {
+            return false;
+        }
+        if (worker.getAreaId() != null && areaService.getAreaInfoById(worker.getAreaId()) == null) {
+            return false;
+        }
+        return true;
+    }
 }

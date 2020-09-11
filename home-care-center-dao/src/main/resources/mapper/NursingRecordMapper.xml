@@ -76,12 +76,13 @@
 
     <update id="update" parameterType="edu.hust.dao.dto.NursingRecord">
         update nursing_record
-        set
-        client_id = #{nursing_record.clientId, jdbcType=VARCHAR},
-        nurse_id = #{nursing_record.nurseId, jdbcType=VARCHAR},
-        content = #{nursing_record.content, jdbcType=VARCHAR},
-        date = #{nursing_record.date, jdbcType=DATE},
-        remark = #{nursing_record.remark, jdbcType=VARCHAR},
+        <trim prefix="set" suffixOverrides=",">
+            <if test="nursing_record.clientId != null">client_id = #{nursing_record.clientId, jdbcType=VARCHAR},</if>
+            <if test="nursing_record.nurseId != null">nurse_id = #{nursing_record.nurseId, jdbcType=VARCHAR},</if>
+            <if test="nursing_record.content != null">content = #{nursing_record.content, jdbcType=VARCHAR},</if>
+            <if test="nursing_record.date != null">date = #{nursing_record.date, jdbcType=DATE},</if>
+            <if test="nursing_record.remark != null">remark = #{nursing_record.remark, jdbcType=VARCHAR},</if>
+        </trim>
         where
         id = #{nursing_record.id, jdbcType=VARCHAR}
     </update>

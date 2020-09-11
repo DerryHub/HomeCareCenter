@@ -44,6 +44,9 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientFull getClientInfoByIdCardNo(String idCardNo) {
         Client client = clientMapper.selectByIdCardNo(idCardNo);
+        if (client == null) {
+            return null;
+        }
         Bed bed = bedMapper.selectById(client.getBedId());
         ClientFull clientFull = this.convert(client);
         clientFull.setBed(bed);
@@ -81,6 +84,9 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientFull getClientInfoByBedId(String bedId) {
         Client client = clientMapper.selectByBedId(bedId);
+        if (client == null) {
+            return null;
+        }
         Bed bed = bedMapper.selectById(client.getBedId());
         ClientFull clientFull = this.convert(client);
         clientFull.setBed(bed);

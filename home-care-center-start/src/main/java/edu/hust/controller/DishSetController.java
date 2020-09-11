@@ -1,7 +1,10 @@
 package edu.hust.controller;
 
+import edu.hust.common.constant.ApiCodeEnum;
+import edu.hust.common.exception.GlobalException;
 import edu.hust.common.util.RandomUUID;
 import edu.hust.common.vo.ApiResult;
+import edu.hust.dao.dto.DishSet;
 import edu.hust.monitor.Monitor;
 import edu.hust.service.domain.DishSetFull;
 import edu.hust.service.service.DishSetService;
@@ -24,7 +27,7 @@ import java.util.List;
 @RequestMapping("HomeCareCenter/dishSet/")
 public class DishSetController {
 
-    @Resource
+    @Autowired
     private DishSetService dishSetService;
 
     @Autowired
@@ -47,6 +50,9 @@ public class DishSetController {
     @PostMapping("add")
     @Monitor("addDishSet")
     public ApiResult add(@RequestBody DishSetFull dishSetFull) {
+        if (!legal(dishSetFull)) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         dishSetFull.setId(randomUUID.nextIdStr());
         dishSetService.addDishSet(dishSetFull);
         return ApiResult.buildSuccess();
@@ -57,6 +63,9 @@ public class DishSetController {
     @Monitor("addBatchDishSet")
     public ApiResult addBatch(@RequestBody List<DishSetFull> dishSetFullList) {
         for (DishSetFull dishSetFull : dishSetFullList) {
+            if (!legal(dishSetFull)) {
+                throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+            }
             dishSetFull.setId(randomUUID.nextIdStr());
         }
         dishSetService.addDishSetList(dishSetFullList);
@@ -81,5 +90,20 @@ public class DishSetController {
             dishSetService.deleteDishSetById(id);
         }
         return ApiResult.buildSuccess();
+    }
+
+    private boolean legal(DishSetFull dishSetFull) {
+        if (
+                dishSetFull.getMonId() == null
+                || dishSetFull.getTueId() == null
+                || dishSetFull.getWedId() == null
+                || dishSetFull.getThuId() == null
+                || dishSetFull.getFriId() == null
+                || dishSetFull.getSatId() == null
+                || dishSetFull.getSunId() == null
+        ) {
+            return false;
+        }
+        return true;
     }
 }

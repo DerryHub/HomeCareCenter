@@ -114,18 +114,18 @@
     
     <update id="update" parameterType="edu.hust.dao.dto.Worker">
         update worker
-        set
-        type = #{worker.type, jdbcType=INTEGER},
-        name = #{worker.name, jdbcType=VARCHAR},
-        birthday = #{worker.birthday, jdbcType=DATE},
-        gender = #{worker.gender, jdbcType=INTEGER},
-        id_card_no = #{worker.idCardNo, jdbcType=VARCHAR},
-        register_date = #{worker.registerDate, jdbcType=DATE},
-        phone_no = #{worker.phoneNo, jdbcType=VARCHAR},
-        area_id = #{worker.areaId, jdbcType=VARCHAR},
-        password = #{worker.password, jdbcType=VARCHAR},
-        head_img = #{worker.headImg, jdbcType=VARCHAR},
-        delete = #{worker.delete, jdbcType=INTEGER}
+        <trim prefix="set" suffixOverrides=",">
+            <if test="worker.type != null">type = #{worker.type, jdbcType=INTEGER},</if>
+            <if test="worker.name != null">name = #{worker.name, jdbcType=VARCHAR},</if>
+            <if test="worker.birthday != null">birthday = #{worker.birthday, jdbcType=DATE},</if>
+            <if test="worker.gender != null">gender = #{worker.gender, jdbcType=INTEGER},</if>
+            <if test="worker.idCardNo != null">id_card_no = #{worker.idCardNo, jdbcType=VARCHAR},</if>
+            <if test="worker.registerDate != null">register_date = #{worker.registerDate, jdbcType=DATE},</if>
+            <if test="worker.phoneNo != null">phone_no = #{worker.phoneNo, jdbcType=VARCHAR},</if>
+            <if test="worker.areaId != null">area_id = #{worker.areaId, jdbcType=VARCHAR},</if>
+            <if test="worker.password != null">password = #{worker.password, jdbcType=VARCHAR},</if>
+            <if test="worker.headImg != null">head_img = #{worker.headImg, jdbcType=VARCHAR},</if>
+        </trim>
         where
         id = #{worker.id, jdbcType=VARCHAR}
     </update>

@@ -35,6 +35,7 @@ public enum ApiCodeEnum {
 
     FAIL_TO_ADD("数据添加失败", 40001),
     FAIL_TO_UPDATE("数据修改失败", 40002),
+    ILLEGAL_DATA("数据不合法", 40003),
 
     ID_is_NULL("用户名为空", 50001),
     PASSWORD_IS_NULL("密码为空", 50002),

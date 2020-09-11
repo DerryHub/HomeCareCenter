@@ -6,6 +6,7 @@ import edu.hust.common.vo.ApiResult;
 import edu.hust.dao.dto.Client;
 import edu.hust.monitor.Monitor;
 import edu.hust.service.domain.ClientFull;
+import edu.hust.service.service.BedService;
 import edu.hust.service.service.ClientService;
 import edu.hust.common.exception.GlobalException;
 import io.swagger.annotations.Api;
@@ -27,8 +28,11 @@ import java.util.List;
 @RequestMapping("HomeCareCenter/client/")
 public class ClientController {
 
-    @Resource
+    @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private BedService bedService;
 
     @Autowired
     private RandomUUID randomUUID;
@@ -66,6 +70,9 @@ public class ClientController {
     @PostMapping("add")
     @Monitor("addClient")
     public ApiResult add(@RequestBody Client client) {
+        if (!legal(client)) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         client.setId(randomUUID.nextIdStr());
         clientService.addClient(client);
         return ApiResult.buildSuccess();
@@ -76,6 +83,9 @@ public class ClientController {
     @Monitor("addBatchClient")
     public ApiResult addBatch(@RequestBody List<Client> clientList) {
         for (Client client : clientList) {
+            if (!legal(client)) {
+                throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+            }
             client.setId(randomUUID.nextIdStr());
         }
         clientService.addClientList(clientList);
@@ -86,6 +96,12 @@ public class ClientController {
     @PostMapping("update")
     @Monitor("updateClient")
     public ApiResult update(@RequestBody Client client) {
+        if (
+                client.getBedId() != null
+                && bedService.getBedById(client.getBedId()) == null
+        ) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         clientService.updateClient(client);
         return ApiResult.buildSuccess();
     }
@@ -109,5 +125,23 @@ public class ClientController {
         } else {
             throw new GlobalException(ApiCodeEnum.PARAM_ERROR);
         }
+    }
+
+    private boolean legal(Client client) {
+        if (
+                client.getName() == null
+                || client.getGender() == null
+                || client.getIdCardNo() == null
+                || client.getMarriage() == null
+                || client.getHeadImg() == null
+                || client.getBedId() == null
+                || bedService.getBedById(client.getBedId()) == null
+                || client.getLevelOfCare() == null
+                || client.getInDate() == null
+                || client.getPhoneNo() == null
+        ) {
+            return false;
+        }
+        return true;
     }
 }

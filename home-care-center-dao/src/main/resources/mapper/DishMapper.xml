@@ -48,10 +48,11 @@
 
     <update id="update" parameterType="edu.hust.dao.dto.Dish">
         update dish
-        set
-        name = #{dish.name, jdbcType=VARCHAR},
-        labels = #{dish.labels, jdbcType=VARCHAR},
-        remark = #{dish.remark, jdbcType=VARCHAR}
+        <trim prefix="set" suffixOverrides=",">
+            <if test="dish.name != null">name = #{dish.name, jdbcType=VARCHAR},</if>
+            <if test="dish.labels != null">labels = #{dish.labels, jdbcType=VARCHAR},</if>
+            <if test="dish.remark != null">remark = #{dish.remark, jdbcType=VARCHAR},</if>
+        </trim>
         where
         id = #{id, jdbcType=VARCHAR}
     </update>

@@ -7,6 +7,7 @@ import edu.hust.dao.dto.Bed;
 import edu.hust.monitor.Monitor;
 import edu.hust.service.service.BedService;
 import edu.hust.common.exception.GlobalException;
+import edu.hust.service.service.RoomService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,11 @@ import java.util.List;
 @RequestMapping("HomeCareCenter/bed/")
 public class BedController {
 
-    @Resource
+    @Autowired
     private BedService bedService;
+
+    @Autowired
+    private RoomService roomService;
 
     @Autowired
     private RandomUUID randomUUID;
@@ -61,6 +65,9 @@ public class BedController {
     @PostMapping("add")
     @Monitor("addBed")
     public ApiResult add(@RequestBody Bed bed) {
+        if (!legal(bed)) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         bed.setId(randomUUID.nextIdStr());
         bedService.addBed(bed);
         return ApiResult.buildSuccess();
@@ -71,6 +78,9 @@ public class BedController {
     @Monitor("addBatchBed")
     public ApiResult addBatch(@RequestBody List<Bed> bedList) {
         for (Bed bed : bedList) {
+            if (!legal(bed)) {
+                throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+            }
             bed.setId(randomUUID.nextIdStr());
         }
         bedService.addBedList(bedList);
@@ -81,6 +91,13 @@ public class BedController {
     @PostMapping("update")
     @Monitor("updateBed")
     public ApiResult update(@RequestBody Bed bed) {
+        if (
+                bed.getRoom() != null
+                && bed.getRoom().getId() != null
+                && roomService.getRoomById(bed.getRoom().getId()) == null
+        ) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         bedService.updateBed(bed);
         return ApiResult.buildSuccess();
     }
@@ -104,5 +121,17 @@ public class BedController {
         }else {
             throw new GlobalException(ApiCodeEnum.PARAM_ERROR);
         }
+    }
+
+    private boolean legal(Bed bed) {
+        if (
+                bed.getBedTitle() == null
+                || bed.getRoom() == null
+                || bed.getRoom().getId() == null
+                || roomService.getRoomById(bed.getRoom().getId()) == null
+        ) {
+            return false;
+        }
+        return true;
     }
 }
