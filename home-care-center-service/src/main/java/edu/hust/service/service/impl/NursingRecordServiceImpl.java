@@ -8,7 +8,9 @@ import edu.hust.service.domain.NursingRecordFull;
 import edu.hust.service.domain.WorkerFull;
 import edu.hust.service.service.NursingRecordService;
 import edu.hust.common.exception.GlobalException;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -88,22 +90,34 @@ public class NursingRecordServiceImpl implements NursingRecordService {
 
     @Override
     public void addNursingRecord(NursingRecord nursingRecord) {
-        if (nursingRecordMapper.add(nursingRecord) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (nursingRecordMapper.add(nursingRecord) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void addNursingRecordList(List<NursingRecord> nursingRecordList) {
-        if (nursingRecordMapper.addBatch(nursingRecordList) != nursingRecordList.size()) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (nursingRecordMapper.addBatch(nursingRecordList) != nursingRecordList.size()) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void updateNursingRecord(NursingRecord nursingRecord) {
-        if (nursingRecordMapper.update(nursingRecord) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+        try {
+            if (nursingRecordMapper.update(nursingRecord) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 

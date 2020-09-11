@@ -7,6 +7,7 @@ import edu.hust.service.domain.DishSetFull;
 import edu.hust.service.service.DishSetService;
 import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -46,29 +47,41 @@ public class DishSetServiceImpl implements DishSetService {
 
     @Override
     public void addDishSet(DishSetFull dishSetFull) {
-        DishSet dishSet = convertFromFull(dishSetFull);
-        if (dishSetMapper.add(dishSet) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            DishSet dishSet = convertFromFull(dishSetFull);
+            if (dishSetMapper.add(dishSet) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void addDishSetList(List<DishSetFull> dishSetFullList) {
-        List<DishSet> dishSetList = new ArrayList<>();
-        for (DishSetFull dishSetFull : dishSetFullList) {
-            DishSet dishSet = convertFromFull(dishSetFull);
-            dishSetList.add(dishSet);
-        }
-        if (dishSetMapper.addBatch(dishSetList) != dishSetList.size()) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            List<DishSet> dishSetList = new ArrayList<>();
+            for (DishSetFull dishSetFull : dishSetFullList) {
+                DishSet dishSet = convertFromFull(dishSetFull);
+                dishSetList.add(dishSet);
+            }
+            if (dishSetMapper.addBatch(dishSetList) != dishSetList.size()) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void updateDishSet(DishSetFull dishSetFull) {
-        DishSet dishSet = convertFromFull(dishSetFull);
-        if (dishSetMapper.update(dishSet) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+        try {
+            DishSet dishSet = convertFromFull(dishSetFull);
+            if (dishSetMapper.update(dishSet) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 

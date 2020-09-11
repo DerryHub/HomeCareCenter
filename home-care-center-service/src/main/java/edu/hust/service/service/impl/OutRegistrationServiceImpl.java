@@ -10,6 +10,7 @@ import edu.hust.service.service.OutRegistrationService;
 import edu.hust.common.exception.GlobalException;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -107,22 +108,34 @@ public class OutRegistrationServiceImpl implements OutRegistrationService {
 
     @Override
     public void addOutRegistration(OutRegistration outRegistration) {
-        if (outRegistrationMapper.add(outRegistration) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (outRegistrationMapper.add(outRegistration) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void addOutRegistrationList(List<OutRegistration> outRegistrationList) {
-        if (outRegistrationMapper.addBatch(outRegistrationList) != outRegistrationList.size()) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (outRegistrationMapper.addBatch(outRegistrationList) != outRegistrationList.size()) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void updateOutRegistration(OutRegistration outRegistration) {
-        if (outRegistrationMapper.update(outRegistration) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+        try {
+            if (outRegistrationMapper.update(outRegistration) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 

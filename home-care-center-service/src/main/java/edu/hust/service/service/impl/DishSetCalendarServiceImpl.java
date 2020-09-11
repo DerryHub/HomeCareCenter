@@ -9,6 +9,7 @@ import edu.hust.service.domain.DishSetFull;
 import edu.hust.service.service.DishSetCalendarService;
 import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -105,22 +106,34 @@ public class DishSetCalendarServiceImpl implements DishSetCalendarService {
 
     @Override
     public void addDishSetCalendar(DishSetCalendar dishSetCalendar) {
-        if (dishSetCalendarMapper.add(dishSetCalendar) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (dishSetCalendarMapper.add(dishSetCalendar) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void addDishSetCalendarList(List<DishSetCalendar> dishSetCalendarList) {
-        if (dishSetCalendarMapper.addBatch(dishSetCalendarList) != dishSetCalendarList.size()) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (dishSetCalendarMapper.addBatch(dishSetCalendarList) != dishSetCalendarList.size()) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void updateDishSetCalendar(DishSetCalendar dishSetCalendar) {
-        if (dishSetCalendarMapper.update(dishSetCalendar) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+        try {
+            if (dishSetCalendarMapper.update(dishSetCalendar) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 

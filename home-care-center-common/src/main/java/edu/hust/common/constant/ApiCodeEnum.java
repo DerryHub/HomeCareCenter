@@ -36,12 +36,14 @@ public enum ApiCodeEnum {
     FAIL_TO_ADD("数据添加失败", 40001),
     FAIL_TO_UPDATE("数据修改失败", 40002),
     ILLEGAL_DATA("数据不合法", 40003),
+    ILLEGAL_DELETE("删除对象被其他对象依赖，无法删除", 40004),
+    UNIQUE_ERROR("唯一字段异常", 40005),
 
     ID_is_NULL("用户名为空", 50001),
     PASSWORD_IS_NULL("密码为空", 50002),
     ID_OR_PSD_INCORRECT("用户名或密码错误", 50003),
 
-    DANGER_ACTION_UNAUTHORIZATION("当前操作未授权",40000);
+    DANGER_ACTION_UNAUTHORIZED("当前操作未授权",40000);
 
     private int code;
     private String msg;

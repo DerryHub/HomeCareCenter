@@ -3,9 +3,11 @@ package edu.hust.controller;
 import edu.hust.common.constant.ApiCodeEnum;
 import edu.hust.common.util.RandomUUID;
 import edu.hust.common.vo.ApiResult;
+import edu.hust.dao.dto.Bed;
 import edu.hust.dao.dto.Room;
 import edu.hust.monitor.Monitor;
 import edu.hust.service.service.AreaService;
+import edu.hust.service.service.BedService;
 import edu.hust.service.service.RoomService;
 import edu.hust.common.exception.GlobalException;
 import io.swagger.annotations.Api;
@@ -32,6 +34,9 @@ public class RoomController {
 
     @Autowired
     private AreaService areaService;
+
+    @Autowired
+    private BedService bedService;
 
     @Autowired
     private RandomUUID randomUUID;
@@ -110,12 +115,25 @@ public class RoomController {
             @RequestParam(value = "areaId", required = false) String areaId
     ) {
         if (id == null && areaId == null) {
+            List<Bed> bedList = bedService.getBedList();
+            if (!bedList.isEmpty()) {
+                throw new GlobalException(ApiCodeEnum.ILLEGAL_DELETE);
+            }
             roomService.deleteAllRoom();
             return ApiResult.buildSuccess();
         } else if (id == null) {
+            List<Room> roomList = roomService.getRoomByAreaId(areaId);
+            for (Room room : roomList) {
+                if (!legalDelete(room.getId())) {
+                    throw new GlobalException(ApiCodeEnum.ILLEGAL_DELETE);
+                }
+            }
             roomService.deleteRoomByAreaId(areaId);
             return ApiResult.buildSuccess();
         } else if (areaId == null) {
+            if (!legalDelete(id)) {
+                throw new GlobalException(ApiCodeEnum.ILLEGAL_DELETE);
+            }
             roomService.deleteRoomById(id);
             return ApiResult.buildSuccess();
         } else {
@@ -133,6 +151,14 @@ public class RoomController {
             return false;
         }
         return true;
+    }
+
+    private boolean legalDelete(String roomId) {
+        List<Bed> bedList = bedService.getBedByRoomId(roomId);
+        if (bedList.isEmpty()) {
+            return true;
+        }
+        return false;
     }
 }
 

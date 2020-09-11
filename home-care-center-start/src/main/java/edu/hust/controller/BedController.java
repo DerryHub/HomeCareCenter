@@ -5,8 +5,10 @@ import edu.hust.common.util.RandomUUID;
 import edu.hust.common.vo.ApiResult;
 import edu.hust.dao.dto.Bed;
 import edu.hust.monitor.Monitor;
+import edu.hust.service.domain.ClientFull;
 import edu.hust.service.service.BedService;
 import edu.hust.common.exception.GlobalException;
+import edu.hust.service.service.ClientService;
 import edu.hust.service.service.RoomService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +34,9 @@ public class BedController {
 
     @Autowired
     private RoomService roomService;
+
+    @Autowired
+    private ClientService clientService;
 
     @Autowired
     private RandomUUID randomUUID;
@@ -110,12 +115,25 @@ public class BedController {
             @RequestParam(value = "roomId", required = false) String roomId
     ) {
         if (id == null && roomId == null) {
+            List<ClientFull> clientFullList = clientService.getClientInfoList();
+            if (!clientFullList.isEmpty()) {
+                throw new GlobalException(ApiCodeEnum.ILLEGAL_DELETE);
+            }
             bedService.deleteAllBed();
             return ApiResult.buildSuccess();
         }else if (id == null) {
+            List<Bed> bedList = bedService.getBedByRoomId(roomId);
+            for (Bed bed : bedList) {
+                if (!legalDelete(bed.getId())) {
+                    throw new GlobalException(ApiCodeEnum.ILLEGAL_DELETE);
+                }
+            }
             bedService.deleteBedByRoomId(roomId);
             return ApiResult.buildSuccess();
         }else if (roomId == null) {
+            if (!legalDelete(id)) {
+                throw new GlobalException(ApiCodeEnum.ILLEGAL_DELETE);
+            }
             bedService.deleteBedById(id);
             return ApiResult.buildSuccess();
         }else {
@@ -133,5 +151,13 @@ public class BedController {
             return false;
         }
         return true;
+    }
+
+    private boolean legalDelete(String bedId) {
+        ClientFull clientFull = clientService.getClientInfoByBedId(bedId);
+        if (clientFull == null) {
+            return true;
+        }
+        return false;
     }
 }

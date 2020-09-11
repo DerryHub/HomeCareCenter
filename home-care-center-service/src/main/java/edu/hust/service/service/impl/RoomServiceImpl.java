@@ -6,6 +6,7 @@ import edu.hust.dao.dto.Room;
 import edu.hust.service.service.RoomService;
 import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,22 +45,34 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public void addRoom(Room room) {
-        if (roomMapper.add(room) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (roomMapper.add(room) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void addRoomList(List<Room> roomList) {
-        if (roomMapper.addBatch(roomList) != roomList.size()) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (roomMapper.addBatch(roomList) != roomList.size()) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void updateRoom(Room room) {
-        if (roomMapper.update(room) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+        try {
+            if (roomMapper.update(room) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 

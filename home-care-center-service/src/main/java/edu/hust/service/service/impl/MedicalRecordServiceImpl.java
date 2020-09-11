@@ -9,6 +9,7 @@ import edu.hust.service.domain.WorkerFull;
 import edu.hust.service.service.MedicalRecordService;
 import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -89,22 +90,34 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
 
     @Override
     public void addMedicalRecord(MedicalRecord medicalRecord) {
-        if (medicalRecordMapper.add(medicalRecord) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (medicalRecordMapper.add(medicalRecord) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void addMedicalRecordList(List<MedicalRecord> medicalRecordList) {
-        if (medicalRecordMapper.addBatch(medicalRecordList) != medicalRecordList.size()) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (medicalRecordMapper.addBatch(medicalRecordList) != medicalRecordList.size()) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void updateMedicalRecord(MedicalRecord medicalRecord) {
-        if (medicalRecordMapper.update(medicalRecord) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+        try {
+            if (medicalRecordMapper.update(medicalRecord) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
