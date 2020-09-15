@@ -3,6 +3,7 @@ package edu.hust;
 import edu.hust.common.util.JWTUtil;
 import edu.hust.common.util.RandomUUID;
 import edu.hust.common.util.TraceIdUtil;
+import edu.hust.config.ThreadTaskExecutorMdcWrapper;
 import edu.hust.dao.dto.Bed;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.Arrays;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -56,6 +60,10 @@ public class HomeCareCenterStartApplication {
         threadPoolExecutor.execute(()->{
             log.info(":dasdasssssssssssssssssssssssssss");
         });
+        new Thread(()->{
+            log.info("这是使用new的线程打印出来的日志。。。。。。。。。。。。。。。。。。。。");
+        }).start();
         return  new Bed();
     }
+
 }

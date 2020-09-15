@@ -9,6 +9,7 @@ import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,19 +17,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author chain
  * @date 2020/9/4
  **/
+@Service
 @Slf4j
 public class JWTInterceptor implements HandlerInterceptor {
 
     @Autowired
     private JWTUtil jwtUtil;
 
+    @Autowired
+    private ThreadPoolExecutor threadPoolExecutor;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        threadPoolExecutor.execute(()->{
+            log.info("这是一条测试日志");
+        });
 
         String uri=request.getRequestURI();
         if (uri!=null&&uri.contains("swa"))

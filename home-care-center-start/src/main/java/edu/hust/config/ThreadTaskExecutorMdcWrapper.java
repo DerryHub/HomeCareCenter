@@ -7,6 +7,7 @@ import org.slf4j.MDC;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskDecorator;
+import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.util.concurrent.ListenableFuture;
@@ -17,7 +18,7 @@ import java.util.concurrent.*;
  * @author chain
  * @date 2020/9/10
  **/
-@EnableAsync
+//@EnableAsync
 @Slf4j
 @Configuration
 public class ThreadTaskExecutorMdcWrapper extends ThreadPoolTaskExecutor {
@@ -51,9 +52,5 @@ public class ThreadTaskExecutorMdcWrapper extends ThreadPoolTaskExecutor {
     public Future<?> submit(Runnable task) {
         return super.submit(TraceIdUtil.wrapper(task, MDC.getCopyOfContextMap()));
     }
-
-
-
-
 
 }
