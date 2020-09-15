@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="edu.hust.dao.dto.DishSet">
+<mapper namespace="edu.hust.dao.dao.DishSetMapper">
 
     <resultMap id="DishSetResultMap" type="edu.hust.dao.dto.DishSet">
         <id column="id" property="id" jdbcType="VARCHAR"/>
@@ -44,7 +44,7 @@
     <insert id="addBatch" parameterType="edu.hust.dao.dto.DishSet">
         insert into dish_set (id, mon, tue, wed, thu, fri, sat, sun, remark)
         values
-        <foreach collection="list" item="dish_set" index="index" separator=",">
+        <foreach collection="dish_set_list" item="dish_set" index="index" separator=",">
         (
         #{dish_set.id, jdbcType=VARCHAR},
         #{dish_set.mon, jdbcType=VARCHAR},
@@ -61,15 +61,16 @@
 
     <update id="update" parameterType="edu.hust.dao.dto.DishSet">
         update dish_set
-        set
-        mon = #{dish_set.mon, jdbcType=VARCHAR},
-        tue = #{dish_set.tue, jdbcType=VARCHAR},
-        wed = #{dish_set.wed, jdbcType=VARCHAR},
-        thu = #{dish_set.thu, jdbcType=VARCHAR},
-        fri = #{dish_set.fri, jdbcType=VARCHAR},
-        sat = #{dish_set.sat, jdbcType=VARCHAR},
-        sun = #{dish_set.sun, jdbcType=VARCHAR},
-        remark#{dish_set.remark, jdbcType=VARCHAR}
+        <trim prefix="set" suffixOverrides=",">
+            <if test="dish_set.mon != null">mon = #{dish_set.mon, jdbcType=VARCHAR},</if>
+            <if test="dish_set.tue != null">tue = #{dish_set.tue, jdbcType=VARCHAR},</if>
+            <if test="dish_set.wed != null">wed = #{dish_set.wed, jdbcType=VARCHAR},</if>
+            <if test="dish_set.thu != null">thu = #{dish_set.thu, jdbcType=VARCHAR},</if>
+            <if test="dish_set.fri != null">fri = #{dish_set.fri, jdbcType=VARCHAR},</if>
+            <if test="dish_set.sat != null">sat = #{dish_set.sat, jdbcType=VARCHAR},</if>
+            <if test="dish_set.sun != null">sun = #{dish_set.sun, jdbcType=VARCHAR},</if>
+            <if test="dish_set.remark != null">remark = #{dish_set.remark, jdbcType=VARCHAR},</if>
+        </trim>
         where
         id = #{dish_set.id, jdbcType=VARCHAR}
     </update>

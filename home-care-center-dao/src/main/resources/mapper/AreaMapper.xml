@@ -28,15 +28,16 @@
 
     <insert id="addBatch" parameterType="edu.hust.dao.dto.Area">
         insert into area (id, area_title) values
-        <foreach collection="list" item="area" index="index" separator=",">
+        <foreach collection="area_list" item="area" index="index" separator=",">
             (#{area.id, jdbcType=VARCHAR}, #{area.areaTitle, jdbcType=VARCHAR})
         </foreach>
     </insert>
 
     <update id="update" parameterType="edu.hust.dao.dto.Area">
         update area
-        set
-        area_title = #{area.areaTitle, jdbcType=VARCHAR}
+        <trim prefix="set" suffixOverrides=",">
+            <if test="area.areaTitle != null"> area_title = #{area.areaTitle, jdbcType=VARCHAR}, </if>
+        </trim>
         where
         id = #{area.id, jdbcType=VARCHAR}
     </update>

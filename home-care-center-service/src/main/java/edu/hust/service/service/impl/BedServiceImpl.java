@@ -6,6 +6,7 @@ import edu.hust.dao.dto.Bed;
 import edu.hust.service.service.BedService;
 import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,22 +45,34 @@ public class BedServiceImpl implements BedService {
 
     @Override
     public void addBed(Bed bed) {
-        if (bedMapper.add(bed) == 0){
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (bedMapper.add(bed) == 0){
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void addBedList(List<Bed> bedList) {
-        if (bedMapper.addBatch(bedList) != bedList.size()){
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (bedMapper.addBatch(bedList) != bedList.size()){
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void updateBed(Bed bed) {
-        if (bedMapper.update(bed) == 0){
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+        try {
+            if (bedMapper.update(bed) == 0){
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 

@@ -9,6 +9,7 @@ import edu.hust.service.domain.WorkerFull;
 import edu.hust.service.service.WorkerService;
 import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class WorkerServiceImpl implements WorkerService {
     public Worker loginByIdCardNoAndPassword(String idCardNo, String password) {
         Worker worker = workerMapper.selectByIdCardNo(idCardNo);
         if (worker.getPassword() == password) {
+            worker.setPassword(null);
             return worker;
         }
         return null;
@@ -53,7 +55,11 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public WorkerFull getWorkerById(String id) {
-        WorkerFull workerFull = this.convert(workerMapper.selectById(id));
+        Worker worker = workerMapper.selectById(id);
+        if (worker == null) {
+            return null;
+        }
+        WorkerFull workerFull = this.convert(worker);
         Area area = areaMapper.selectById(workerFull.getAreaId());
         workerFull.setArea(area);
         return workerFull;
@@ -61,7 +67,11 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public WorkerFull getWorkerByIdCardNo(String idCardNo) {
-        WorkerFull workerFull = this.convert(workerMapper.selectByIdCardNo(idCardNo));
+        Worker worker = workerMapper.selectByIdCardNo(idCardNo);
+        if (worker == null) {
+            return null;
+        }
+        WorkerFull workerFull = this.convert(worker);
         Area area = areaMapper.selectById(workerFull.getAreaId());
         workerFull.setArea(area);
         return workerFull;
@@ -108,22 +118,34 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public void addWorker(Worker worker) {
-        if (workerMapper.add(worker) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (workerMapper.add(worker) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void addWorkerList(List<Worker> workerList) {
-        if (workerMapper.addBatch(workerList) != workerList.size()) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (workerMapper.addBatch(workerList) != workerList.size()) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void updateWorker(Worker worker) {
-        if (workerMapper.update(worker) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+        try {
+            if (workerMapper.update(worker) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 

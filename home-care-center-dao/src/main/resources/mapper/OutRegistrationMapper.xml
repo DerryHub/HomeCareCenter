@@ -82,7 +82,7 @@
         back_time_expected,
         back_time_real
         ) values
-        <foreach collection="list" index="index" item="out_registration" separator=",">
+        <foreach collection="out_registration_list" index="index" item="out_registration" separator=",">
         (
         #{out_registration.id, jdbcType=VARCHAR},
         #{out_registration.clientId, jdbcType=VARCHAR},
@@ -100,16 +100,17 @@
 
     <update id="update" parameterType="edu.hust.dao.dto.OutRegistration">
         update out_registration
-        set
-        client_id = #{out_registration.clientId, jdbcType=VARCHAR},
-        nurse_id = #{out_registration.nurseId, jdbcType=VARCHAR},
-        reason = #{out_registration.reason, jdbcType=VARCHAR},
-        out_time = #{out_registration.outTime, jdbcType=DATE},
-        partner_name = #{out_registration.partnerName, jdbcType=VARCHAR},
-        partner_phone = #{out_registration.partnerPhone, jdbcType=VARCHAR},
-        remark = #{out_registration.remark, jdbcType=VARCHAR},
-        back_time_expected = #{out_registration.backTimeExpected, jdbcType=DATE},
-        back_time_real = #{out_registration.backTimeReal, jdbcType=DATE}
+        <trim prefix="set" suffixOverrides=",">
+            <if test="out_registration.clientId != null">client_id = #{out_registration.clientId, jdbcType=VARCHAR},</if>
+            <if test="out_registration.nurseId != null">nurse_id = #{out_registration.nurseId, jdbcType=VARCHAR},</if>
+            <if test="out_registration.reason != null">reason = #{out_registration.reason, jdbcType=VARCHAR},</if>
+            <if test="out_registration.outTime != null">out_time = #{out_registration.outTime, jdbcType=DATE},</if>
+            <if test="out_registration.partnerName != null">partner_name = #{out_registration.partnerName, jdbcType=VARCHAR},</if>
+            <if test="out_registration.partnerPhone != null">partner_phone = #{out_registration.partnerPhone, jdbcType=VARCHAR},</if>
+            <if test="out_registration.remark != null">remark = #{out_registration.remark, jdbcType=VARCHAR},</if>
+            <if test="out_registration.backTimeExpected != null">back_time_expected = #{out_registration.backTimeExpected, jdbcType=DATE},</if>
+            <if test="out_registration.backTimeReal != null">back_time_real = #{out_registration.backTimeReal, jdbcType=DATE},</if>
+        </trim>
         where
         id = #{out_registration.id, jdbcType=VARCHAR}
     </update>

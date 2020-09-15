@@ -9,6 +9,7 @@ import edu.hust.service.domain.ClientFull;
 import edu.hust.service.service.ClientService;
 import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,7 +32,10 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientFull getClientInfoById(String id) {
-        Client client = clientMapper.selectByBedId(id);
+        Client client = clientMapper.selectById(id);
+        if (client == null) {
+            return null;
+        }
         Bed bed = bedMapper.selectById(client.getBedId());
         ClientFull clientFull = this.convert(client);
         clientFull.setBed(bed);
@@ -41,6 +45,9 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientFull getClientInfoByIdCardNo(String idCardNo) {
         Client client = clientMapper.selectByIdCardNo(idCardNo);
+        if (client == null) {
+            return null;
+        }
         Bed bed = bedMapper.selectById(client.getBedId());
         ClientFull clientFull = this.convert(client);
         clientFull.setBed(bed);
@@ -78,6 +85,9 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientFull getClientInfoByBedId(String bedId) {
         Client client = clientMapper.selectByBedId(bedId);
+        if (client == null) {
+            return null;
+        }
         Bed bed = bedMapper.selectById(client.getBedId());
         ClientFull clientFull = this.convert(client);
         clientFull.setBed(bed);
@@ -86,22 +96,34 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void addClient(Client client) {
-        if (clientMapper.add(client) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (clientMapper.add(client) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void addClientList(List<Client> clientList) {
-        if (clientMapper.addBatch(clientList) != clientList.size()) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (clientMapper.addBatch(clientList) != clientList.size()) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void updateClient(Client client) {
-        if (clientMapper.update(client) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+        try {
+            if (clientMapper.update(client) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 

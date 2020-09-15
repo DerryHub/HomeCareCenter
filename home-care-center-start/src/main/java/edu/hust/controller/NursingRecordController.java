@@ -6,8 +6,10 @@ import edu.hust.common.vo.ApiResult;
 import edu.hust.dao.dto.NursingRecord;
 import edu.hust.monitor.Monitor;
 import edu.hust.service.domain.NursingRecordFull;
+import edu.hust.service.service.ClientService;
 import edu.hust.service.service.NursingRecordService;
 import edu.hust.common.exception.GlobalException;
+import edu.hust.service.service.WorkerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,14 @@ import java.util.List;
 @RequestMapping("HomeCareCenter/nursingRecord/")
 public class NursingRecordController {
 
-    @Resource
+    @Autowired
     private NursingRecordService nursingRecordService;
+
+    @Autowired
+    private ClientService clientService;
+
+    @Autowired
+    private WorkerService workerService;
 
     @Autowired
     private RandomUUID randomUUID;
@@ -63,6 +71,9 @@ public class NursingRecordController {
     @PostMapping("add")
     @Monitor("addNursingRecord")
     public ApiResult add(@RequestBody NursingRecord nursingRecord) {
+        if (!legal(nursingRecord)) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         nursingRecord.setId(randomUUID.nextIdStr());
         nursingRecordService.addNursingRecord(nursingRecord);
         return ApiResult.buildSuccess();
@@ -73,6 +84,9 @@ public class NursingRecordController {
     @Monitor("addBatchNursingRecord")
     public ApiResult addBatch(@RequestBody List<NursingRecord> nursingRecordList) {
         for (NursingRecord nursingRecord : nursingRecordList) {
+            if (!legal(nursingRecord)) {
+                throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+            }
             nursingRecord.setId(randomUUID.nextIdStr());
         }
         nursingRecordService.addNursingRecordList(nursingRecordList);
@@ -83,6 +97,18 @@ public class NursingRecordController {
     @PostMapping("update")
     @Monitor("updateNursingRecord")
     public ApiResult update(@RequestBody NursingRecord nursingRecord) {
+        if (
+                (
+                        nursingRecord.getClientId() != null
+                        && clientService.getClientInfoById(nursingRecord.getClientId()) == null
+                        )
+                || (
+                        nursingRecord.getNurseId() != null
+                        && workerService.getWorkerById(nursingRecord.getNurseId()) == null
+                        )
+        ) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         nursingRecordService.updateNursingRecord(nursingRecord);
         return ApiResult.buildSuccess();
     }
@@ -97,5 +123,19 @@ public class NursingRecordController {
             nursingRecordService.deleteNursingRecordById(id);
         }
         return ApiResult.buildSuccess();
+    }
+
+    private boolean legal(NursingRecord nursingRecord) {
+        if (
+                nursingRecord.getClientId() == null
+                || clientService.getClientInfoById(nursingRecord.getClientId()) == null
+                || nursingRecord.getNurseId() == null
+                || workerService.getWorkerById(nursingRecord.getNurseId()) == null
+                || nursingRecord.getContent() == null
+                || nursingRecord.getDate() == null
+        ) {
+            return false;
+        }
+        return true;
     }
 }

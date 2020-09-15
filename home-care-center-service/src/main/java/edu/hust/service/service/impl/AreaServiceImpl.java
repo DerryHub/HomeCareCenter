@@ -6,6 +6,7 @@ import edu.hust.dao.dto.Area;
 import edu.hust.service.service.AreaService;
 import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,23 +40,38 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public void addArea(Area area) {
-        if (areaMapper.add(area) == 0){
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (areaMapper.add(area) == 0){
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
+
     }
 
     @Override
     public void addAreaList(List<Area> areaList) {
-        if (areaMapper.addBatch(areaList) != areaList.size()){
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (areaMapper.addBatch(areaList) != areaList.size()){
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
+
     }
 
     @Override
     public void updateArea(Area area) {
-        if (areaMapper.update(area) == 0){
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+        try {
+            if (areaMapper.update(area) == 0){
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
+
     }
 
     @Override

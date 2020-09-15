@@ -6,8 +6,10 @@ import edu.hust.common.vo.ApiResult;
 import edu.hust.dao.dto.MedicalRecord;
 import edu.hust.monitor.Monitor;
 import edu.hust.service.domain.MedicalRecordFull;
+import edu.hust.service.service.ClientService;
 import edu.hust.service.service.MedicalRecordService;
 import edu.hust.common.exception.GlobalException;
+import edu.hust.service.service.WorkerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,14 @@ import java.util.List;
 @RequestMapping("HomeCareCenter/medicalRecord/")
 public class MedicalRecordController {
 
-    @Resource
+    @Autowired
     private MedicalRecordService medicalRecordService;
+
+    @Autowired
+    private ClientService clientService;
+
+    @Autowired
+    private WorkerService workerService;
 
     @Autowired
     private RandomUUID randomUUID;
@@ -63,6 +71,9 @@ public class MedicalRecordController {
     @PostMapping("add")
     @Monitor("addMedicalRecord")
     public ApiResult add(@RequestBody MedicalRecord medicalRecord) {
+        if (!legal(medicalRecord)) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         medicalRecord.setId(randomUUID.nextIdStr());
         medicalRecordService.addMedicalRecord(medicalRecord);
         return ApiResult.buildSuccess();
@@ -73,6 +84,9 @@ public class MedicalRecordController {
     @Monitor("addBatchMedicalRecord")
     public ApiResult addBatch(@RequestBody List<MedicalRecord> medicalRecordList) {
         for (MedicalRecord medicalRecord : medicalRecordList) {
+            if (!legal(medicalRecord)) {
+                throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+            }
             medicalRecord.setId(randomUUID.nextIdStr());
         }
         medicalRecordService.addMedicalRecordList(medicalRecordList);
@@ -83,6 +97,18 @@ public class MedicalRecordController {
     @PostMapping("update")
     @Monitor("updateMedicalRecord")
     public ApiResult update(@RequestBody MedicalRecord medicalRecord) {
+        if (
+                (
+                        medicalRecord.getClientId() != null
+                        && clientService.getClientInfoById(medicalRecord.getClientId()) == null
+                        )
+                || (
+                        medicalRecord.getDoctorId() != null
+                        && workerService.getWorkerById(medicalRecord.getDoctorId()) == null
+                        )
+        ) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         medicalRecordService.updateMedicalRecord(medicalRecord);
         return ApiResult.buildSuccess();
     }
@@ -97,5 +123,19 @@ public class MedicalRecordController {
             medicalRecordService.deleteMedicalRecordById(id);
         }
         return ApiResult.buildSuccess();
+    }
+
+    private boolean legal(MedicalRecord medicalRecord) {
+        if (
+                medicalRecord.getClientId() == null
+                || clientService.getClientInfoById(medicalRecord.getClientId()) == null
+                || medicalRecord.getDoctorId() == null
+                || workerService.getWorkerById(medicalRecord.getDoctorId()) == null
+                || medicalRecord.getDate() == null
+                || medicalRecord.getPrescription() == null
+        ) {
+            return false;
+        }
+        return true;
     }
 }

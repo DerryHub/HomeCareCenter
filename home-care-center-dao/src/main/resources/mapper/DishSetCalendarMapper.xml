@@ -60,7 +60,7 @@
         end_date
         )
         values
-        <foreach collection="list" index="index" item="dish_set_calendar" separator=",">
+        <foreach collection="dish_set_calendar_list" index="index" item="dish_set_calendar" separator=",">
         (
         #{dish_set_calendar.id, jdbcType=VARCHAR},
         #{dish_set_calendar.clientId, jdbcType=VARCHAR},
@@ -73,11 +73,12 @@
 
     <update id="update" parameterType="edu.hust.dao.dto.DishSetCalendar">
         update dish_set_calendar
-        set
-        client_id = #{dish_set_calendar.clientId, jdbcType=VARCHAR},
-        dish_set_id = #{dish_set_calendar.dishSetId, jdbcType=VARCHAR},
-        start_date = #{dish_set_calendar.startDate, jdbcType=DATE},
-        end_date = #{dish_set_calendar.endDate, jdbcType=DATE}
+        <trim prefix="set" suffixOverrides=",">
+            <if test="dish_set_calendar.clientId != null">client_id = #{dish_set_calendar.clientId, jdbcType=VARCHAR},</if>
+            <if test="dish_set_calendar.dishSetId != null">dish_set_id = #{dish_set_calendar.dishSetId, jdbcType=VARCHAR},</if>
+            <if test="dish_set_calendar.startDate != null">start_date = #{dish_set_calendar.startDate, jdbcType=DATE},</if>
+            <if test="dish_set_calendar.endDate != null">end_date = #{dish_set_calendar.endDate, jdbcType=DATE},</if>
+        </trim>
         where
         id = #{dish_set_calendar.id, jdbcType=VARCHAR}
     </update>

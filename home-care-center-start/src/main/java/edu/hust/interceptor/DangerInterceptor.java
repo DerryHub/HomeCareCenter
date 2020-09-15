@@ -22,8 +22,8 @@ public class DangerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String role= (String) request.getAttribute(JWTConst.CLAIMS_ROLE);
-        if (!role.equals(JWTConst.CLAIMS_ADMIN)){
-            throw new GlobalException(ApiCodeEnum.DANGER_ACTION_UNAUTHORIZATION);
+        if (role==null|| !role.equals(JWTConst.CLAIMS_ADMIN)){
+            throw new GlobalException(ApiCodeEnum.DANGER_ACTION_UNAUTHORIZED);
         }
         return true;
     }

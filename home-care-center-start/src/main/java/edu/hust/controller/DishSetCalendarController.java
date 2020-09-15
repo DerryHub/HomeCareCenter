@@ -6,8 +6,10 @@ import edu.hust.common.vo.ApiResult;
 import edu.hust.dao.dto.DishSetCalendar;
 import edu.hust.monitor.Monitor;
 import edu.hust.service.domain.DishSetCalendarFull;
+import edu.hust.service.service.ClientService;
 import edu.hust.service.service.DishSetCalendarService;
 import edu.hust.common.exception.GlobalException;
+import edu.hust.service.service.DishSetService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,14 @@ import java.util.List;
 @RequestMapping("HomeCareCenter/dishSetCalendar/")
 public class DishSetCalendarController {
 
-    @Resource
+    @Autowired
     private DishSetCalendarService dishSetCalendarService;
+
+    @Autowired
+    private ClientService clientService;
+
+    @Autowired
+    private DishSetService dishSetService;
 
     @Autowired
     private RandomUUID randomUUID;
@@ -62,6 +70,9 @@ public class DishSetCalendarController {
     @PostMapping("add")
     @Monitor("addDishSetCalendar")
     public ApiResult add(@RequestBody DishSetCalendar dishSetCalendar) {
+        if (!legal(dishSetCalendar)) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         dishSetCalendar.setId(randomUUID.nextIdStr());
         dishSetCalendarService.addDishSetCalendar(dishSetCalendar);
         return ApiResult.buildSuccess();
@@ -72,6 +83,9 @@ public class DishSetCalendarController {
     @Monitor("addBatchDishSetCalendar")
     public ApiResult addBatch(@RequestBody List<DishSetCalendar> dishSetCalendarList) {
         for (DishSetCalendar dishSetCalendar : dishSetCalendarList) {
+            if (!legal(dishSetCalendar)) {
+                throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+            }
             dishSetCalendar.setId(randomUUID.nextIdStr());
         }
         dishSetCalendarService.addDishSetCalendarList(dishSetCalendarList);
@@ -82,6 +96,18 @@ public class DishSetCalendarController {
     @PostMapping("update")
     @Monitor("updateDishSetCalendar")
     public ApiResult update(@RequestBody DishSetCalendar dishSetCalendar) {
+        if (
+                (
+                        dishSetCalendar.getClientId() != null
+                        && clientService.getClientInfoById(dishSetCalendar.getClientId()) == null
+                        )
+                || (
+                        dishSetCalendar.getDishSetId() != null
+                        && dishSetService.getDishSetById(dishSetCalendar.getDishSetId()) == null
+                        )
+        ) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         dishSetCalendarService.updateDishSetCalendar(dishSetCalendar);
         return ApiResult.buildSuccess();
     }
@@ -96,5 +122,19 @@ public class DishSetCalendarController {
             dishSetCalendarService.deleteDishSetCalendarById(id);
         }
         return ApiResult.buildSuccess();
+    }
+
+    private boolean legal(DishSetCalendar dishSetCalendar) {
+        if (
+                dishSetCalendar.getClientId() == null
+                || clientService.getClientInfoById(dishSetCalendar.getClientId()) == null
+                || dishSetCalendar.getDishSetId() == null
+                || dishSetService.getDishSetById(dishSetCalendar.getDishSetId()) == null
+                || dishSetCalendar.getStartDate() == null
+                || dishSetCalendar.getEndDate() == null
+        ) {
+            return false;
+        }
+        return true;
     }
 }

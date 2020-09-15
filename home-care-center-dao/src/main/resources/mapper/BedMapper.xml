@@ -77,16 +77,19 @@
 
     <insert id="addBatch" parameterType="edu.hust.dao.dto.Bed">
         insert into bed (id, bed_title, room_id) values
-        <foreach collection="list" index="index" item="bed" separator=",">
+        <foreach collection="bed_list" index="index" item="bed" separator=",">
             (#{bed.id, jdbcType=VARCHAR}, #{bed.bedTitle, jdbcType=VARCHAR}, #{bed.room.id, jdbcType=VARCHAR})
         </foreach>
     </insert>
 
     <update id="update" parameterType="edu.hust.dao.dto.Bed">
         update bed
-        set
-        bed_title = #{bed.bedTitle, jdbcType=VARCHAR},
-        room_id = #{bed.room.id, jdbcType=VARCHAR}
+        <trim prefix="set" suffixOverrides=",">
+            <if test="bed.bedTitle != null"> bed_title = #{bed.bedTitle, jdbcType=VARCHAR}, </if>
+            <if test="bed.room != null">
+                <if test="bed.room.id != null">room_id = #{bed.room.id, jdbcType=VARCHAR},</if>
+            </if>
+        </trim>
         where
         id = #{bed.id, jdbcType=VARCHAR}
     </update>

@@ -8,7 +8,9 @@ import edu.hust.service.domain.NursingRecordFull;
 import edu.hust.service.domain.WorkerFull;
 import edu.hust.service.service.NursingRecordService;
 import edu.hust.common.exception.GlobalException;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,6 +43,9 @@ public class NursingRecordServiceImpl implements NursingRecordService {
             NursingRecordFull nursingRecordFull = this.convert(nursingRecord);
             ClientFull clientFull = clientService.getClientInfoById(nursingRecordFull.getClientId());
             WorkerFull nurseFull = workerService.getWorkerById(nursingRecordFull.getNurseId());
+            if (clientFull == null || nurseFull == null) {
+                continue;
+            }
             nursingRecordFull.setClientFull(clientFull);
             nursingRecordFull.setNurse(nurseFull);
             nursingRecordFullList.add(nursingRecordFull);
@@ -50,9 +55,16 @@ public class NursingRecordServiceImpl implements NursingRecordService {
 
     @Override
     public NursingRecordFull getNursingRecordById(String id) {
-        NursingRecordFull nursingRecordFull = this.convert(nursingRecordMapper.selectById(id));
+        NursingRecord nursingRecord = nursingRecordMapper.selectById(id);
+        if (nursingRecord == null) {
+            return null;
+        }
+        NursingRecordFull nursingRecordFull = this.convert(nursingRecord);
         ClientFull clientFull = clientService.getClientInfoById(nursingRecordFull.getClientId());
         WorkerFull nurseFull = workerService.getWorkerById(nursingRecordFull.getNurseId());
+        if (clientFull == null || nurseFull == null) {
+            return null;
+        }
         nursingRecordFull.setClientFull(clientFull);
         nursingRecordFull.setNurse(nurseFull);
         return nursingRecordFull;
@@ -66,6 +78,9 @@ public class NursingRecordServiceImpl implements NursingRecordService {
             NursingRecordFull nursingRecordFull = this.convert(nursingRecord);
             ClientFull clientFull = clientService.getClientInfoById(nursingRecordFull.getClientId());
             WorkerFull nurseFull = workerService.getWorkerById(nursingRecordFull.getNurseId());
+            if (clientFull == null || nurseFull == null) {
+                continue;
+            }
             nursingRecordFull.setClientFull(clientFull);
             nursingRecordFull.setNurse(nurseFull);
             nursingRecordFullList.add(nursingRecordFull);
@@ -75,22 +90,34 @@ public class NursingRecordServiceImpl implements NursingRecordService {
 
     @Override
     public void addNursingRecord(NursingRecord nursingRecord) {
-        if (nursingRecordMapper.add(nursingRecord) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (nursingRecordMapper.add(nursingRecord) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void addNursingRecordList(List<NursingRecord> nursingRecordList) {
-        if (nursingRecordMapper.addBatch(nursingRecordList) != nursingRecordList.size()) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+        try {
+            if (nursingRecordMapper.addBatch(nursingRecordList) != nursingRecordList.size()) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_ADD);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 
     @Override
     public void updateNursingRecord(NursingRecord nursingRecord) {
-        if (nursingRecordMapper.update(nursingRecord) == 0) {
-            throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+        try {
+            if (nursingRecordMapper.update(nursingRecord) == 0) {
+                throw new GlobalException(ApiCodeEnum.FAIL_TO_UPDATE);
+            }
+        } catch (DataAccessException e) {
+            throw new GlobalException(ApiCodeEnum.UNIQUE_ERROR);
         }
     }
 

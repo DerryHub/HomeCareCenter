@@ -21,27 +21,27 @@
     </resultMap>
     
     <select id="selectList" resultMap="WorkerResultMap">
-        select * from worker and delete is null
+        select * from worker where "delete" is null
     </select>
     
     <select id="selectById" resultMap="WorkerResultMap">
-        select * from worker where id = #{id, jdbcType=VARCHAR} and delete is null
+        select * from worker where id = #{id, jdbcType=VARCHAR} and "delete" is null
     </select>
     
     <select id="selectByIdCardNo" resultMap="WorkerResultMap">
-        select * from worker where id_card_no = #{id_card_no, jdbcType=VARCHAR} and delete is null
+        select * from worker where id_card_no = #{id_card_no, jdbcType=VARCHAR} and "delete" is null
     </select>
     
     <select id="selectByType" resultMap="WorkerResultMap">
-        select * from worker where type = #{type, jdbcType=INTEGER} and delete is null
+        select * from worker where type = #{type, jdbcType=INTEGER} and "delete" is null
     </select>
 
     <select id="selectByName" resultMap="WorkerResultMap">
-        select * from worker where name = #{name, jdbcType=VARCHAR} and delete is null
+        select * from worker where name = #{name, jdbcType=VARCHAR} and "delete" is null
     </select>
 
     <select id="selectByAreaId" resultMap="WorkerResultMap">
-        select * from worker where area_id = #{area_id, jdbcType=VARCHAR} and delete is null
+        select * from worker where area_id = #{area_id, jdbcType=VARCHAR} and "delete" is null
     </select>
     
     <insert id="add" parameterType="edu.hust.dao.dto.Worker">
@@ -94,7 +94,7 @@
         delete
         )
         values 
-        <foreach collection="list" item="worker" index="index" separator=",">
+        <foreach collection="worker_list" item="worker" index="index" separator=",">
         (
         #{worker.id, jdbcType=VARCHAR},
         #{worker.type, jdbcType=INTEGER},
@@ -114,18 +114,18 @@
     
     <update id="update" parameterType="edu.hust.dao.dto.Worker">
         update worker
-        set
-        type = #{worker.type, jdbcType=INTEGER},
-        name = #{worker.name, jdbcType=VARCHAR},
-        birthday = #{worker.birthday, jdbcType=DATE},
-        gender = #{worker.gender, jdbcType=INTEGER},
-        id_card_no = #{worker.idCardNo, jdbcType=VARCHAR},
-        register_date = #{worker.registerDate, jdbcType=DATE},
-        phone_no = #{worker.phoneNo, jdbcType=VARCHAR},
-        area_id = #{worker.areaId, jdbcType=VARCHAR},
-        password = #{worker.password, jdbcType=VARCHAR},
-        head_img = #{worker.headImg, jdbcType=VARCHAR},
-        delete = #{worker.delete, jdbcType=INTEGER}
+        <trim prefix="set" suffixOverrides=",">
+            <if test="worker.type != null">type = #{worker.type, jdbcType=INTEGER},</if>
+            <if test="worker.name != null">name = #{worker.name, jdbcType=VARCHAR},</if>
+            <if test="worker.birthday != null">birthday = #{worker.birthday, jdbcType=DATE},</if>
+            <if test="worker.gender != null">gender = #{worker.gender, jdbcType=INTEGER},</if>
+            <if test="worker.idCardNo != null">id_card_no = #{worker.idCardNo, jdbcType=VARCHAR},</if>
+            <if test="worker.registerDate != null">register_date = #{worker.registerDate, jdbcType=DATE},</if>
+            <if test="worker.phoneNo != null">phone_no = #{worker.phoneNo, jdbcType=VARCHAR},</if>
+            <if test="worker.areaId != null">area_id = #{worker.areaId, jdbcType=VARCHAR},</if>
+            <if test="worker.password != null">password = #{worker.password, jdbcType=VARCHAR},</if>
+            <if test="worker.headImg != null">head_img = #{worker.headImg, jdbcType=VARCHAR},</if>
+        </trim>
         where
         id = #{worker.id, jdbcType=VARCHAR}
     </update>
