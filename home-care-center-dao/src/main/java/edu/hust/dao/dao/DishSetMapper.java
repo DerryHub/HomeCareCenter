@@ -36,6 +36,15 @@ public interface DishSetMapper {
 
     /**
      * @Author Derry Lin
+     * @Description 根据name查找
+     * @Date 下午4:48 2020/9/15
+     * @Param [name]
+     * @return edu.hust.dao.dto.DishSet
+     **/
+    DishSet selectByName(@Param("name") String name);
+
+    /**
+     * @Author Derry Lin
      * @Description 添加套餐
      * @Date 下午3:23 2020/9/7
      * @Param [dishSet]

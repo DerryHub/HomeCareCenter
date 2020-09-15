@@ -36,13 +36,21 @@ public class DishSetController {
     @ApiOperation("查询套餐")
     @GetMapping("search")
     @Monitor("searchDishSet")
-    public ApiResult search(@RequestParam(value = "id", required = false) String id) {
-        if (id == null) {
+    public ApiResult search(
+            @RequestParam(value = "id", required = false) String id,
+            @RequestParam(value = "name", required = false) String name
+    ) {
+        if (id == null && name == null) {
             List<DishSetFull> dishSetFullList = dishSetService.getDishSetList();
             return ApiResult.buildSuccess(dishSetFullList);
-        } else {
+        } else if(name == null) {
             DishSetFull dishSetFull = dishSetService.getDishSetById(id);
             return ApiResult.buildSuccess(dishSetFull);
+        } else if(id == null) {
+            DishSetFull dishSetFull = dishSetService.getDishSetByName(name);
+            return ApiResult.buildSuccess(dishSetFull);
+        } else {
+            throw new GlobalException(ApiCodeEnum.PARAM_ERROR);
         }
     }
 

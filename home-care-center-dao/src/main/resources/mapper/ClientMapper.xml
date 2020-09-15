@@ -186,14 +186,16 @@
     <update id="deleteById" parameterType="String">
         update client
         set
-        bed_id = null
+        client.bed_id = null,
+        client.id_card_no = concat(client.id_card_no, "_deleted")
         where id = #{id, jdbcType=VARCHAR}
     </update>
 
     <update id="deleteByIdCardNo" parameterType="String">
         update client
         set
-        bed_id = null
+        bed_id = null,
+        client.id_card_no = concat(client.id_card_no, "_deleted")
         where
         id_card_no = #{id_card_no, jdbcType=VARCHAR}
     </update>
@@ -201,7 +203,8 @@
     <update id="deleteAll">
         update client
         set
-        bed_id = null
+        bed_id = null,
+        client.id_card_no = concat(client.id_card_no, "_deleted")
     </update>
 
 </mapper>
