@@ -35,10 +35,8 @@ public class JWTUtil {
                 .signWith(SignatureAlgorithm.HS256, key)
                 .claim("roles", roles)
                 .claim("accountId",accountId) //账户
-                .claim("id",uid);  //唯一主键
-        if (ttl > 0) {
-            builder.setExpiration( new Date( nowMillis + ttl));
-        }
+                .claim("id",uid)  //唯一主键
+                .setExpiration(new Date(nowMillis+ttl));
         return builder.compact();
     }
 

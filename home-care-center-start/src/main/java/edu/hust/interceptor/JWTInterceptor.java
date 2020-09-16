@@ -36,10 +36,6 @@ public class JWTInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        threadPoolExecutor.execute(()->{
-            log.info("这是一条测试日志");
-        });
-
         String uri=request.getRequestURI();
         if (uri!=null&&uri.contains("swa"))
             return true;
