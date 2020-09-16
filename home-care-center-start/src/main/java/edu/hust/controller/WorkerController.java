@@ -63,7 +63,7 @@ public class WorkerController {
             throw new GlobalException(ApiCodeEnum.ID_is_NULL);
         }
         //如果jwt存在且有效 直接返回user
-        String redisJWT=redisUtil.get(REDIS_JWT+worker.getIdCardNo()).toString();
+        String redisJWT= (String) redisUtil.get(REDIS_JWT+worker.getIdCardNo());
         if (redisJWT!=null&&jwtUtil.isTokenValid(redisJWT)){
             worker=workerService.getWorkerByIdCardNo(worker.getIdCardNo());
             return ApiResult.buildSuccess(worker);
