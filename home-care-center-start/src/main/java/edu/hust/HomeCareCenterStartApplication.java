@@ -43,7 +43,7 @@ public class HomeCareCenterStartApplication {
     JWTUtil getJwtUtil(){
         JWTUtil jwtUtil=new JWTUtil();
         jwtUtil.setKey(jwtKey);
-        jwtUtil.setTtl(7*24*60*60);
+        jwtUtil.setTtl(7*24*60*60*1000);
         return jwtUtil;
     }
 
