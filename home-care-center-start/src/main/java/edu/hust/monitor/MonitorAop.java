@@ -17,8 +17,9 @@ import org.springframework.stereotype.Component;
 public class MonitorAop {
 
 
-    @Around(value = "@annotation(monitor)&&args(point)")
-    public Object around(Monitor monitor, ProceedingJoinPoint point){
+    @Around(value = "@annotation(monitor)")
+    public Object around(ProceedingJoinPoint point, Monitor monitor){
+        boolean fail=false;
         long start=System.currentTimeMillis();
         String value=monitor.value();
         Object result=null;
@@ -33,11 +34,15 @@ public class MonitorAop {
                 result=point.proceed(args);
             }
         } catch (Throwable throwable) {
+            fail=true;
             log.error("key={}  params:{}, errormsg:{}",value,requestParam,throwable.getMessage());
+            throwable.printStackTrace();
         }
          finally {
-            long end=System.currentTimeMillis();
-            log.info("key={} params:{},result:{},time:{}", value,requestParam,JSON.toJSONString(result),end-start);
+            if (false){
+                long end=System.currentTimeMillis();
+                log.info("key={} params:{},result:{},time:{}", value,requestParam,JSON.toJSONString(result),end-start);
+            }
         }
         return result;
     }

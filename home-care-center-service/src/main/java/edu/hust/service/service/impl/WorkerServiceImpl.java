@@ -33,7 +33,7 @@ public class WorkerServiceImpl implements WorkerService {
     @Override
     public Worker loginByIdCardNoAndPassword(String idCardNo, String password) {
         Worker worker = workerMapper.selectByIdCardNo(idCardNo);
-        if (worker.getPassword() == password) {
+        if (worker!=null&&worker.getPassword() == password) {
             worker.setPassword(null);
             return worker;
         }
