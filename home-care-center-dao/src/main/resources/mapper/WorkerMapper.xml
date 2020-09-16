@@ -21,27 +21,27 @@
     </resultMap>
     
     <select id="selectList" resultMap="WorkerResultMap">
-        select * from worker where "delete" is null
+        select * from worker where worker.delete is null
     </select>
     
     <select id="selectById" resultMap="WorkerResultMap">
-        select * from worker where id = #{id, jdbcType=VARCHAR} and "delete" is null
+        select * from worker where id = #{id, jdbcType=VARCHAR} and worker.delete is null
     </select>
     
     <select id="selectByIdCardNo" resultMap="WorkerResultMap">
-        select * from worker where id_card_no = #{id_card_no, jdbcType=VARCHAR} and "delete" is null
+        select * from worker where id_card_no = #{id_card_no, jdbcType=VARCHAR} and worker.delete is null
     </select>
     
     <select id="selectByType" resultMap="WorkerResultMap">
-        select * from worker where type = #{type, jdbcType=INTEGER} and "delete" is null
+        select * from worker where type = #{type, jdbcType=INTEGER} and worker.delete is null
     </select>
 
     <select id="selectByName" resultMap="WorkerResultMap">
-        select * from worker where name = #{name, jdbcType=VARCHAR} and "delete" is null
+        select * from worker where name = #{name, jdbcType=VARCHAR} and worker.delete is null
     </select>
 
     <select id="selectByAreaId" resultMap="WorkerResultMap">
-        select * from worker where area_id = #{area_id, jdbcType=VARCHAR} and "delete" is null
+        select * from worker where area_id = #{area_id, jdbcType=VARCHAR} and worker.delete is null
     </select>
     
     <insert id="add" parameterType="edu.hust.dao.dto.Worker">
@@ -57,8 +57,7 @@
         phone_no,
         area_id,
         password,
-        head_img,
-        delete
+        head_img
         )
         values 
         (
@@ -72,8 +71,7 @@
         #{worker.phoneNo, jdbcType=VARCHAR},
         #{worker.areaId, jdbcType=VARCHAR},
         #{worker.password, jdbcType=VARCHAR},
-        #{worker.headImg, jdbcType=VARCHAR},
-        #{worker.delete, jdbcType=INTEGER}
+        #{worker.headImg, jdbcType=VARCHAR}
         )
     </insert>
 
@@ -90,8 +88,7 @@
         phone_no,
         area_id,
         password,
-        head_img,
-        delete
+        head_img
         )
         values 
         <foreach collection="worker_list" item="worker" index="index" separator=",">
@@ -106,8 +103,7 @@
         #{worker.phoneNo, jdbcType=VARCHAR},
         #{worker.areaId, jdbcType=VARCHAR},
         #{worker.password, jdbcType=VARCHAR},
-        #{worker.headImg, jdbcType=VARCHAR},
-        #{worker.delete, jdbcType=INTEGER}
+        #{worker.headImg, jdbcType=VARCHAR}
         )
         </foreach>
     </insert>
@@ -133,7 +129,8 @@
     <update id="deleteById" parameterType="String">
         update worker
         set
-        delete = 1
+        worker.delete = 1,
+        worker.id_card_no = concat(worker.id_card_no, "_deleted")
         where
         id = #{id, jdbcType=VARCHAR}
     </update>
@@ -141,7 +138,8 @@
     <update id="deleteByType" parameterType="INTEGER">
         update worker
         set
-        delete = 1
+        worker.delete = 1,
+        worker.id_card_no = concat(worker.id_card_no, "_deleted")
         where
         type = #{type, jdbcType=INTEGER}
     </update>
@@ -149,7 +147,8 @@
     <update id="deleteByIdCardNo" parameterType="String">
         update worker
         set
-        delete = 1
+        worker.delete = 1,
+        worker.id_card_no = concat(worker.id_card_no, "_deleted")
         where
         id_card_no = #{id_card_no, jdbcType=VARCHAR}
     </update>
@@ -157,7 +156,8 @@
     <update id="deleteAll">
         update worker
         set
-        delete = 1
+        worker.delete = 1,
+        worker.id_card_no = concat(worker.id_card_no, "_deleted")
     </update>
     
 </mapper>

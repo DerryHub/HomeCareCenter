@@ -31,6 +31,15 @@ public interface DishSetService {
      * @return edu.hust.service.domain.DishSetFull
      **/
     DishSetFull getDishSetById(String id);
+    
+    /**
+     * @Author Derry Lin
+     * @Description 根据name查找
+     * @Date 下午4:49 2020/9/15
+     * @Param [name]
+     * @return edu.hust.service.domain.DishSetFull
+     **/
+    DishSetFull getDishSetByName(String name);
 
     /**
      * @Author Derry Lin

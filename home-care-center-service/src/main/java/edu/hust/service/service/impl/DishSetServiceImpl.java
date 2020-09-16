@@ -46,6 +46,15 @@ public class DishSetServiceImpl implements DishSetService {
     }
 
     @Override
+    public DishSetFull getDishSetByName(String name) {
+        DishSet dishSet = dishSetMapper.selectByName(name);
+        if (dishSet == null) {
+            return null;
+        }
+        return convertToFull(dishSet);
+    }
+
+    @Override
     public void addDishSet(DishSetFull dishSetFull) {
         try {
             DishSet dishSet = convertFromFull(dishSetFull);
@@ -107,6 +116,7 @@ public class DishSetServiceImpl implements DishSetService {
     private DishSetFull convertToFull(DishSet dishSet) {
         DishSetFull dishSetFull = new DishSetFull();
         dishSetFull.setId(dishSet.getId());
+        dishSetFull.setName(dishSet.getName());
         dishSetFull.setMon(dishSet.getMon());
         dishSetFull.setTue(dishSet.getTue());
         dishSetFull.setWed(dishSet.getWed());

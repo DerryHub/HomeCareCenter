@@ -7,6 +7,7 @@
 
     <resultMap id="DishSetResultMap" type="edu.hust.dao.dto.DishSet">
         <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="mon" property="mon" jdbcType="VARCHAR"/>
         <result column="tue" property="tue" jdbcType="VARCHAR"/>
         <result column="wed" property="wed" jdbcType="VARCHAR"/>
@@ -25,11 +26,16 @@
         select * from dish_set where id = #{id, jdbcType=VARCHAR}
     </select>
 
+    <select id="selectByName" resultMap="DishSetResultMap">
+        select * from dish_set where name = #{name, jdbcType=VARCHAR}
+    </select>
+
     <insert id="add" parameterType="edu.hust.dao.dto.DishSet">
-        insert into dish_set (id, mon, tue, wed, thu, fri, sat, sun, remark)
+        insert into dish_set (id, name, mon, tue, wed, thu, fri, sat, sun, remark)
         values
         (
         #{dish_set.id, jdbcType=VARCHAR},
+        #{dish_set.name, jdbcType=VARCHAR},
         #{dish_set.mon, jdbcType=VARCHAR},
         #{dish_set.tue, jdbcType=VARCHAR},
         #{dish_set.wed, jdbcType=VARCHAR},
@@ -42,11 +48,12 @@
     </insert>
 
     <insert id="addBatch" parameterType="edu.hust.dao.dto.DishSet">
-        insert into dish_set (id, mon, tue, wed, thu, fri, sat, sun, remark)
+        insert into dish_set (id, name, mon, tue, wed, thu, fri, sat, sun, remark)
         values
         <foreach collection="dish_set_list" item="dish_set" index="index" separator=",">
         (
         #{dish_set.id, jdbcType=VARCHAR},
+        #{dish_set.name, jdbcType=VARCHAR},
         #{dish_set.mon, jdbcType=VARCHAR},
         #{dish_set.tue, jdbcType=VARCHAR},
         #{dish_set.wed, jdbcType=VARCHAR},
@@ -62,6 +69,7 @@
     <update id="update" parameterType="edu.hust.dao.dto.DishSet">
         update dish_set
         <trim prefix="set" suffixOverrides=",">
+            <if test="dish_set.name != null">name = #{dish_set.name, jdbcType=VARCHAR},</if>
             <if test="dish_set.mon != null">mon = #{dish_set.mon, jdbcType=VARCHAR},</if>
             <if test="dish_set.tue != null">tue = #{dish_set.tue, jdbcType=VARCHAR},</if>
             <if test="dish_set.wed != null">wed = #{dish_set.wed, jdbcType=VARCHAR},</if>

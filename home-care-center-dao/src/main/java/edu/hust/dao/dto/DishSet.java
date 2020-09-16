@@ -16,6 +16,8 @@ public class DishSet {
     //唯一标识
     private String id;
 
+    private String name;
+
     //周一至周日菜品集
     private String mon;
     private String tue;
