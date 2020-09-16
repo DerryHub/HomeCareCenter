@@ -6,6 +6,7 @@ import edu.hust.common.vo.ApiResult;
 import edu.hust.dao.dto.MedicalRecord;
 import edu.hust.monitor.Monitor;
 import edu.hust.service.domain.MedicalRecordFull;
+import edu.hust.service.domain.WorkerFull;
 import edu.hust.service.service.ClientService;
 import edu.hust.service.service.MedicalRecordService;
 import edu.hust.common.exception.GlobalException;
@@ -25,6 +26,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-09 14:52
  **/
+@CrossOrigin
 @RestController
 @Api("病例接口")
 @RequestMapping("HomeCareCenter/medicalRecord/")
@@ -104,7 +106,8 @@ public class MedicalRecordController {
                         )
                 || (
                         medicalRecord.getDoctorId() != null
-                        && workerService.getWorkerById(medicalRecord.getDoctorId()) == null
+                        && (workerService.getWorkerById(medicalRecord.getDoctorId()) == null
+                            || workerService.getWorkerById(medicalRecord.getDoctorId()).getType() != 1)
                         )
         ) {
             throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
@@ -130,10 +133,13 @@ public class MedicalRecordController {
                 medicalRecord.getClientId() == null
                 || clientService.getClientInfoById(medicalRecord.getClientId()) == null
                 || medicalRecord.getDoctorId() == null
-                || workerService.getWorkerById(medicalRecord.getDoctorId()) == null
                 || medicalRecord.getDate() == null
                 || medicalRecord.getPrescription() == null
         ) {
+            return false;
+        }
+        WorkerFull workerFull = workerService.getWorkerById(medicalRecord.getDoctorId());
+        if (workerFull == null || workerFull.getType() != 1) {
             return false;
         }
         return true;

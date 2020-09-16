@@ -24,6 +24,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-09 10:31
  **/
+@CrossOrigin
 @RestController
 @Api("套餐日历接口")
 @RequestMapping("HomeCareCenter/dishSetCalendar/")

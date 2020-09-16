@@ -24,6 +24,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-09 10:50
  **/
+@CrossOrigin
 @RestController
 @Api("房间接口")
 @RequestMapping("HomeCareCenter/room/")

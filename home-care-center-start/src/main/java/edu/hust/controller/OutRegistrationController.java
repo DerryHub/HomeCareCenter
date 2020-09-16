@@ -6,6 +6,7 @@ import edu.hust.common.vo.ApiResult;
 import edu.hust.dao.dto.OutRegistration;
 import edu.hust.monitor.Monitor;
 import edu.hust.service.domain.OutRegistrationFull;
+import edu.hust.service.domain.WorkerFull;
 import edu.hust.service.service.ClientService;
 import edu.hust.service.service.OutRegistrationService;
 import edu.hust.common.exception.GlobalException;
@@ -25,6 +26,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-09 15:29
  **/
+@CrossOrigin
 @RestController
 @Api("出行登记接口")
 @RequestMapping("HomeCareCenter/outRegistration/")
@@ -112,7 +114,8 @@ public class OutRegistrationController {
                         )
                 || (
                         outRegistration.getNurseId() != null
-                        && workerService.getWorkerById(outRegistration.getNurseId()) == null
+                        && (workerService.getWorkerById(outRegistration.getNurseId()) == null
+                            || workerService.getWorkerById(outRegistration.getNurseId()).getType() != 2)
                         )
         ) {
             throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
@@ -138,11 +141,14 @@ public class OutRegistrationController {
                 outRegistration.getClientId() == null
                 || clientService.getClientInfoById(outRegistration.getClientId()) == null
                 || outRegistration.getNurseId() == null
-                || workerService.getWorkerById(outRegistration.getNurseId()) == null
                 || outRegistration.getReason() == null
                 || outRegistration.getOutTime() == null
                 || outRegistration.getBackTimeExpected() == null
         ) {
+            return false;
+        }
+        WorkerFull workerFull = workerService.getWorkerById(outRegistration.getNurseId());
+        if (workerFull == null || workerFull.getType() != 2) {
             return false;
         }
         return true;

@@ -6,6 +6,7 @@ import edu.hust.common.vo.ApiResult;
 import edu.hust.dao.dto.NursingRecord;
 import edu.hust.monitor.Monitor;
 import edu.hust.service.domain.NursingRecordFull;
+import edu.hust.service.domain.WorkerFull;
 import edu.hust.service.service.ClientService;
 import edu.hust.service.service.NursingRecordService;
 import edu.hust.common.exception.GlobalException;
@@ -25,6 +26,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-09 15:18
  **/
+@CrossOrigin
 @RestController
 @Api("护理记录接口")
 @RequestMapping("HomeCareCenter/nursingRecord/")
@@ -104,7 +106,8 @@ public class NursingRecordController {
                         )
                 || (
                         nursingRecord.getNurseId() != null
-                        && workerService.getWorkerById(nursingRecord.getNurseId()) == null
+                        && (workerService.getWorkerById(nursingRecord.getNurseId()) == null
+                            || workerService.getWorkerById(nursingRecord.getNurseId()).getType() != 2)
                         )
         ) {
             throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
@@ -130,10 +133,13 @@ public class NursingRecordController {
                 nursingRecord.getClientId() == null
                 || clientService.getClientInfoById(nursingRecord.getClientId()) == null
                 || nursingRecord.getNurseId() == null
-                || workerService.getWorkerById(nursingRecord.getNurseId()) == null
                 || nursingRecord.getContent() == null
                 || nursingRecord.getDate() == null
         ) {
+            return false;
+        }
+        WorkerFull workerFull = workerService.getWorkerById(nursingRecord.getNurseId());
+        if (workerFull == null || workerFull.getType() != 2) {
             return false;
         }
         return true;
