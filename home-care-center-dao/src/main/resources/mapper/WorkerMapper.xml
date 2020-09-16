@@ -111,7 +111,6 @@
     <update id="update" parameterType="edu.hust.dao.dto.Worker">
         update worker
         <trim prefix="set" suffixOverrides=",">
-            <if test="worker.type != null">type = #{worker.type, jdbcType=INTEGER},</if>
             <if test="worker.name != null">name = #{worker.name, jdbcType=VARCHAR},</if>
             <if test="worker.birthday != null">birthday = #{worker.birthday, jdbcType=DATE},</if>
             <if test="worker.gender != null">gender = #{worker.gender, jdbcType=INTEGER},</if>

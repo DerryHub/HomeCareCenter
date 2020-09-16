@@ -25,6 +25,7 @@ import java.util.Map;
  * @author chain
  * @date 2020/9/4
  **/
+@CrossOrigin
 @RestController
 @Api("工作者接口")
 @RequestMapping("HomeCareCenter/worker/")
@@ -143,8 +144,10 @@ public class WorkerController {
     @Monitor("updateWorker")
     public ApiResult update(@RequestBody Worker worker) {
         if (
-                worker.getAreaId() != null
-                && areaService.getAreaInfoById(worker.getAreaId()) == null
+                (worker.getAreaId() != null
+                && areaService.getAreaInfoById(worker.getAreaId()) == null)
+                || worker.getType() != null
+
         ) {
             throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
         }
@@ -179,9 +182,13 @@ public class WorkerController {
 
     private boolean legal(Worker worker) {
         if (
-                worker.getType() == null
+                (worker.getType() != 1
+                && worker.getType() != 2)
                 || worker.getName() == null
-                || worker.getGender() == null
+                || (
+                        worker.getGender() != 0
+                        && worker.getGender() != 1
+                        )
                 || worker.getIdCardNo() == null
                 || worker.getRegisterDate() == null
                 || worker.getPassword() == null
@@ -190,6 +197,9 @@ public class WorkerController {
             return false;
         }
         if (worker.getAreaId() != null && areaService.getAreaInfoById(worker.getAreaId()) == null) {
+            return false;
+        }
+        if (worker.getAreaId() != null && worker.getType() != 2) {
             return false;
         }
         return true;

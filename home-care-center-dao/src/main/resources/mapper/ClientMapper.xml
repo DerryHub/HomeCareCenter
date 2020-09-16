@@ -6,7 +6,7 @@
 <mapper namespace="edu.hust.dao.dao.ClientMapper">
 
     <resultMap id="ClientResultMap" type="edu.hust.dao.dto.Client">
-        <id column="client_id" property="id" jdbcType="VARCHAR"/>
+        <id column="id" property="id" jdbcType="VARCHAR"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="gender" property="gender" jdbcType="INTEGER"/>
         <result column="id_card_no" property="idCardNo" jdbcType="VARCHAR"/>

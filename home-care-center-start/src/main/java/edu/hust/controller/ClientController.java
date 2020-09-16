@@ -23,6 +23,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-09 09:25
  **/
+@CrossOrigin
 @RestController
 @Api("客户接口")
 @RequestMapping("HomeCareCenter/client/")
@@ -130,13 +131,23 @@ public class ClientController {
     private boolean legal(Client client) {
         if (
                 client.getName() == null
-                || client.getGender() == null
+                || (
+                        client.getGender() != 0
+                        && client.getGender() != 1
+                        )
                 || client.getIdCardNo() == null
-                || client.getMarriage() == null
+                || (
+                        client.getMarriage() != 0
+                        && client.getMarriage() != 1
+                        )
                 || client.getHeadImg() == null
                 || client.getBedId() == null
                 || bedService.getBedById(client.getBedId()) == null
-                || client.getLevelOfCare() == null
+                || (
+                        client.getLevelOfCare() != 1
+                        && client.getLevelOfCare() != 2
+                        && client.getLevelOfCare() != 3
+                        )
                 || client.getInDate() == null
                 || client.getPhoneNo() == null
         ) {

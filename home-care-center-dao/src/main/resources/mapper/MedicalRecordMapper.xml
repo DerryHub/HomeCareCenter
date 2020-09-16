@@ -24,7 +24,7 @@
     </select>
 
     <select id="selectByDateAndDoctorIdAndClientId" resultMap="MedicalRecordResultMap">
-        select * from nursing_record
+        select * from medical_record
         <trim prefix="where" suffixOverrides="and">
             <if test="start_date != null"> date <![CDATA[>]]> #{start_date, jdbcType=DATE} and </if>
             <if test="end_date != null"> date <![CDATA[<]]> #{end_date, jdbcType=DATE} and </if>

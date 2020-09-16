@@ -7,6 +7,7 @@ import edu.hust.common.vo.ApiResult;
 import edu.hust.dao.dto.DishSet;
 import edu.hust.monitor.Monitor;
 import edu.hust.service.domain.DishSetFull;
+import edu.hust.service.service.DishService;
 import edu.hust.service.service.DishSetService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,6 +23,7 @@ import java.util.List;
  * @author: Derry Lin
  * @create: 2020-09-09 10:08
  **/
+@CrossOrigin
 @RestController
 @Api("套餐接口")
 @RequestMapping("HomeCareCenter/dishSet/")
@@ -29,6 +31,9 @@ public class DishSetController {
 
     @Autowired
     private DishSetService dishSetService;
+
+    @Autowired
+    private DishService dishService;
 
     @Autowired
     private RandomUUID randomUUID;
@@ -58,7 +63,7 @@ public class DishSetController {
     @PostMapping("add")
     @Monitor("addDishSet")
     public ApiResult add(@RequestBody DishSetFull dishSetFull) {
-        if (!legal(dishSetFull)) {
+        if (!legal(dishSetFull) || !legalId(dishSetFull)) {
             throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
         }
         dishSetFull.setId(randomUUID.nextIdStr());
@@ -71,7 +76,7 @@ public class DishSetController {
     @Monitor("addBatchDishSet")
     public ApiResult addBatch(@RequestBody List<DishSetFull> dishSetFullList) {
         for (DishSetFull dishSetFull : dishSetFullList) {
-            if (!legal(dishSetFull)) {
+            if (!legal(dishSetFull) || !legalId(dishSetFull)) {
                 throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
             }
             dishSetFull.setId(randomUUID.nextIdStr());
@@ -84,6 +89,9 @@ public class DishSetController {
     @PostMapping("update")
     @Monitor("updateDishSet")
     public ApiResult update(@RequestBody DishSetFull dishSetFull) {
+        if (!legalId(dishSetFull)) {
+            throw new GlobalException(ApiCodeEnum.ILLEGAL_DATA);
+        }
         dishSetService.updateDishSet(dishSetFull);
         return ApiResult.buildSuccess();
     }
@@ -109,8 +117,63 @@ public class DishSetController {
                 || dishSetFull.getFriId() == null
                 || dishSetFull.getSatId() == null
                 || dishSetFull.getSunId() == null
+                || dishSetFull.getName() == null
         ) {
             return false;
+        }
+        return true;
+    }
+
+    private boolean legalId(DishSetFull dishSetFull) {
+        List<String> stringList;
+        if ((stringList = dishSetFull.getMonId()) != null) {
+            for (String id : stringList) {
+                if (dishService.getDishById(id) == null) {
+                    return false;
+                }
+            }
+        }
+        if ((stringList = dishSetFull.getTueId()) != null) {
+            for (String id : stringList) {
+                if (dishService.getDishById(id) == null) {
+                    return false;
+                }
+            }
+        }
+        if ((stringList = dishSetFull.getWedId()) != null) {
+            for (String id : stringList) {
+                if (dishService.getDishById(id) == null) {
+                    return false;
+                }
+            }
+        }
+        if ((stringList = dishSetFull.getThuId()) != null) {
+            for (String id : stringList) {
+                if (dishService.getDishById(id) == null) {
+                    return false;
+                }
+            }
+        }
+        if ((stringList = dishSetFull.getFriId()) != null) {
+            for (String id : stringList) {
+                if (dishService.getDishById(id) == null) {
+                    return false;
+                }
+            }
+        }
+        if ((stringList = dishSetFull.getSatId()) != null) {
+            for (String id : stringList) {
+                if (dishService.getDishById(id) == null) {
+                    return false;
+                }
+            }
+        }
+        if ((stringList = dishSetFull.getSunId()) != null) {
+            for (String id : stringList) {
+                if (dishService.getDishById(id) == null) {
+                    return false;
+                }
+            }
         }
         return true;
     }
