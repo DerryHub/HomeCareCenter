@@ -1,5 +1,6 @@
 package edu.hust;
 
+import edu.hust.common.exception.GlobalException;
 import edu.hust.common.util.JWTUtil;
 import edu.hust.common.util.RandomUUID;
 import edu.hust.common.util.TraceIdUtil;
@@ -27,8 +28,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 @SpringBootApplication
 public class HomeCareCenterStartApplication {
 
-    @Autowired
-    private ThreadPoolExecutor threadPoolExecutor;
 
     @Value("${jwtKey:husthust}")
     private String jwtKey;
@@ -37,6 +36,7 @@ public class HomeCareCenterStartApplication {
     public static void main(String[] args) {
         ApplicationContext a= SpringApplication.run(HomeCareCenterStartApplication.class, args);
         log.info("项目启动成功");
+//        Arrays.stream(a.getBeanDefinitionNames()).forEach(System.out::println);
     }
 
     @Bean
@@ -50,20 +50,6 @@ public class HomeCareCenterStartApplication {
     @Bean("randomUUID")
     RandomUUID randomUUID(){
         return new RandomUUID();
-    }
-
-
-    @Bean("bed")
-    Bed test(){
-        System.out.println(threadPoolExecutor.getClass().getName());
-        System.out.println(threadPoolExecutor.getActiveCount());
-        threadPoolExecutor.execute(()->{
-            log.info(":dasdasssssssssssssssssssssssssss");
-        });
-        new Thread(()->{
-            log.info("这是使用new的线程打印出来的日志。。。。。。。。。。。。。。。。。。。。");
-        }).start();
-        return  new Bed();
     }
 
 }

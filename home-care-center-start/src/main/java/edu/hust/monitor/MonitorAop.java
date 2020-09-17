@@ -1,6 +1,7 @@
 package edu.hust.monitor;
 
 import com.alibaba.fastjson.JSON;
+import edu.hust.common.exception.GlobalException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -36,6 +37,7 @@ public class MonitorAop {
 
             log.error("key={}  params:{}, errormsg:{}",value,requestParam,throwable.getMessage());
             throwable.printStackTrace();
+            throw  new GlobalException(throwable);
         }
          finally {
 

@@ -1,6 +1,7 @@
 package edu.hust.common.exception;
 
 import edu.hust.common.constant.ApiCodeEnum;
+import org.springframework.stereotype.Component;
 
 /**
  * 全局异常
@@ -8,6 +9,9 @@ import edu.hust.common.constant.ApiCodeEnum;
  * @date 2020/9/4
  **/
 public class GlobalException extends RuntimeException {
+
+    public GlobalException() {
+    }
 
     int error;
 
@@ -24,5 +28,7 @@ public class GlobalException extends RuntimeException {
         this.error=apiCodeEnum.getCode();
     }
 
-
+    public GlobalException(Throwable cause) {
+        super(cause);
+    }
 }
