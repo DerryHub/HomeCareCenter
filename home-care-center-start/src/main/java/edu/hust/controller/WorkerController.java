@@ -36,6 +36,8 @@ public class WorkerController {
      * value: jwt
      */
     private static final String REDIS_JWT="redis_jwt_";
+    private static final String REDIS_JWT_MAP="jwt";
+    private static final String TTL="ttl";
 
     @Autowired
     private RedisUtil redisUtil;
@@ -66,15 +68,21 @@ public class WorkerController {
         String redisJWT= (String) redisUtil.get(REDIS_JWT+worker.getIdCardNo());
         if (redisJWT!=null&&jwtUtil.isTokenValid(redisJWT)){
             worker=workerService.getWorkerByIdCardNo(worker.getIdCardNo());
-            return ApiResult.buildSuccess(worker);
+            Map<String,Object> map=new HashMap<>();
+            map.put(REDIS_JWT_MAP,redisJWT);
+            map.put("worker",workerService.getWorkerByIdCardNo(worker.getIdCardNo()));
+            String ttl=redisUtil.getTime(REDIS_JWT+worker.getIdCardNo())+"";
+            map.put(TTL,ttl);
+            return ApiResult.buildSuccess(map);
         }
         //jwt不存在
         if ((worker= workerService.loginByIdCardNoAndPassword(idCardNo, password))!=null) {
             String jwt= jwtUtil.createJWT(worker.getId(),worker.getType()+"",worker.getIdCardNo());
             redisUtil.set(REDIS_JWT+worker.getIdCardNo(),jwt,jwtUtil.getTtl());
             Map<String,Object> map=new HashMap<>();
-            map.put(REDIS_JWT+worker.getIdCardNo(),jwt);
+            map.put(REDIS_JWT_MAP,jwt);
             map.put("worker",workerService.getWorkerByIdCardNo(worker.getIdCardNo()));
+            map.put(TTL,24*60*60);
             return ApiResult.buildSuccess(map);
         }
         return ApiResult.buildError(ApiCodeEnum.ID_OR_PSD_INCORRECT);
