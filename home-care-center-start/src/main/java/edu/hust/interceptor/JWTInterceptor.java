@@ -43,9 +43,9 @@ public class JWTInterceptor implements HandlerInterceptor {
         String header=request.getHeader(JWTConst.AUTHORIZATION);
 
         if (header!=null&&!"".equals(header)){
-            if (header.startsWith(JWTConst.BEARER)){
+            if (true){//header.startsWith(JWTConst.BEARER)){
 
-                String token=header.substring(7);
+                String token=header;//.substring(7);
                 try {
                     Claims claims = jwtUtil.parseJWT(token);
                     if (!jwtUtil.isTokenValid(claims)){
@@ -91,22 +91,23 @@ public class JWTInterceptor implements HandlerInterceptor {
 
 
     private void  unLoginError(HttpServletResponse response,String msg){
-        PrintWriter writer=null;
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=utf-8");
-        boolean fail=false;
-        try {
-            writer = response.getWriter();
-            writer.print(msg);
-        }catch (IOException e){
-            fail=true;
-            log.error("登录信息验证出错: {}, msg:{}",msg,e.getMessage());
-            e.printStackTrace();
-        }finally {
-            if (!fail){
-                log.error("登录信息验证出错: {}",msg);
-            }
-        }
+//        PrintWriter writer=null;
+//        response.setCharacterEncoding("UTF-8");
+//        response.setContentType("text/html; charset=utf-8");
+//        boolean fail=false;
+//        try {
+//            writer = response.getWriter();
+//            writer.print(msg);
+//        }catch (IOException e){
+//            fail=true;
+//            log.error("登录信息验证出错: {}, msg:{}",msg,e.getMessage());
+//            e.printStackTrace();
+//        }finally {
+//            if (!fail){
+//                log.error("登录信息验证出错: {}",msg);
+//            }
+//        }
+        throw new GlobalException(ApiCodeEnum.ID_OR_PSD_INCORRECT);
     }
 
 
