@@ -67,6 +67,14 @@ public class BedController {
         }
     }
 
+    @ApiOperation("空床铺查询")
+    @GetMapping("searchEmpty")
+    @Monitor("searchEmptyBed")
+    public ApiResult searchEmpty() {
+        List<Bed> bedList = bedService.getEmptyBed();
+        return ApiResult.buildSuccess(bedList);
+    }
+
     @ApiOperation("添加床铺")
     @PostMapping("add")
     @Monitor("addBed")

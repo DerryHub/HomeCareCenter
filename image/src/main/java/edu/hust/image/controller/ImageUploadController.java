@@ -7,6 +7,7 @@ import edu.hust.image.domain.ImageInfo;
 import edu.hust.image.domain.ReturnInfo;
 import edu.hust.image.service.ImageUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author: Derry Lin
  * @create: 2020-09-04 15:34
  **/
+@CrossOrigin(allowCredentials="true",maxAge = 3600)
 @RestController
 @RequestMapping("HomeCareCenter/image")
 public class ImageUploadController {

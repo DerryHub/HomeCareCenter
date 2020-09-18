@@ -48,6 +48,15 @@ public interface BedService {
      * @return java.util.List<edu.hust.dao.dto.Bed>
      **/
     List<Bed> getBedByRoomId(String roomId);
+    
+    /**
+     * @Author Derry Lin
+     * @Description 获取空床铺
+     * @Date 上午9:03 2020/9/18
+     * @Param []
+     * @return java.util.List<edu.hust.dao.dto.Bed>
+     **/
+    List<Bed> getEmptyBed();
 
     /**
      * @Author Derry Lin
