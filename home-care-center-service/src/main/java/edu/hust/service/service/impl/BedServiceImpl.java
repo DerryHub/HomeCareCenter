@@ -2,13 +2,16 @@ package edu.hust.service.service.impl;
 
 import edu.hust.common.constant.ApiCodeEnum;
 import edu.hust.dao.dao.BedMapper;
+import edu.hust.dao.dao.ClientMapper;
 import edu.hust.dao.dto.Bed;
+import edu.hust.dao.dto.Client;
 import edu.hust.service.service.BedService;
 import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +25,9 @@ public class BedServiceImpl implements BedService {
 
     @Autowired
     private BedMapper bedMapper;
+
+    @Autowired
+    private ClientMapper clientMapper;
 
     @Override
     public List<Bed> getBedList() {
@@ -41,6 +47,23 @@ public class BedServiceImpl implements BedService {
     @Override
     public List<Bed> getBedByRoomId(String roomId) {
         return bedMapper.selectByRoomId(roomId);
+    }
+
+    @Override
+    public List<Bed> getEmptyBed() {
+        List<Bed> allBed = bedMapper.selectList();
+        List<Client> clientList = clientMapper.selectList();
+        List<String> busyBedId = new ArrayList<>();
+        for (Client client : clientList) {
+            busyBedId.add(client.getBedId());
+        }
+        List<Bed> emptyBed = new ArrayList<>();
+        for (Bed bed : allBed) {
+            if (!busyBedId.contains(bed.getId())) {
+                emptyBed.add(bed);
+            }
+        }
+        return emptyBed;
     }
 
     @Override

@@ -3,6 +3,7 @@ package edu.hust.controller;
 import edu.hust.common.constant.ApiCodeEnum;
 import edu.hust.common.util.RandomUUID;
 import edu.hust.common.vo.ApiResult;
+import edu.hust.dao.dto.Bed;
 import edu.hust.dao.dto.Client;
 import edu.hust.monitor.Monitor;
 import edu.hust.service.domain.ClientFull;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -151,6 +153,15 @@ public class ClientController {
                 || client.getInDate() == null
                 || client.getPhoneNo() == null
         ) {
+            return false;
+        }
+        String bedId = client.getBedId();
+        List<Bed> bedList = bedService.getEmptyBed();
+        List<String> idList = new ArrayList<>();
+        for (Bed bed : bedList) {
+            idList.add(bed.getId());
+        }
+        if (!idList.contains(bedId)) {
             return false;
         }
         return true;

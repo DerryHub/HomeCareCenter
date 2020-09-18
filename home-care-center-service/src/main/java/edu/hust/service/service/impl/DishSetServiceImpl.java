@@ -2,8 +2,10 @@ package edu.hust.service.service.impl;
 
 import edu.hust.common.constant.ApiCodeEnum;
 import edu.hust.dao.dao.DishSetMapper;
+import edu.hust.dao.dto.Dish;
 import edu.hust.dao.dto.DishSet;
 import edu.hust.service.domain.DishSetFull;
+import edu.hust.service.service.DishService;
 import edu.hust.service.service.DishSetService;
 import edu.hust.common.exception.GlobalException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class DishSetServiceImpl implements DishSetService {
 
     @Autowired
     private DishSetMapper dishSetMapper;
+
+    @Autowired
+    private DishService dishService;
 
     @Override
     public List<DishSetFull> getDishSetList() {
@@ -105,10 +110,16 @@ public class DishSetServiceImpl implements DishSetService {
     }
 
     private String listToString(List<String> stringList) {
+        if (stringList.size() == 0) {
+            return null;
+        }
         return String.join(",", stringList);
     }
 
     private List<String> stringToList(String string) {
+        if (string == null) {
+            return new ArrayList<>();
+        }
         String str[] = string.split(",");
         return Arrays.asList(str);
     }
@@ -133,6 +144,48 @@ public class DishSetServiceImpl implements DishSetService {
         dishSetFull.setFriId(stringToList(dishSet.getFri()));
         dishSetFull.setSatId(stringToList(dishSet.getSat()));
         dishSetFull.setSunId(stringToList(dishSet.getSun()));
+
+        List<Dish> dishListMon = new ArrayList<>();
+        for (String id : dishSetFull.getMonId()) {
+            dishListMon.add(dishService.getDishById(id));
+        }
+        dishSetFull.setMonDish(dishListMon);
+
+        List<Dish> dishListTue = new ArrayList<>();
+        for (String id : dishSetFull.getTueId()) {
+            dishListTue.add(dishService.getDishById(id));
+        }
+        dishSetFull.setTueDish(dishListTue);
+
+        List<Dish> dishListWed = new ArrayList<>();
+        for (String id : dishSetFull.getWedId()) {
+            dishListWed.add(dishService.getDishById(id));
+        }
+        dishSetFull.setWedDish(dishListWed);
+
+        List<Dish> dishListThu = new ArrayList<>();
+        for (String id : dishSetFull.getThuId()) {
+            dishListThu.add(dishService.getDishById(id));
+        }
+        dishSetFull.setThuDish(dishListThu);
+
+        List<Dish> dishListFri = new ArrayList<>();
+        for (String id : dishSetFull.getFriId()) {
+            dishListFri.add(dishService.getDishById(id));
+        }
+        dishSetFull.setFriDish(dishListFri);
+
+        List<Dish> dishListSat = new ArrayList<>();
+        for (String id : dishSetFull.getSatId()) {
+            dishListSat.add(dishService.getDishById(id));
+        }
+        dishSetFull.setSatDish(dishListSat);
+
+        List<Dish> dishListSun = new ArrayList<>();
+        for (String id : dishSetFull.getSunId()) {
+            dishListSun.add(dishService.getDishById(id));
+        }
+        dishSetFull.setSunDish(dishListSun);
 
         return dishSetFull;
     }
