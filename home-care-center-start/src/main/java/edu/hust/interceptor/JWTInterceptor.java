@@ -49,13 +49,13 @@ public class JWTInterceptor implements HandlerInterceptor {
                 try {
                     Claims claims = jwtUtil.parseJWT(token);
                     if (!jwtUtil.isTokenValid(claims)){
-                        unLoginError(response,"登录状态过期");
+                        unLoginError(ApiCodeEnum.EXPIRE_ROLE);
                         return false;
                     }
                     String role = (String) claims.get(JWTConst.ROLES);
                     String id= (String) claims.get(JWTConst.ID);
                     if (StringUtils.isEmpty(role)||StringUtils.isEmpty(id)){
-                        unLoginError(response,"角色信息异常");
+                        unLoginError(ApiCodeEnum.ERROR_ROLE);
                         return false;
                     }
                     if (role .equals(RoleEnum.ADMIN.getRole())) {
@@ -71,6 +71,7 @@ public class JWTInterceptor implements HandlerInterceptor {
                     request.setAttribute(JWTConst.ID,id);
                     return true;
                 } catch (Exception e) {
+                    log.error(header+"  --->jwt解析异常");
                     throw new GlobalException(ApiCodeEnum.TOKEN_ERROR);
                 }
             }
@@ -91,24 +92,12 @@ public class JWTInterceptor implements HandlerInterceptor {
 
 
     private void  unLoginError(HttpServletResponse response,String msg){
-//        PrintWriter writer=null;
-//        response.setCharacterEncoding("UTF-8");
-//        response.setContentType("text/html; charset=utf-8");
-//        boolean fail=false;
-//        try {
-//            writer = response.getWriter();
-//            writer.print(msg);
-//        }catch (IOException e){
-//            fail=true;
-//            log.error("登录信息验证出错: {}, msg:{}",msg,e.getMessage());
-//            e.printStackTrace();
-//        }finally {
-//            if (!fail){
-//                log.error("登录信息验证出错: {}",msg);
-//            }
-//        }
         throw new GlobalException(ApiCodeEnum.ID_OR_PSD_INCORRECT);
     }
+    private void  unLoginError(ApiCodeEnum apiCodeEnum){
+        throw  new GlobalException(apiCodeEnum);
+    }
+
 
 
 }
