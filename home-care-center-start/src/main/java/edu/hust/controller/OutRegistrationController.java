@@ -139,7 +139,7 @@ public class OutRegistrationController {
     private boolean legal(OutRegistration outRegistration) {
         if (
                 outRegistration.getClientId() == null
-                || clientService.getClientInfoById(outRegistration.getClientId()) == null
+             //   || clientService.getClientInfoById(outRegistration.getClientId()) == null
                 || outRegistration.getNurseId() == null
                 || outRegistration.getReason() == null
                 || outRegistration.getOutTime() == null
