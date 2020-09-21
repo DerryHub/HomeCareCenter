@@ -21,7 +21,7 @@
     </resultMap>
     
     <select id="selectList" resultMap="WorkerResultMap">
-        select * from worker where worker.delete is null
+        select * from worker where worker.delete is null and worker.type <![CDATA[<>]]> 0
     </select>
     
     <select id="selectById" resultMap="WorkerResultMap">
