@@ -116,6 +116,9 @@ public class WorkerController {
         }else if (id == null && idCardNo == null && type == null && name == null) {
             List<WorkerFull> workerFullList = workerService.getWorkerByAreaId(areaId);
             return ApiResult.buildSuccess(workerFullList);
+        }else if (id == null && idCardNo == null && areaId == null) {
+            List<WorkerFull> workerFullList = workerService.getWorkerByNameAndType(name, type);
+            return ApiResult.buildSuccess(workerFullList);
         }else {
             throw new GlobalException(ApiCodeEnum.PARAM_ERROR);
         }
@@ -169,7 +172,7 @@ public class WorkerController {
     public ApiResult deleteById(
             @RequestParam(value = "id", required = false) String id,
             @RequestParam(value = "type", required = false) Integer type,
-            @RequestParam(value = "id", required = false) String idCardNo
+            @RequestParam(value = "idCardNo", required = false) String idCardNo
     ) {
         if (id == null && type == null && idCardNo == null) {
             workerService.deleteAllWorker();

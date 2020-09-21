@@ -76,6 +76,15 @@ public interface WorkerService {
      * @return java.util.List<edu.hust.dao.dto.Worker>
      **/
     List<WorkerFull> getWorkerByAreaId(String areaId);
+    
+    /**
+     * @Author Derry Lin
+     * @Description 根据姓名和类型查找
+     * @Date 下午9:49 2020/9/21
+     * @Param [name, type]
+     * @return java.util.List<edu.hust.service.domain.WorkerFull>
+     **/
+    List<WorkerFull> getWorkerByNameAndType(String name, Integer type);
 
     /**
      * @Author Derry Lin

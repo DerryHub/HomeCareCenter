@@ -71,6 +71,15 @@ public interface WorkerMapper {
 
     /**
      * @Author Derry Lin
+     * @Description 根据姓名类型查找
+     * @Date 下午9:48 2020/9/21
+     * @Param [name, type]
+     * @return java.util.List<edu.hust.dao.dto.Worker>
+     **/
+    List<Worker> selectByNameAndType(@Param("name") String name, @Param("type") Integer type);
+
+    /**
+     * @Author Derry Lin
      * @Description 添加工人
      * @Date 下午3:26 2020/9/7
      * @Param [worker]

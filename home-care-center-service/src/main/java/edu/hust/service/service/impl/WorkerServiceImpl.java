@@ -117,6 +117,19 @@ public class WorkerServiceImpl implements WorkerService {
     }
 
     @Override
+    public List<WorkerFull> getWorkerByNameAndType(String name, Integer type) {
+        List<WorkerFull> workerFullList = new ArrayList<>();
+        List<Worker> workerList = workerMapper.selectByNameAndType(name, type);
+        for (Worker worker : workerList) {
+            WorkerFull workerFull = this.convert(worker);
+            Area area = areaMapper.selectById(workerFull.getAreaId());
+            workerFull.setArea(area);
+            workerFullList.add(workerFull);
+        }
+        return workerFullList;
+    }
+
+    @Override
     public void addWorker(Worker worker) {
         try {
             if (workerMapper.add(worker) == 0) {

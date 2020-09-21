@@ -43,6 +43,10 @@
     <select id="selectByAreaId" resultMap="WorkerResultMap">
         select * from worker where area_id = #{area_id, jdbcType=VARCHAR} and worker.delete is null
     </select>
+
+    <select id="selectByNameAndType" resultMap="WorkerResultMap">
+        select * from worker where name = #{name, jdbcType=VARCHAR} and type = #{type, jdbcType=INTEGER} and worker.delete is null
+    </select>
     
     <insert id="add" parameterType="edu.hust.dao.dto.Worker">
         insert into worker
