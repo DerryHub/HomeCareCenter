@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author chain
  * @date 2020/9/3
  **/
-//@Configuration
+@Configuration
 public class WebMvcConfig  implements WebMvcConfigurer {
 
     @Autowired
