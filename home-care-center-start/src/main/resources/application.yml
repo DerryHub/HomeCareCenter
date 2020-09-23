@@ -1,17 +1,4 @@
-server:
-  port: 8081
 
-spring:
-  datasource:
-    username: root
-    password: cc123456
-    url: jdbc:mysql://47.98.135.4/home_care_center?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&rewriteBatchedStatements=true&autoReconnect=true&allowMultiQueries=true
-    driver-class-name: com.mysql.jdbc.Driver
-  redis:
-    host: 47.98.135.4
-    password: root
-  jackson:
-    time-zone: GMT+8
 
 
 mybatis:
